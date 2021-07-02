@@ -35,11 +35,13 @@ set nojoinspaces
 set completeopt=menuone,longest,noinsert,noselect,popup
 set wildignore+=*/.git/*,*/__pycache__/*,*.pyc
 set wildignore+=*.jpg,*.jpeg,*.bmp,*.gif,*.png
+set wildignorecase
 set shortmess=filnrxtToOFIc
 set diffopt=filler,vertical,closeoff
 set guicursor=
-set keymap=russian-jcukenwin iminsert=0
+set keymap=russian-jcuken iminsert=0
 set grepprg=rg\ --vimgrep grepformat=%f:%l:%c:%m
+set clipboard-=autoselect
 
 let g:loaded_getscriptPlugin = 1
 let g:loaded_gzip = 1

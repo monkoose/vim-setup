@@ -10,7 +10,6 @@ def HighlightOnYank(timeout: number)
     const pos2 = getcharpos("']")
     const start = [pos1[1], pos1[2] + pos1[3]]
     const end = [pos2[1], pos2[2] + pos2[3]]
-
     prop_add(start[0], start[1], { end_lnum: end[0], end_col: end[1] + 1, type: 'yank_prop' })
     timer_start(timeout, (_) => prop_remove({ type: 'yank_prop' }, start[0], end[0]))
   endif

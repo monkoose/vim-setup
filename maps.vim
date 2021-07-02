@@ -213,6 +213,7 @@ endfunction
 " Fix slow esc
 nnoremap <silent><nowait>  <Esc>     <Cmd>call <SID>ClosePopupWindow()<CR>
 inoremap <nowait>          <Esc>     <Esc>
-vnoremap <nowait>          <Esc>     <Esc>
+xnoremap <nowait>          <Esc>     <Esc>
+snoremap <nowait>          <Esc>     <C-c>
 cnoremap <nowait>          <Esc>     <C-c>
 tnoremap <nowait>          <Esc>     <Esc>

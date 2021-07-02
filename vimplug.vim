@@ -5,16 +5,15 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
-Plug 'neovimhaskell/haskell-vim', {'for': ['haskell']}
-Plug 'tbastos/vim-lua', {'for': ['lua']}
-Plug 'Vimjas/vim-python-pep8-indent', {'for': ['python']}
 Plug 'hail2u/vim-css3-syntax'
-Plug 'cakebaker/scss-syntax.vim'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'honza/vim-snippets'
 Plug 'monkoose/vim-stargate'
+Plug 'thinca/vim-themis'
 Plug 'wellle/targets.vim'
+Plug 'neovimhaskell/haskell-vim', {'for': ['haskell']}
+Plug 'Vimjas/vim-python-pep8-indent', {'for': ['python']}
 Plug 'cespare/vim-toml', {'for': ['toml']}
 Plug 'evanleck/vim-svelte', {'for': ['svelte']}
 
@@ -23,7 +22,6 @@ Plug 'neoclide/coc.nvim'
 Plug 'antoinemadec/coc-fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'monkoose/fzf-hoogle.vim'
-" Plug 'Raimondi/delimitMate'
 Plug 'Lenovsky/nuake', {'on': 'Nuake'}
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
