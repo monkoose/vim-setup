@@ -22,7 +22,7 @@ set number relativenumber
 set ignorecase smartcase
 set sidescrolloff=5 sidescroll=1
 set updatetime=600
-set noswapfile undofile undodir=~/.vim/undo-files/
+set noswapfile undofile undodir=~/.cache/vim/undo/
 "set viewoptions=cursor,curdir,folds
 set linebreak
 set showbreak=└

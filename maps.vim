@@ -51,6 +51,7 @@ cnoremap           l         <Right>
 set termwinkey=<C-q>
 tnoremap           w       <C-q>w
 tnoremap <silent>  q       <C-q>c
+tnoremap           <C-q><C-n> <C-q>N
 
 " Fix slow esc, should be after all Alt remaps
 nnoremap <silent><nowait>  <Esc>     <Cmd>call myfunctions#close_popup_atcursor()<CR>
