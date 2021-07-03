@@ -84,12 +84,6 @@ nnoremap <silent> <space>gc   <Cmd>FzfCommits<CR>
 nnoremap <silent> <space>gC   <Cmd>FzfBCommits<CR>
 
 " }}}
-" Lenovsky/nuake {{{
-let g:nuake_size = 0.40
-
-nnoremap    <silent>    `        <Cmd>Nuake<CR>
-tnoremap    <silent>    `        <Cmd>Nuake<CR>
-" }}}
 " mbbill/undotree {{{
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_WindowLayout       = 2

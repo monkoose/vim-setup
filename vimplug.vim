@@ -22,7 +22,6 @@ Plug 'neoclide/coc.nvim'
 Plug 'antoinemadec/coc-fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'monkoose/fzf-hoogle.vim'
-Plug 'Lenovsky/nuake', {'on': 'Nuake'}
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
 Plug 'easymotion/vim-easymotion'
