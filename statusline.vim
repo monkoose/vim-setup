@@ -21,12 +21,13 @@ augroup SetStatusLine
   autocmd!
   autocmd WinEnter * call SetStatusLine('let &l:statusline = s:statusline')
   autocmd WinLeave,WinNew * call SetStatusLine('let &l:statusline = s:statusline_nc')
-  autocmd FileType fugitiveblame let &l:statusline='%< %(%l/%L%) %=%P '
-  autocmd TerminalWinOpen * let &l:statusline='  %{term_gettitle(bufnr())} %=%Y '
+  autocmd FileType fugitiveblame let &l:statusline = '%< %(%l/%L%) %=%P '
+  autocmd FileType netrw let &l:statusline = " %{getcwd()->trim()->fnamemodify(':~')} "
+  autocmd TerminalWinOpen * let &l:statusline = '  %{term_gettitle(bufnr())} %=%Y '
 augroup END
 
 function! SetStatusLine(cmd) abort
-  if &filetype == 'fugitiveblame'
+  if index(['fugitiveblame', 'netrw'], &filetype) != -1
     return
   endif
 

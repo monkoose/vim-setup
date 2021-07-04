@@ -27,6 +27,7 @@ nnoremap           ;           :
 nnoremap           <C-h>       ,
 nnoremap           <C-l>       ;
 nnoremap           `         <Cmd>call myterm#toggle()<CR>
+nnoremap           1         <Cmd>Lexplore<CR>
 
 vnoremap           <space>y    "+y
 vnoremap           <C-j>       <C-d>
