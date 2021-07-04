@@ -6,7 +6,7 @@ nnoremap <silent>  f         <Cmd>call myfunctions#toggle_semicolon()<CR>
 nnoremap <silent>  <C-n>       <Cmd>call myfunctions#scrolldown_or_next_hunk()<CR>
 nnoremap <silent>  <C-p>       <Cmd>call myfunctions#scrollup_or_prev_hunk()<CR>
 nnoremap <silent>  2         <Cmd>call myfunctions#toggle_qf_window()<CR>
-nnoremap <silent>  3         <Cmd>call myfunctions#toggle_loclist()<CR>
+nnoremap <silent>  3         <Cmd>call myfunctions#toggle_loclist_window()<CR>
 nnoremap <silent>  gx          <Cmd>call myfunctions#open_path()<CR>
 nnoremap <silent>  zS          <Cmd>call myfunctions#synnames()<CR>
 nnoremap           <space>q    <Cmd>pclose<CR>
