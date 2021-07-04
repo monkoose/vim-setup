@@ -47,24 +47,6 @@ function! s:define_coc_mappings() abort
   nmap     <buffer>         <space>L <Plug>(coc-diagnostic-prev)
 endfunction
 "}}}
-" Raimondi/delimitMate {{{
-" let g:delimitMate_expand_cr    = 1
-" let g:delimitMate_expand_space = 1
-
-" augroup DelimitMatePython
-"   autocmd!
-"   autocmd FileType python let b:delimitMate_nesting_quotes = ['"']
-" augroup END
-"}}}
-" fzf-hoogle.vim {{{
-augroup HoogleMaps
-  autocmd!
-  autocmd FileType haskell nnoremap <buffer>   <space>hh <Cmd>Hoogle <C-r><C-w><CR>
-augroup END
-let g:hoogle_fzf_header = ''
-let g:hoogle_fzf_preview = 'down:50%:wrap'
-let g:hoogle_count = 100
-" }}}
 " fzf.vim {{{
 let s:fzf_defaults = [
         \ '--ansi --bind="ctrl-/:toggle-preview,alt-i:toggle-all,ctrl-n:preview-page-down,ctrl-p:preview-page-up,ctrl-l:accept,' ..
@@ -74,6 +56,8 @@ let s:fzf_defaults = [
       \ ]
 let $FZF_DEFAULT_OPTS = join(s:fzf_defaults, " ")
 let g:fzf_command_prefix = 'Fzf'
+let g:fzf_history_dir = '~/.cache/vim/fzf_history'
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.7, 'border': 'none' } }
 
 nnoremap <silent> <space>ff   <Cmd>FzfFiles<CR>
 nnoremap <silent> <space>;    <Cmd>FzfBuffers<CR>
@@ -83,6 +67,17 @@ nnoremap <silent> <space>sw   :<C-u>FzfRg <C-r><C-w><CR>
 nnoremap <silent> <space>gc   <Cmd>FzfCommits<CR>
 nnoremap <silent> <space>gC   <Cmd>FzfBCommits<CR>
 
+
+" }}}
+" fzf-hoogle.vim {{{
+augroup HoogleMaps
+  autocmd!
+  autocmd FileType haskell nnoremap <buffer>   <space>hh <Cmd>Hoogle <C-r><C-w><CR>
+augroup END
+let g:hoogle_fzf_header = ''
+let g:hoogle_fzf_preview = 'down:50%:wrap'
+let g:hoogle_count = 100
+let g:hoogle_fzf_window = { 'right': '40%' }
 " }}}
 " mbbill/undotree {{{
 let g:undotree_SetFocusWhenToggle = 1

@@ -30,6 +30,7 @@ vimplug_repo="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vi
 echo ""
 msg "Creating directories..."
 mkdir -pv "$HOME/.cache/vim/undo"
+mkdir -pv "$HOME/.cache/vim/fzf_history"
 echo ""
 msg "Cloning repo..."
 git clone --depth=1 "$repo" "$install_dir"

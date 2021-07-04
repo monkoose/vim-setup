@@ -2,6 +2,7 @@ vim9script
 
 def myterm#toggle()
   const height = &lines * 2 / 5
+
   if !bufexists(get(g:, 'my_term', -1))
     :execute 'silent keepalt botright :' .. height .. 'split'
     :execute 'terminal ++curwin ++kill=kill ++norestore'
