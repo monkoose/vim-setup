@@ -1,6 +1,5 @@
 set background=dark
 colorscheme boa
-source /usr/share/vim/vimfiles/plugin/fzf.vim
 
 set ttimeoutlen=50
 set belloff=
