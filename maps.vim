@@ -52,7 +52,7 @@ cnoremap           l         <Right>
 
 set termwinkey=<C-q>
 tnoremap           w       <C-q>w
-tnoremap <silent>  q       <C-q>c
+tnoremap <silent>  q       <Cmd>close!<CR>
 tnoremap           <C-q><C-n> <C-q>N
 tnoremap           `       <Cmd>call myterm#toggle()<CR>
 

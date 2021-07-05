@@ -1,4 +1,6 @@
-autoload/plug.vim
 plugged/
+spell/
+
+autoload/plug.vim
 .netrwhist
 .netrwbook
