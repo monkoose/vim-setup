@@ -6,6 +6,7 @@ endif
 
 def myfunctions#highlight_on_yank(timeout: number)
   if v:event.operator == 'y' && !(empty(v:event.regtype))
+        && empty(reg_executing()) && empty(reg_recording())
     const pos1 = getcharpos("'[")
     const pos2 = getcharpos("']")
     const start = [pos1[1], pos1[2] + pos1[3]]
