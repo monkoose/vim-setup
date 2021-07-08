@@ -9,7 +9,7 @@ Plug 'hail2u/vim-css3-syntax'
 Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'honza/vim-snippets'
-Plug 'monkoose/vim-stargate'
+Plug 'monkoose/vim9-stargate'
 Plug 'thinca/vim-themis'
 Plug 'wellle/targets.vim'
 Plug 'neovimhaskell/haskell-vim', {'for': ['haskell']}
@@ -24,7 +24,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'monkoose/fzf-hoogle.vim'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
-Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-fugitive'
 Plug 'lambdalisue/vim-gista', {'on': 'Gista'}
 Plug 'airblade/vim-gitgutter'

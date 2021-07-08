@@ -1,4 +1,4 @@
-" neoclide/coc.nvim antoinemadec/coc-fzf {{{
+" coc.nvim and coc-fzf {{{
 let g:coc_global_extensions = [
       \ 'coc-vimlsp',
       \ 'coc-json',
@@ -79,34 +79,23 @@ let g:hoogle_fzf_preview = 'down:50%:wrap'
 let g:hoogle_count = 100
 let g:hoogle_fzf_window = { 'right': '40%' }
 " }}}
-" mbbill/undotree {{{
+" undotree {{{
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_WindowLayout       = 2
 let g:undotree_ShortIndicators    = 1
 let g:undotree_HelpLine           = 0
 nmap    <silent>    4    <Cmd>UndotreeToggle<CR>
 " }}}
-" junegunn/vim-easy-align {{{
+" vim-easy-align {{{
 vmap    <Enter>    <Plug>(EasyAlign)
 " }}}
-" easymotion/vim-easymotion {{{
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_use_smartsign_us = 1
-let g:EasyMotion_verbose = 0
-let g:EasyMotion_use_upper = 1
-let g:EasyMotion_keys = 'ACDEFGHIJKLMNOPRSUVW'
-
-map <silent> ,              <Plug>(easymotion-s)
-map <silent> <space><space> <Plug>(easymotion-s)
-" }}}
-" tpope/vim-fugitive {{{
+" vim-fugitive {{{
 nnoremap    <space>gg    <Cmd>Git<CR>
 nnoremap    <space>gb    <Cmd>Git blame<CR>
 nnoremap    <space>gd    <Cmd>Git diff<CR>
 nnoremap    <space>ge    <Cmd>Git edit<CR>
 " }}}
-" lambdalisue/vim-gista {{{
+" vim-gista {{{
 let g:gista#client#default_username = "monkoose"
 let g:gista#command#list#enable_default_mappings = 0
 let g:gista#command#commits#enable_default_mappings = 0
@@ -141,7 +130,7 @@ function! s:define_gista_mappings() abort
   map <buffer> cc <Plug>(gista-commits)
 endfunction
 " }}}
-" airblade/vim-gitgutter {{{
+" vim-gitgutter {{{
 let g:gitgutter_sign_modified_removed  = '≃'
 
 nmap  <silent>   <space>gi <Plug>(GitGutterPreviewHunk)
@@ -152,6 +141,9 @@ augroup GitGutterUpdate
   autocmd!
   autocmd BufWritePost * GitGutter
 augroup END
+" }}}
+" vim9-stargate {{{
+noremap <space><space> <Cmd>call stargate#ok_vim()<CR>
 " }}}
 
 " vim: foldmethod=marker
