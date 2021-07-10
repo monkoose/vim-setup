@@ -36,7 +36,7 @@ vnoremap           ;           :
 vnoremap           <C-h>       ,
 vnoremap           <C-l>       ;
 
-noremap!           <C-space>   <C-^>
+noremap!           i         <C-^>
 inoremap           <C-p>       <C-k>
 inoremap           h         <Left>
 inoremap           l         <Right>
