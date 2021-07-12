@@ -3,8 +3,8 @@ nnoremap <silent>  <F3>        <Cmd>setlocal spell!<CR>
 nnoremap <silent>  <space>/    <Cmd>nohlsearch<CR>
 nnoremap           w         <C-w>w
 nnoremap <silent>  f         <Cmd>call myfunctions#toggle_semicolon()<CR>
-nnoremap <silent>  <C-n>       <Cmd>call myfunctions#scrolldown_or_next_hunk()<CR>
-nnoremap <silent>  <C-p>       <Cmd>call myfunctions#scrollup_or_prev_hunk()<CR>
+nnoremap <silent>  <C-n>       <Cmd>call mypopup#scrolldown_or_next_hunk()<CR>
+nnoremap <silent>  <C-p>       <Cmd>call mypopup#scrollup_or_prev_hunk()<CR>
 nnoremap <silent>  2         <Cmd>call myfunctions#toggle_qf_window()<CR>
 nnoremap <silent>  3         <Cmd>call myfunctions#toggle_loclist_window()<CR>
 nnoremap <silent>  gx          <Cmd>call myfunctions#open_path()<CR>
@@ -57,7 +57,7 @@ tnoremap           <C-q><C-n> <C-q>N
 tnoremap           `       <Cmd>call myterm#toggle()<CR>
 
 " Fix slow esc, should be after all Alt remaps
-nnoremap <silent><nowait>  <Esc>     <Cmd>call myfunctions#close_popup_atcursor()<CR>
+nnoremap <silent><nowait>  <Esc>     <Cmd>call mypopup#close_popup_atcursor()<CR>
 inoremap <nowait>          <Esc>     <Esc>
 xnoremap <nowait>          <Esc>     <Esc>
 snoremap <nowait>          <Esc>     <C-c>
