@@ -60,6 +60,8 @@ let g:fzf_history_dir = '~/.cache/vim/fzf_history'
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.7, 'border': 'none' } }
 
 nnoremap <silent> <space>ff   <Cmd>FzfFiles<CR>
+nnoremap <silent> <space>fh   <Cmd>FzfHelptags<CR>
+nnoremap <silent> <space>fm   <Cmd>FzfMaps<CR>
 nnoremap <silent> <space>;    <Cmd>FzfBuffers<CR>
 nnoremap <silent> <space>ss   <Cmd>FzfRg<CR>
 nnoremap <silent> <space>sb   <Cmd>FzfBLines<CR>

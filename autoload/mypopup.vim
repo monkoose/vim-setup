@@ -18,16 +18,6 @@ def PopupWindowIdAtCursor(): number
   return popup_window
 enddef
 
-def mypopup#close_popup_atcursor()
-  const popup_winid = PopupWindowIdAtCursor()
-  if !!popup_winid
-    popup_close(popup_winid)
-  else
-    # just Esc press
-    :execute "normal! \<Esc>"
-  endif
-enddef
-
 def ScrollInPopup(winid: number, step: number)
   const popup_info = popup_getpos(winid)
   if !popup_info.scrollbar
@@ -56,6 +46,16 @@ def ExecuteCmdPvwOrCurrWin(cmd: string, curr_cmd: string)
     endtry
   else
     :execute curr_cmd
+  endif
+enddef
+
+def mypopup#close_popup_atcursor()
+  const popup_winid = PopupWindowIdAtCursor()
+  if !!popup_winid
+    popup_close(popup_winid)
+  else
+    # just Esc press
+    :execute "normal! \<Esc>"
   endif
 enddef
 
