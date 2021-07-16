@@ -5,15 +5,22 @@ if empty(prop_type_get('yank_prop'))
 endif
 
 def myfunctions#highlight_on_yank(timeout: number)
+  if v:event.visual
+    return
+  endif
+
   if v:event.operator == 'y' && !(empty(v:event.regtype))
-    const pos1 = getcharpos("'[")
-    const pos2 = getcharpos("']")
-    const start = [pos1[1], pos1[2] + pos1[3]]
-    const end = [pos2[1], pos2[2] + pos2[3]]
-    timer_start(
-      5, (_) => prop_add(start[0], start[1], { end_lnum: end[0], end_col: end[1] + 1, type: 'yank_prop' })
-    )
-    timer_start(timeout, (_) => prop_remove({ type: 'yank_prop' }, start[0], end[0]))
+    const start = getpos("'[")
+    const start_line = start[1]
+    const start_col = start[2] + start[3]
+    const end_line = getpos("']")[1]
+    const shift = start_line == end_line ? start_col - 1 : 0
+    const length = len(v:event.regcontents[-1]) + 1 + shift
+
+    timer_start(1, (_) => prop_add(start_line,
+                                   start_col,
+                                   { end_lnum: end_line, end_col: length, type: 'yank_prop' }))
+    timer_start(timeout, (_) => prop_remove({ type: 'yank_prop' }, start_line, end_line))
   endif
 enddef
 
