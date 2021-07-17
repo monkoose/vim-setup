@@ -5,10 +5,6 @@ if empty(prop_type_get('yank_prop'))
 endif
 
 def myfunctions#highlight_on_yank(timeout: number)
-  if v:event.visual
-    return
-  endif
-
   if v:event.operator == 'y' && !(empty(v:event.regtype))
     const start = getpos("'[")
     const start_line = start[1]
@@ -17,9 +13,14 @@ def myfunctions#highlight_on_yank(timeout: number)
     const shift = start_line == end_line ? start_col - 1 : 0
     const length = len(v:event.regcontents[-1]) + 1 + shift
 
-    timer_start(1, (_) => prop_add(start_line,
-                                   start_col,
-                                   { end_lnum: end_line, end_col: length, type: 'yank_prop' }))
+    if v:event.visual && visualmode() == "\<C-v>"
+      # TODO: highlight block selection properly
+      return
+    else
+      timer_start(1, (_) => prop_add(start_line,
+                                    start_col,
+                                    { end_lnum: end_line, end_col: length, type: 'yank_prop' }))
+    endif
     timer_start(timeout, (_) => prop_remove({ type: 'yank_prop' }, start_line, end_line))
   endif
 enddef
