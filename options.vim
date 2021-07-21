@@ -32,7 +32,8 @@ set splitbelow splitright
 set smarttab expandtab smartindent shiftround shiftwidth=2 softtabstop=-1
 set nojoinspaces
 set completeopt=menuone,longest,noinsert,noselect,popup
-set wildignore+=*/.git/*,*/__pycache__/*,*.pyc
+set wildmode=longest:full
+set wildignore+=*/.git/*,*/__pycache__/*,*.pyc,*/node_modules/*
 set wildignore+=*.jpg,*.jpeg,*.bmp,*.gif,*.png
 set wildignorecase
 set shortmess=filnrxtToOFIc
@@ -52,12 +53,5 @@ let g:loaded_vimballPlugin = 1
 let g:loaded_zipPlugin = 1
 let g:python_highlight_all = 1
 let g:markdown_folding = 0
-
-" let g:loaded_netrwPlugin = 1
-let g:netrw_use_errorwindow = 0
-let g:netrw_winsize = 20
-let g:netrw_sizestyle = 'H'
-let g:netrw_list_hide = netrw_gitignore#Hide() .. ',.git/'
-let g:netrw_liststyle = 3
-let g:netrw_banner = 0
-let g:netrw_wiw = 15
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1

@@ -16,8 +16,6 @@ nnoremap           <space>y    "+y
 nnoremap           <space>p    "+
 nnoremap           <C-j>       <C-d>
 nnoremap           <C-k>       <C-u>
-nnoremap <silent>  H           <Cmd>bn<CR>
-nnoremap <silent>  L           <Cmd>bp<CR>
 nnoremap           q         <C-w>c
 nnoremap           o         <C-w>o
 nnoremap <silent>  yof         <Cmd>let &foldcolumn = !&foldcolumn<CR>
@@ -27,7 +25,6 @@ nnoremap           ;           :
 nnoremap           <C-h>       ,
 nnoremap           <C-l>       ;
 nnoremap           `         <Cmd>call myterm#toggle()<CR>
-nnoremap           1         <Cmd>Lexplore<CR>
 
 vnoremap           <space>y    "+y
 vnoremap           <C-j>       <C-d>
@@ -36,7 +33,7 @@ vnoremap           ;           :
 vnoremap           <C-h>       ,
 vnoremap           <C-l>       ;
 
-noremap!           i         <C-^>
+noremap!           <C-@>         <C-^>
 inoremap           <C-p>       <C-k>
 inoremap           h         <Left>
 inoremap           l         <Right>

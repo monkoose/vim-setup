@@ -11,7 +11,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'honza/vim-snippets'
 Plug 'monkoose/vim9-stargate'
 Plug 'thinca/vim-themis'
-Plug 'wellle/targets.vim'
+" Plug 'wellle/targets.vim'
 Plug 'neovimhaskell/haskell-vim', {'for': ['haskell']}
 Plug 'Vimjas/vim-python-pep8-indent', {'for': ['python']}
 Plug 'cespare/vim-toml', {'for': ['toml']}
@@ -22,9 +22,11 @@ Plug 'neoclide/coc.nvim'
 Plug 'antoinemadec/coc-fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'monkoose/fzf-hoogle.vim'
+Plug 'lambdalisue/fern.vim'
+Plug 'lambdalisue/fern-hijack.vim'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
 Plug 'tpope/vim-fugitive'
-Plug 'lambdalisue/vim-gista', {'on': 'Gista'}
+Plug 'skanehira/gh.vim'
 Plug 'airblade/vim-gitgutter'
 call plug#end()
