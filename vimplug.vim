@@ -17,6 +17,10 @@ Plug 'Vimjas/vim-python-pep8-indent', {'for': ['python']}
 Plug 'cespare/vim-toml', {'for': ['toml']}
 Plug 'evanleck/vim-svelte', {'for': ['svelte']}
 
+" lisp
+Plug 'vlime/vlime', {'rtp': 'vim/'}
+" Plug 'kovisoft/paredit', {'for': ['lisp']}
+
 " PLUGINS WITH CUSTOM CONFIG
 Plug 'neoclide/coc.nvim'
 Plug 'antoinemadec/coc-fzf'

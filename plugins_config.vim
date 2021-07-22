@@ -105,6 +105,19 @@ nnoremap <space>gp :split gh://gists/new/
 let g:fern#drawer_width = 35
 nnoremap 1 <Cmd>Fern . -drawer -toggle<CR>
 " }}}
+" vlime {{{
+augroup VlimeSettings
+  autocmd!
+  autocmd FileType lisp let b:coc_suggest_disable = 1
+augroup END
+
+let g:vlime_leader = ","
+let s:vlime_buffers = ["sldb", "inspector", "xref", "notes", "threads", "input", "server", "trace", "mrepl"]
+let g:vlime_window_settings = {}
+for buf in s:vlime_buffers
+  let g:vlime_window_settings[buf] = { "pos": "belowright" }
+endfor
+" }}}
 " vim-gitgutter {{{
 let g:gitgutter_sign_modified_removed  = '≃'
 
