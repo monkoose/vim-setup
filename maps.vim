@@ -24,7 +24,7 @@ nnoremap <silent>  <C-@>       <Cmd>let &iminsert = !&iminsert<CR>
 nnoremap           ;           :
 nnoremap           <C-h>       ,
 nnoremap           <C-l>       ;
-nnoremap           `         <Cmd>call myterm#toggle()<CR>
+nnoremap           `         <Cmd>call myterm#toggle('botright')<CR>
 
 vnoremap           <space>y    "+y
 vnoremap           <C-j>       <C-d>
@@ -51,7 +51,7 @@ set termwinkey=<C-q>
 tnoremap           w       <C-q>w
 tnoremap <silent>  q       <Cmd>close!<CR>
 tnoremap           <C-q><C-n> <C-q>N
-tnoremap           `       <Cmd>call myterm#toggle()<CR>
+tnoremap           `       <Cmd>call myterm#toggle('botright')<CR>
 
 " Fix slow esc, should be after all Alt remaps
 nnoremap <silent><nowait>  <Esc>     <Cmd>call mypopup#close_popup_atcursor()<CR>

@@ -11,15 +11,11 @@ Plug 'pangloss/vim-javascript'
 Plug 'honza/vim-snippets'
 Plug 'monkoose/vim9-stargate'
 Plug 'thinca/vim-themis'
-" Plug 'wellle/targets.vim'
 Plug 'neovimhaskell/haskell-vim', {'for': ['haskell']}
 Plug 'Vimjas/vim-python-pep8-indent', {'for': ['python']}
 Plug 'cespare/vim-toml', {'for': ['toml']}
 Plug 'evanleck/vim-svelte', {'for': ['svelte']}
-
-" lisp
-Plug 'vlime/vlime', {'rtp': 'vim/'}
-" Plug 'kovisoft/paredit', {'for': ['lisp']}
+Plug 'stevearc/vim-arduino'
 
 " PLUGINS WITH CUSTOM CONFIG
 Plug 'neoclide/coc.nvim'
