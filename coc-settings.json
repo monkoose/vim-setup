@@ -14,6 +14,7 @@
   "diagnostic.infoSign": "I",
   "diagnostic.hintSign": "H",
   "diagnostic.maxWindowHeight": 10,
+  "signature.enable": false,
   "signature.maxWindowHeight": 6,
   "hover.floatMaxWidth": 100,
   "notification.highlightGroup": "CocNotification",
