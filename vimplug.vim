@@ -21,7 +21,7 @@ Plug 'stevearc/vim-arduino'
 Plug 'neoclide/coc.nvim'
 Plug 'antoinemadec/coc-fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'monkoose/fzf-hoogle.vim'
+" Plug 'monkoose/fzf-hoogle.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-hijack.vim'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}

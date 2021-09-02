@@ -41,5 +41,6 @@
       "rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
       "filetypes": ["haskell", "lhaskell"]
     }
-  }
+  },
+  "d.servedPath": "/home/monkoose/.config/coc/extensions/coc-dlang-data/serve-d"
 }

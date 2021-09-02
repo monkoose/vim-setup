@@ -9,6 +9,7 @@ let g:coc_global_extensions = [
       \ 'coc-html',
       \ 'coc-css',
       \ 'coc-yaml',
+      \ 'coc-dlang',
       \ 'coc-svelte',
       \ 'coc-clangd',
       \ ]
@@ -35,7 +36,7 @@ vmap     <silent>         <space>kf   <Plug>(coc-format-selected)
 
 augroup CocAutocmd
   autocmd!
-  autocmd FileType css,scss,javascript,typescript,html,python,haskell,json,yaml,vim,svelte,sh,c,lua
+  autocmd FileType css,scss,javascript,typescript,html,python,haskell,json,yaml,vim,svelte,sh,c,d
         \ call s:define_coc_mappings()
   autocmd FileType haskell vmap <buffer><silent> K <Cmd>call CocActionAsync('doHover')<CR>
 augroup END
@@ -72,14 +73,14 @@ nnoremap <silent> <space>gC   <Cmd>FzfBCommits<CR>
 
 " }}}
 " fzf-hoogle.vim {{{
-augroup HoogleMaps
-  autocmd!
-  autocmd FileType haskell nnoremap <buffer>   <space>hh <Cmd>Hoogle <C-r><C-w><CR>
-augroup END
-let g:hoogle_fzf_header = ''
-let g:hoogle_fzf_preview = 'down:50%:wrap'
-let g:hoogle_count = 100
-let g:hoogle_fzf_window = { 'right': '40%' }
+" augroup HoogleMaps
+"   autocmd!
+"   autocmd FileType haskell nnoremap <buffer>   <space>hh <Cmd>Hoogle <C-r><C-w><CR>
+" augroup END
+" let g:hoogle_fzf_header = ''
+" let g:hoogle_fzf_preview = 'down:50%:wrap'
+" let g:hoogle_count = 100
+" let g:hoogle_fzf_window = { 'right': '40%' }
 " }}}
 " undotree {{{
 let g:undotree_SetFocusWhenToggle = 1
@@ -131,6 +132,11 @@ let g:stargate_keymaps = {
       \  "a": "ф", "s": "ы", "d": "в", "f": "а", "g": "п", "h": "р", "j": "о", "k": "л", "l": "д", ";": "ж", "'": "э",
       \   "z": "я", "x": "ч", "c": "с", "v": "м", "b": "и", "n": "т", "m": "ь", ",": "б", ".": "ю"
       \ }
+" }}}
+" termdebug {{{
+packadd termdebug
+let g:termdebug_wide = 1
+let g:termdebug_disasm_window = 15
 " }}}
 
 " vim: foldmethod=marker

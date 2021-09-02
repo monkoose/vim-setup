@@ -29,7 +29,7 @@ set list listchars=tab:→-,trail:·,extends:⌇,precedes:⌇,nbsp:~
 set fillchars=vert:█,fold:·
 set noruler
 set splitbelow splitright
-set smarttab expandtab smartindent shiftround shiftwidth=2 softtabstop=-1
+set smarttab expandtab smartindent shiftround shiftwidth=4 softtabstop=-1
 set nojoinspaces
 set completeopt=menuone,longest,noinsert,noselect,popup
 set wildmode=longest:full

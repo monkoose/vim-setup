@@ -9,7 +9,6 @@ augroup FileTypeOptions
   autocmd FileType qf        setlocal wrap
   autocmd FileType vim       setlocal iskeyword-=#
   autocmd FileType css,scss  setlocal iskeyword+=-
-  autocmd FileType haskell,c,cpp   setlocal shiftwidth=4
   autocmd FileType gitcommit setlocal spell | startinsert
   autocmd FileType fugitive nmap <buffer> <C-l> =
 augroup END
