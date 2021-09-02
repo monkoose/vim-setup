@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -eu -o pipefail
+IFS='\n\t'
 
 # Helper functions
 msg() {
