@@ -40,4 +40,5 @@ echo ""
 msg "Begin fetching vim-plug..."
 curl -fLo "$install_dir/autoload/plug.vim" --create-dirs "$vimplug_repo"
 echo ""
-vim -u "$install_dir/vimplug.vim" +PlugInstall
+vim -u "$install_dir/vimplug.vim" -c "PlugInstall | qa"
+echo "Done."
