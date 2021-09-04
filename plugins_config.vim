@@ -36,9 +36,8 @@ vmap     <silent>         <space>kf   <Plug>(coc-format-selected)
 
 augroup CocAutocmd
   autocmd!
-  autocmd FileType css,scss,javascript,typescript,html,python,haskell,json,yaml,vim,svelte,sh,c,d
+  autocmd FileType css,scss,javascript,typescript,html,python,json,yaml,vim,svelte,sh,c,cpp,d
         \ call s:define_coc_mappings()
-  autocmd FileType haskell vmap <buffer><silent> K <Cmd>call CocActionAsync('doHover')<CR>
 augroup END
 
 function! s:define_coc_mappings() abort
