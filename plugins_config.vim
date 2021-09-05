@@ -11,12 +11,11 @@ let g:coc_global_extensions = [
       \ 'coc-yaml',
       \ 'coc-dlang',
       \ 'coc-svelte',
-      \ 'coc-clangd',
       \ ]
 
 let g:coc_snippet_next = 'e'
 let g:coc_snippet_prev = 'r'
-inoremap <silent><expr>   <C-l>     pumvisible() ? "\<C-y>" : coc#refresh()
+inoremap <silent><expr>   <C-l>     pumvisible() ? coc#_select_confirm() : coc#refresh()
 inoremap <silent><expr>   <C-j>     pumvisible() ? "\<C-n>" : coc#refresh()
 inoremap <silent><expr>   <C-k>     pumvisible() ? "\<C-p>" : coc#refresh()
 inoremap <silent>         <CR>      <C-g>u<CR><C-r>=coc#on_enter()<CR>

@@ -16,11 +16,15 @@ def mymake#make(file: number)
             out_cb: (_, m) => add(errors, m),
             exit_cb: (_, _) => {
                 if !empty(errors)
-                    getqflist({ efm: errformat, lines: errors }).items
-                        ->filter((_, v) => v.valid == 1)
-                        ->setqflist('r')
-                    setqflist([], 'a', { title: qftitle })
-                    execute('cwindow')
+                    errors = getqflist({ efm: errformat, lines: errors }).items
+                                ->filter((_, v) => v.valid == 1)
+                    if !empty(errors)
+                        errors->setqflist('r')
+                        setqflist([], 'a', { title: qftitle })
+                        execute('cwindow')
+                    else
+                        term_start(cmd)
+                    endif
                 endif
             }
         })
