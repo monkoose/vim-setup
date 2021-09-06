@@ -5,6 +5,7 @@ set cpo&vim
 
 CompilerSet errorformat=
       \%-Gmake:\ ***%.%#,
+      \%-G[ERROR]\ (%f:%l:\ errno:%.%#,
       \%*[^\"]\"%f\"%*\\D%l:%c:\ %m,
       \%*[^\"]\"%f\"%*\\D%l:\ %m,
       \\"%f\"%*\\D%l:%c:\ %m,

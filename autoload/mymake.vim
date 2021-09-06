@@ -21,9 +21,11 @@ def mymake#make(file: number)
                     if !empty(errors)
                         errors->setqflist('r')
                         setqflist([], 'a', { title: qftitle })
-                        execute('cwindow')
+                        execute('botright copen')
+                        execute('wincmd p')
                     else
-                        term_start(cmd)
+                        term_start(cmd, { vertical: true, term_cols: 80 })
+                        execute('cclose')
                     endif
                 endif
             }
