@@ -25,8 +25,8 @@ nnoremap           ;           :
 nnoremap           <C-h>       ,
 nnoremap           <C-l>       ;
 nnoremap           `         <Cmd>call myterm#toggle('botright')<CR>
-nnoremap           <space>mf   <Cmd>call mymake#make(1)<CR>
-nnoremap           <space>mm   <Cmd>call mymake#make(0)<CR>
+nnoremap           <space>mf   <Cmd>call mymake#buffer()<CR>
+nnoremap           <space>mm   <Cmd>call mymake#makeprg()<CR>
 
 vnoremap           <space>y    "+y
 vnoremap           <C-j>       <C-d>

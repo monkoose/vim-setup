@@ -2,31 +2,41 @@ vim9script
 
 const qftitle = '--MYMAKE--'
 
-def mymake#make(file: number)
-    var cmd = split(&makeprg)
-    if !!file
-        add(cmd, expand('%'))
+def mymake#buffer()
+    if exists('b:mymake_cmd')
+        ProcessCmd(add(split(b:mymake_cmd), expand('%')))
+    else
+        echo " b:mymake_cmd doesn't setup for this filetype"
     endif
+enddef
 
-    setqflist([], 'r')
+def mymake#makeprg()
+    ProcessCmd(split(&makeprg))
+enddef
+
+def ProcessCmd(cmd: list<any>)
+    setqflist([], 'r', { title: qftitle })
     var errors = []
-    const errformat = &errorformat
+
     const job_id = job_start(cmd, {
             err_io: 'out',
             out_cb: (_, m) => add(errors, m),
             exit_cb: (_, _) => {
                 if !empty(errors)
-                    errors = getqflist({ efm: errformat, lines: errors }).items
+                    errors = getqflist({ efm: &errorformat, lines: errors }).items
                                 ->filter((_, v) => v.valid == 1)
                     if !empty(errors)
                         errors->setqflist('r')
                         setqflist([], 'a', { title: qftitle })
                         execute('botright copen')
                         execute('wincmd p')
+                        execute('cc')
                     else
-                        term_start(cmd, { vertical: true, term_cols: 80 })
                         execute('cclose')
+                        term_start(cmd)
                     endif
+                else
+                    execute('cclose')
                 endif
             }
         })
