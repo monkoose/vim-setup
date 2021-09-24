@@ -13,18 +13,18 @@ def ToggleLineComment(map: string)
 enddef
 
 def IsInsideHtmlBlock(): number
-    var inside_html = 1
     if search('^\s*</style', 'Wn') > 0
         if search('^\s*<style', 'Wbn') > 0
-            inside_html = 0
+            return 0
         endif
-    elseif search('^\s*</script', 'Wn') > 0
+    endif
+    if search('^\s*</script', 'Wn') > 0
         if search('^\s*<script', 'Wbn') > 0
-            inside_html = 0
+            return 0
         endif
     endif
 
-    return inside_html
+    return 1
 enddef
 
 nnoremap gcc <Cmd>call <SID>ToggleLineComment('gcc')<CR>
