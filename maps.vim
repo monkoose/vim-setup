@@ -10,7 +10,7 @@ nnoremap <silent>  3         <Cmd>call myfunctions#toggle_loclist_window()<CR>
 nnoremap <silent>  gx          <Cmd>call myfunctions#open_path()<CR>
 nnoremap <silent>  zS          <Cmd>call myfunctions#synnames()<CR>
 nnoremap           <space>q    <Cmd>pclose<CR>
-nnoremap <silent>  <space>a    <Cmd>b#<CR>
+nnoremap <silent>  <space>a    <C-^>
 nnoremap           <space>d    <C-]>
 nnoremap           <space>y    "+y
 nnoremap           <space>p    "+

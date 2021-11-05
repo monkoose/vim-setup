@@ -7,7 +7,7 @@ def mymake#buffer()
     if get(g:, 'myterm_winnr') > 0
         const term_wininfo = getwininfo(win_getid(g:myterm_winnr))
         if !!len(term_wininfo) && !!term_wininfo[0].terminal
-            execute(':' .. g:myterm_winnr .. 'wincmd c')
+            execute(':' .. g:myterm_winnr .. 'close')
         endif
     endif
 
@@ -42,7 +42,7 @@ def ProcessCmd(cmd: list<any>)
                     if !empty(errors)
                         errors->setqflist('r')
                         setqflist([], 'a', { title: qftitle })
-                        execute(':' .. g:myterm_winnr .. 'wincmd c')
+                        execute(':' .. g:myterm_winnr .. 'close')
                         execute('botright copen')
                         execute(':' .. cur_winnr .. 'wincmd w')
                         execute('cc')

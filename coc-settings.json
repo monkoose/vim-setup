@@ -7,16 +7,22 @@
     "suggest.removeDuplicateItems": true,
     "diagnostic.enableMessage": "jump",
     "diagnostic.messageDelay": 100,
-    "diagnostic.maxWindowWidth": 100,
+    "diagnostic.floatConfig": {
+        "maxWidth": 100,
+        "maxHeight": 10
+    },
     "diagnostic.checkCurrentLine": true,
     "diagnostic.errorSign": "E",
     "diagnostic.warningSign": "W",
     "diagnostic.infoSign": "I",
     "diagnostic.hintSign": "H",
-    "diagnostic.maxWindowHeight": 10,
     "signature.enable": false,
-    "signature.maxWindowHeight": 6,
-    "hover.floatMaxWidth": 100,
+    "signature.floatConfig": {
+        "maxHeight": 6
+    },
+    "hover.floatConfig": {
+        "maxWidth": 100
+    },
     "notification.highlightGroup": "CocNotification",
     "list.alignColumns": true,
     "list.height": 12,
@@ -48,6 +54,12 @@
                     "extraArgs": [ "-Isrc" ]
                 }
             }
+        },
+        "haskell": {
+            "command": "haskell-language-server-wrapper",
+            "args": ["--lsp"],
+            "rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
+            "filetypes": ["haskell", "lhaskell"]
         }
     },
     "d.servedPath": "/home/monkoose/.config/coc/extensions/coc-dlang-data/serve-d"

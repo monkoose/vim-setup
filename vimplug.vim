@@ -10,8 +10,9 @@ Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'honza/vim-snippets'
 Plug 'monkoose/vim9-stargate'
+" Plug 'Shougo/context_filetype.vim'
 " Plug 'thinca/vim-themis'
-" Plug 'neovimhaskell/haskell-vim', {'for': ['haskell']}
+Plug 'neovimhaskell/haskell-vim'
 Plug 'Vimjas/vim-python-pep8-indent', {'for': ['python']}
 Plug 'cespare/vim-toml', {'for': ['toml']}
 Plug 'evanleck/vim-svelte', {'for': ['svelte']}
@@ -20,7 +21,7 @@ Plug 'evanleck/vim-svelte', {'for': ['svelte']}
 Plug 'neoclide/coc.nvim'
 Plug 'antoinemadec/coc-fzf'
 Plug 'junegunn/fzf.vim'
-" Plug 'monkoose/fzf-hoogle.vim'
+Plug 'monkoose/fzf-hoogle.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-hijack.vim'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
