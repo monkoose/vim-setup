@@ -39,7 +39,15 @@
     "coc.preferences.willSaveHandlerTimeout": 1000,
     "list.insertMappings": {
         "<C-l>": "do:defaultaction",
-        "<C-o>": "do:refresh"
+        "<C-a>": "do:selectall",
+        "<C-p>": "do:previewup",
+        "<C-n>": "do:previewdown",
+        "<C-o>": "do:refresh",
+        "<C-e>": "do:toggle",
+        "<C-q>": "action:quickfix",
+        "<C-v>": "action:vsplit",
+        "<C-x>": "action:split",
+        "<C-t>": "action:tabe"
     },
     "languageserver": {
         "ccls": {

@@ -13,7 +13,7 @@ let s:iminsert = "%6*%{StatusIminsert()}%*"
 " let s:session = "%{fnamemodify(v:this_session, ':t')}"
 
 let s:statusline = s:iminsert .. s:fname .. s:ro .. s:git .. s:spell .. s:right .. s:coc .. s:tail
-let s:statusline_nc = s:fname_nc .. s:git_nc .. s:tail_nc
+let s:statusline_nc = s:fname_nc .. s:git .. s:tail_nc
 
 let &statusline = s:statusline
 

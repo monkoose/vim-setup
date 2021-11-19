@@ -1,4 +1,5 @@
 noremap            Q           gq
+noremap            Y           y$
 nnoremap <silent>  <F3>        <Cmd>setlocal spell!<CR>
 nnoremap <silent>  <space>/    <Cmd>nohlsearch<CR>
 nnoremap           w         <C-w>w
@@ -24,7 +25,7 @@ nnoremap <silent>  <C-@>       <Cmd>let &iminsert = !&iminsert<CR>
 nnoremap           ;           :
 nnoremap           <C-h>       ,
 nnoremap           <C-l>       ;
-nnoremap           `         <Cmd>call myterm#toggle('botright')<CR>
+nnoremap           `         <Cmd>call myterm#toggle()<CR>
 nnoremap           <space>mf   <Cmd>call mymake#buffer()<CR>
 nnoremap           <space>mm   <Cmd>call mymake#makeprg()<CR>
 
@@ -53,7 +54,7 @@ set termwinkey=<C-q>
 tnoremap           w       <C-q>w
 tnoremap <silent>  q       <Cmd>close!<CR>
 tnoremap           <C-q><C-n> <C-q>N
-tnoremap           `       <Cmd>call myterm#toggle('botright')<CR>
+tnoremap           `       <Cmd>call myterm#toggle()<CR>
 
 " Fix slow esc, should be after all Alt remaps
 nnoremap <silent><nowait>  <Esc>     <Cmd>call mypopup#close_popup_atcursor()<CR>

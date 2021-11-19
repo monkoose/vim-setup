@@ -23,12 +23,12 @@ nmap     <silent>         <space>kk   <Cmd>CocRestart<CR>
 nmap     <silent>         <space>D    <Plug>(coc-declaration)
 nmap     <silent>         <space>kr   <Plug>(coc-references)
 nmap     <silent>         <space>kR   <Plug>(coc-rename)
-nmap     <silent>         <space>ka   <Cmd>CocFzfList actions<CR>
-nmap     <silent>         <space>kd   <Cmd>CocFzfList diagnostics<CR>
-nmap     <silent>         <space>kl   <Cmd>CocFzfList<CR>
+nmap     <silent>         <space>ka   <Cmd>CocList actions<CR>
+nmap     <silent>         <space>kd   <Cmd>CocList diagnostics<CR>
+nmap     <silent>         <space>kl   <Cmd>CocList<CR>
 nmap     <silent>         <space>kf   <Plug>(coc-format)
 nmap     <silent>         <space>ki   <Plug>(coc-diagnostic-info)
-nmap     <silent>         <space>ko   <Cmd>CocFzfList outline<CR>
+nmap     <silent>         <space>ko   <Cmd>CocList outline<CR>
 vmap     <silent>         <space>ka   <Plug>(coc-codeaction-selected)
 vmap     <silent>         <space>kf   <Plug>(coc-format-selected)
 
@@ -55,29 +55,30 @@ let s:fzf_defaults = [
 let $FZF_DEFAULT_OPTS = join(s:fzf_defaults, " ")
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_history_dir = '~/.cache/vim/fzf_history'
-let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.7, 'border': 'none' } }
+let g:fzf_layout = { 'right': '50%' }
+" let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.7, 'border': 'none' } }
 
-nnoremap <silent> <space>ff   <Cmd>FzfFiles<CR>
-nnoremap <silent> <space>fh   <Cmd>FzfHelptags<CR>
-nnoremap <silent> <space>fm   <Cmd>FzfMaps<CR>
-nnoremap <silent> <space>;    <Cmd>FzfBuffers<CR>
-nnoremap <silent> <space>ss   <Cmd>FzfRg<CR>
-nnoremap <silent> <space>sb   <Cmd>FzfBLines<CR>
-nnoremap <silent> <space>sw   :<C-u>FzfRg <C-r><C-w><CR>
-nnoremap <silent> <space>gc   <Cmd>FzfCommits<CR>
-nnoremap <silent> <space>gC   <Cmd>FzfBCommits<CR>
+nnoremap <silent> <space>ff   <Cmd>FzfFiles!<CR>
+nnoremap <silent> <space>fh   <Cmd>FzfHelptags!<CR>
+nnoremap <silent> <space>fm   <Cmd>FzfMaps!<CR>
+nnoremap <silent> <space>;    <Cmd>FzfBuffers!<CR>
+nnoremap <silent> <space>ss   <Cmd>FzfRg!<CR>
+nnoremap <silent> <space>sb   <Cmd>FzfBLines!<CR>
+nnoremap <silent> <space>sw   :<C-u>FzfRg! <C-r><C-w><CR>
+nnoremap <silent> <space>gc   <Cmd>FzfCommits!<CR>
+nnoremap <silent> <space>gC   <Cmd>FzfBCommits!<CR>
 
 
 " }}}
 " fzf-hoogle.vim {{{
-augroup HoogleMaps
-  autocmd!
-  autocmd FileType haskell nnoremap <buffer>   <space>hh :Hoogle <C-r><C-w><CR>
-augroup END
-let g:hoogle_fzf_header = ''
-let g:hoogle_fzf_preview = 'down:50%:wrap'
-let g:hoogle_count = 100
-let g:hoogle_fzf_window = { 'right': '40%' }
+" augroup HoogleMaps
+"   autocmd!
+"   autocmd FileType haskell nnoremap <buffer>   <space>hh :Hoogle <C-r><C-w><CR>
+" augroup END
+" let g:hoogle_fzf_header = ''
+" let g:hoogle_fzf_preview = 'down:50%:wrap'
+" let g:hoogle_count = 100
+" let g:hoogle_fzf_window = { 'right': '40%' }
 " }}}
 " undotree {{{
 let g:undotree_SetFocusWhenToggle = 1

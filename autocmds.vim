@@ -3,6 +3,11 @@ augroup CheckTime
   autocmd FocusGained * silent! checktime
 augroup END
 
+augroup MyTerminal
+    autocmd!
+    autocmd TerminalOpen * set nonumber norelativenumber
+augroup END
+
 augroup FileTypeOptions
   autocmd!
   autocmd FileType * syntax sync maxlines=100
