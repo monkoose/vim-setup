@@ -42,7 +42,8 @@
         "<C-a>": "do:selectall",
         "<C-p>": "do:previewup",
         "<C-n>": "do:previewdown",
-        "<C-o>": "do:refresh",
+        "<C-o>": "do:previewtoggle",
+        "<C-r>": "do:refresh",
         "<C-e>": "do:toggle",
         "<C-q>": "action:quickfix",
         "<C-v>": "action:vsplit",
@@ -62,12 +63,6 @@
                     "extraArgs": [ "-Isrc" ]
                 }
             }
-        },
-        "haskell": {
-            "command": "haskell-language-server-wrapper",
-            "args": ["--lsp"],
-            "rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
-            "filetypes": ["haskell", "lhaskell"]
         }
     },
     "d.servedPath": "/home/monkoose/.config/coc/extensions/coc-dlang-data/serve-d"

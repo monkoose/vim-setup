@@ -34,7 +34,7 @@ vmap     <silent>         <space>kf   <Plug>(coc-format-selected)
 
 augroup CocAutocmd
   autocmd!
-  autocmd FileType css,scss,javascript,typescript,html,python,json,yaml,vim,svelte,sh,c,cpp,haskell
+  autocmd FileType css,scss,javascript,typescript,html,python,json,yaml,vim,svelte,sh,c,cpp,go
         \ call s:define_coc_mappings()
 augroup END
 
@@ -132,9 +132,12 @@ let g:stargate_keymaps = {
       \ }
 " }}}
 " termdebug {{{
-packadd termdebug
-let g:termdebug_wide = 1
-let g:termdebug_disasm_window = 15
+" packadd termdebug
+" let g:termdebug_wide = 1
+" let g:termdebug_disasm_window = 15
+" }}}
+" vim-go {{{
+let g:go_gopls_enabled = 0
 " }}}
 
 " vim: foldmethod=marker

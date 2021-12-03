@@ -10,7 +10,7 @@ Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'honza/vim-snippets'
 Plug 'monkoose/vim9-stargate'
-Plug 'neovimhaskell/haskell-vim'
+Plug 'fatih/vim-go'
 Plug 'Vimjas/vim-python-pep8-indent', {'for': ['python']}
 Plug 'cespare/vim-toml', {'for': ['toml']}
 " Plug 'Shougo/context_filetype.vim'
@@ -20,7 +20,6 @@ Plug 'cespare/vim-toml', {'for': ['toml']}
 " PLUGINS WITH CUSTOM CONFIG
 Plug 'neoclide/coc.nvim'
 Plug 'junegunn/fzf.vim'
-" Plug 'monkoose/fzf-hoogle.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-hijack.vim'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
