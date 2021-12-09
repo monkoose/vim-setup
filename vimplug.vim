@@ -18,7 +18,7 @@ Plug 'cespare/vim-toml', {'for': ['toml']}
 " Plug 'evanleck/vim-svelte', {'for': ['svelte']}
 
 " PLUGINS WITH CUSTOM CONFIG
-Plug 'neoclide/coc.nvim'
+Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'junegunn/fzf.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-hijack.vim'
