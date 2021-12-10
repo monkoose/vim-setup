@@ -21,5 +21,5 @@ augroup END
 
 augroup PostYank
   autocmd!
-  autocmd TextYankPost * silent call myfunctions#highlight_on_yank(250)
+  autocmd TextYankPost * silent call custom#on_yank#highlight(250)
 augroup END

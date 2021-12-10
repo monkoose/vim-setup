@@ -2,7 +2,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'monkoose/boa-vim.vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-characterize'
 Plug 'tpope/vim-commentary'
 Plug 'hail2u/vim-css3-syntax'

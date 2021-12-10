@@ -3,7 +3,7 @@ noremap            Y           y$
 nnoremap <silent>  <F3>        <Cmd>setlocal spell!<CR>
 nnoremap <silent>  <space>/    <Cmd>nohlsearch<CR>
 nnoremap           w         <C-w>w
-nnoremap <silent>  f         <Cmd>call myfunctions#toggle_semicolon()<CR>
+nnoremap <silent>  f         <Cmd>call custom#endofline#toggle(';')<CR>
 nnoremap <silent>  <C-n>       <Cmd>call mypopup#scrolldown_or_next_hunk()<CR>
 nnoremap <silent>  <C-p>       <Cmd>call mypopup#scrollup_or_prev_hunk()<CR>
 nnoremap <silent>  2         <Cmd>call myfunctions#toggle_qf_window()<CR>
@@ -19,8 +19,15 @@ nnoremap           <C-j>       <C-d>
 nnoremap           <C-k>       <C-u>
 nnoremap           q         <C-w>c
 nnoremap           o         <C-w>o
-nnoremap <silent>  yof         <Cmd>let &foldcolumn = !&foldcolumn<CR>
-nnoremap <silent>  yoy         <Cmd>let &cc = &cc == '' ? 100 : ''<CR>
+nnoremap           yow         <Cmd>call custom#unimpaired#ToggleOption('wrap')<CR>
+nnoremap           yoc         <Cmd>call custom#unimpaired#ToggleOption('cursorline')<CR>
+nnoremap           yox         <Cmd>call custom#unimpaired#ToggleOption('cursorcolumn')<CR>
+nnoremap           yos         <Cmd>call custom#unimpaired#ToggleOption('spell')<CR>
+nnoremap           yol         <Cmd>call custom#unimpaired#ToggleOption('list')<CR>
+nnoremap           yof         <Cmd>call custom#unimpaired#SwitchOption('foldcolumn', '0', '1')<CR>
+nnoremap           yoy         <Cmd>call custom#unimpaired#SwitchOption('colorcolumn', '', '100')<CR>
+nnoremap           [<space>    <Cmd>call custom#unimpaired#PasteBlanklineAbove()<CR>
+nnoremap           ]<space>    <Cmd>call custom#unimpaired#PasteBlanklineBelow()<CR>
 nnoremap <silent>  <C-@>       <Cmd>let &iminsert = !&iminsert<CR>
 nnoremap           ;           :
 nnoremap           <C-h>       ,
