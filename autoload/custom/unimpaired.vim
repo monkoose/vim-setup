@@ -14,7 +14,7 @@ def custom#unimpaired#PasteBlanklineBelow()
 enddef
 
 def PrintOptionValue(option: string)
-    execute 'set ' .. option .. '?'
+    :execute 'set ' .. option .. '?'
 enddef
 
 def custom#unimpaired#ToggleOption(option: string)

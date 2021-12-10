@@ -5,13 +5,13 @@ def myfunctions#time(arg: string)
   var times: string
   var cmd: any
   [times; cmd] = split(arg)
-  cmd = join(cmd)
+  cmd = trim(join(cmd))
   const nr = str2nr(times)
+  var cmds = repeat([cmd], nr)
   const time = reltime()
+
   try
-    for i in range(nr)
-      :execute cmd
-    endfor
+    execute(cmds, '')
   finally
     const result = reltimefloat(reltime(time))
     :redraw

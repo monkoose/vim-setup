@@ -50,6 +50,7 @@
         "<C-x>": "action:split",
         "<C-t>": "action:tabe"
     },
+    "vimlsp.diagnostic.enable": false,
     "languageserver": {
         "ccls": {
             "command": "ccls",
