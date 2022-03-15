@@ -9,22 +9,22 @@ Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'honza/vim-snippets'
 Plug 'monkoose/vim9-stargate'
-Plug 'fatih/vim-go'
-Plug 'Vimjas/vim-python-pep8-indent', {'for': ['python']}
-Plug 'cespare/vim-toml', {'for': ['toml']}
+" Plug 'fatih/vim-go'
+" Plug 'Vimjas/vim-python-pep8-indent', {'for': ['python']}
+" Plug 'cespare/vim-toml', {'for': ['toml']}
 Plug 'lacygoill/vim9-syntax'
 " Plug 'Shougo/context_filetype.vim'
 " Plug 'thinca/vim-themis'
 " Plug 'evanleck/vim-svelte', {'for': ['svelte']}
 
 " PLUGINS WITH CUSTOM CONFIG
-Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
 Plug 'junegunn/fzf.vim'
 Plug 'lambdalisue/fern.vim'
 Plug 'lambdalisue/fern-hijack.vim'
 Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
 Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
 Plug 'tpope/vim-fugitive'
-Plug 'skanehira/gh.vim'
+" Plug 'skanehira/gh.vim'
 Plug 'airblade/vim-gitgutter'
 call plug#end()
