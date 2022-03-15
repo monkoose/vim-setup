@@ -1,50 +1,50 @@
 " coc.nvim and coc-fzf {{{
-let g:coc_global_extensions = [
-      \ 'coc-vimlsp',
-      \ 'coc-json',
-      \ 'coc-sh',
-      \ 'coc-snippets',
-      \ 'coc-pyright',
-      \ 'coc-tsserver',
-      \ 'coc-html',
-      \ 'coc-css',
-      \ 'coc-yaml',
-      \ 'coc-go',
-      \ 'coc-svelte',
-      \ ]
-
-let g:coc_snippet_next = 'e'
-let g:coc_snippet_prev = 'r'
-inoremap <silent><expr>   <C-l>     pumvisible() ? coc#_select_confirm() : coc#refresh()
-inoremap <silent><expr>   <C-j>     pumvisible() ? "\<C-n>" : coc#refresh()
-inoremap <silent><expr>   <C-k>     pumvisible() ? "\<C-p>" : coc#refresh()
-inoremap <silent>         <CR>      <C-g>u<CR><C-r>=coc#on_enter()<CR>
-
-nmap     <silent>         <space>kk   <Cmd>CocRestart<CR>
-nmap     <silent>         <space>D    <Plug>(coc-declaration)
-nmap     <silent>         <space>kr   <Plug>(coc-references)
-nmap     <silent>         <space>kR   <Plug>(coc-rename)
-nmap     <silent>         <space>ka   <Cmd>CocList actions<CR>
-nmap     <silent>         <space>kd   <Cmd>CocList diagnostics<CR>
-nmap     <silent>         <space>kl   <Cmd>CocList<CR>
-nmap     <silent>         <space>kf   <Plug>(coc-format)
-nmap     <silent>         <space>ki   <Plug>(coc-diagnostic-info)
-nmap     <silent>         <space>ko   <Cmd>CocList outline<CR>
-vmap     <silent>         <space>ka   <Plug>(coc-codeaction-selected)
-vmap     <silent>         <space>kf   <Plug>(coc-format-selected)
-
-augroup CocAutocmd
-  autocmd!
-  autocmd FileType css,scss,javascript,typescript,html,python,json,yaml,vim,svelte,sh,c,cpp,go
-        \ call s:define_coc_mappings()
-augroup END
-
-function! s:define_coc_mappings() abort
-  nnoremap <buffer><silent> K        <Cmd>call CocActionAsync('doHover')<CR>
-  nmap     <buffer><silent> <space>d <Plug>(coc-definition)
-  nmap     <buffer>         <space>l <Plug>(coc-diagnostic-next)
-  nmap     <buffer>         <space>L <Plug>(coc-diagnostic-prev)
-endfunction
+" let g:coc_global_extensions = [
+"       \ 'coc-vimlsp',
+"       \ 'coc-json',
+"       \ 'coc-sh',
+"       \ 'coc-snippets',
+"       \ 'coc-pyright',
+"       \ 'coc-tsserver',
+"       \ 'coc-html',
+"       \ 'coc-css',
+"       \ 'coc-yaml',
+"       \ 'coc-go',
+"       \ 'coc-svelte',
+"       \ ]
+"
+" let g:coc_snippet_next = 'e'
+" let g:coc_snippet_prev = 'r'
+" inoremap <silent><expr>   <C-l>     pumvisible() ? coc#_select_confirm() : coc#refresh()
+" inoremap <silent><expr>   <C-j>     pumvisible() ? "\<C-n>" : coc#refresh()
+" inoremap <silent><expr>   <C-k>     pumvisible() ? "\<C-p>" : coc#refresh()
+" inoremap <silent>         <CR>      <C-g>u<CR><C-r>=coc#on_enter()<CR>
+"
+" nmap     <silent>         <space>kk   <Cmd>CocRestart<CR>
+" nmap     <silent>         <space>D    <Plug>(coc-declaration)
+" nmap     <silent>         <space>kr   <Plug>(coc-references)
+" nmap     <silent>         <space>kR   <Plug>(coc-rename)
+" nmap     <silent>         <space>ka   <Cmd>CocList actions<CR>
+" nmap     <silent>         <space>kd   <Cmd>CocList diagnostics<CR>
+" nmap     <silent>         <space>kl   <Cmd>CocList<CR>
+" nmap     <silent>         <space>kf   <Plug>(coc-format)
+" nmap     <silent>         <space>ki   <Plug>(coc-diagnostic-info)
+" nmap     <silent>         <space>ko   <Cmd>CocList outline<CR>
+" vmap     <silent>         <space>ka   <Plug>(coc-codeaction-selected)
+" vmap     <silent>         <space>kf   <Plug>(coc-format-selected)
+"
+" augroup CocAutocmd
+"   autocmd!
+"   autocmd FileType css,scss,javascript,typescript,html,python,json,yaml,vim,svelte,sh,c,cpp,go
+"         \ call s:define_coc_mappings()
+" augroup END
+"
+" function! s:define_coc_mappings() abort
+"   nnoremap <buffer><silent> K        <Cmd>call CocActionAsync('doHover')<CR>
+"   nmap     <buffer><silent> <space>d <Plug>(coc-definition)
+"   nmap     <buffer>         <space>l <Plug>(coc-diagnostic-next)
+"   nmap     <buffer>         <space>L <Plug>(coc-diagnostic-prev)
+" endfunction
 "}}}
 " fzf.vim {{{
 let s:fzf_defaults = [
@@ -98,8 +98,8 @@ nnoremap    <space>gd    <Cmd>Git diff<CR>
 nnoremap    <space>ge    <Cmd>Git edit<CR>
 " }}}
 " gh {{{
-nnoremap <space>gl <Cmd>split gh://monkoose/gists<CR>
-nnoremap <space>gp :split gh://gists/new/
+" nnoremap <space>gl <Cmd>split gh://monkoose/gists<CR>
+" nnoremap <space>gp :split gh://gists/new/
 " }}}
 " fern {{{
 let g:fern#drawer_width = 35
