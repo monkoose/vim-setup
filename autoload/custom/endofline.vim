@@ -1,6 +1,6 @@
 vim9script noclear
 
-def custom#endofline#toggle(char: string)
+export def Toggle(char: string)
     var line = getline('.')
     const str_len = strchars(line)
     const lastchar = strgetchar(line, str_len - 1)

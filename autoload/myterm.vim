@@ -5,7 +5,7 @@ def SplitBottom()
     :execute 'silent keepalt botright :' .. height .. 'new'
 enddef
 
-def myterm#toggle()
+export def Toggle()
     # if buffer number as g:my_term doesn't exist
     if !bufexists(get(g:, 'my_term', -1))
         SplitBottom()

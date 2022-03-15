@@ -1,7 +1,7 @@
 vim9script
 
 # simple calculation of the time wasted to execute command
-def myfunctions#time(arg: string)
+export def Time(arg: string)
   var times: string
   var cmd: any
   [times; cmd] = split(arg)
@@ -28,14 +28,14 @@ def myfunctions#time(arg: string)
 enddef
 
 # Show syntax names
-def myfunctions#synnames()
+export def Synnames()
   echo ' ' .. synstack(line('.'), col('.'))
                   ->mapnew((_, v) => synIDattr(v, 'name'))
                   ->reverse()
                   ->join(' ')
 enddef
 
-def myfunctions#open_path()
+export def Open_path()
   const path = expand('<cfile>')
   job_start(['xdg-open', path])
   :echohl String
@@ -45,7 +45,7 @@ def myfunctions#open_path()
   :echohl None
 enddef
 
-def myfunctions#toggle_loclist_window()
+export def Toggle_loclist_window()
   if getwininfo(win_getid())[0].loclist
     :execute ':' .. winnr('#') .. 'wincmd w'
     :lclose
@@ -60,7 +60,7 @@ def myfunctions#toggle_loclist_window()
   endif
 enddef
 
-def myfunctions#toggle_qf_window()
+export def Toggle_qf_window()
   for win in getwininfo()
     if win.quickfix && !win.loclist
       if win.winid == win_getid()

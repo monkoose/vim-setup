@@ -4,7 +4,7 @@ if empty(prop_type_get('yank_prop'))
   prop_type_add('yank_prop', { highlight: "HighlightedyankRegion", combine: true, priority: 100})
 endif
 
-def custom#on_yank#highlight(timeout: number)
+export def Highlight(timeout: number)
   if v:event.operator == 'y' && !(empty(v:event.regtype))
     const start = getpos("'[")
     const start_line = start[1]

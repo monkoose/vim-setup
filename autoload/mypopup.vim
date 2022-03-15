@@ -49,7 +49,7 @@ def ExecuteCmdPvwOrCurrWin(cmd: string, curr_cmd: string)
   endif
 enddef
 
-def mypopup#close_popup_atcursor()
+export def Close_popup_atcursor()
   const popup_winid = PopupWindowIdAtCursor()
   if !!popup_winid
     popup_close(popup_winid)
@@ -59,7 +59,7 @@ def mypopup#close_popup_atcursor()
   endif
 enddef
 
-def mypopup#scrolldown_or_next_hunk()
+export def Scrolldown_or_next_hunk()
   const popup_winid = PopupWindowIdAtCursor()
   if !!popup_winid
     ScrollInPopup(popup_winid, 5)
@@ -68,7 +68,7 @@ def mypopup#scrolldown_or_next_hunk()
   endif
 enddef
 
-def mypopup#scrollup_or_prev_hunk()
+export def Scrollup_or_prev_hunk()
   const popup_winid = PopupWindowIdAtCursor()
   if !!popup_winid
     ScrollInPopup(popup_winid, -5)

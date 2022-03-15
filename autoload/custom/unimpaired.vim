@@ -5,11 +5,11 @@ def Pasteblankline(linenr: number)
     append(linenr, lines)
 enddef
 
-def custom#unimpaired#PasteBlanklineAbove()
+export def PasteBlanklineAbove()
     Pasteblankline(line('.') - 1)
 enddef
 
-def custom#unimpaired#PasteBlanklineBelow()
+export def PasteBlanklineBelow()
     Pasteblankline(line('.'))
 enddef
 
@@ -17,12 +17,12 @@ def PrintOptionValue(option: string)
     :execute 'set ' .. option .. '?'
 enddef
 
-def custom#unimpaired#ToggleOption(option: string)
+export def ToggleOption(option: string)
     execute('setlocal ' .. option .. '!')
     PrintOptionValue(option)
 enddef
 
-def custom#unimpaired#SwitchOption(option: string, first: string, second: string)
+export def SwitchOption(option: string, first: string, second: string)
     const opt_value = trim(execute('echo &' .. option))
 
     if opt_value ==# first

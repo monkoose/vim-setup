@@ -2,7 +2,7 @@ vim9script
 
 const qftitle = '--MYMAKE--'
 
-def mymake#buffer()
+export def Buffer()
     :cclose
     if get(g:, 'myterm_winnr') > 0
         const term_wininfo = getwininfo(win_getid(g:myterm_winnr))
@@ -18,7 +18,7 @@ def mymake#buffer()
     endif
 enddef
 
-def mymake#makeprg()
+export def Makeprg()
     ProcessCmd(split(&makeprg))
 enddef
 

@@ -118,8 +118,8 @@ augroup GitGutterUpdate
 augroup END
 " }}}
 " vim9-stargate {{{
-noremap <space><space> <Cmd>call stargate#ok_vim(1)<CR>
-nnoremap <space>w <Cmd>call stargate#galaxy()<CR>
+noremap <space><space> <Cmd>call stargate#OKvim(1)<CR>
+nnoremap <space>w <Cmd>call stargate#Galaxy()<CR>
 
 let g:stargate_keymaps = {
       \ "~": "Ё",
