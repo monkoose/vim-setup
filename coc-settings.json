@@ -5,9 +5,17 @@
     "suggest.highPrioritySourceLimit": 20,
     "suggest.lowPrioritySourceLimit": 10,
     "suggest.removeDuplicateItems": true,
+    "suggest.floatConfig": {
+        "border": false,
+        "close": false,
+        "highlight": "CocFloating"
+    },
     "diagnostic.enableMessage": "jump",
     "diagnostic.messageDelay": 100,
     "diagnostic.floatConfig": {
+        "border": false,
+        "highlight": "CocFloating",
+        "close": false,
         "maxWidth": 100,
         "maxHeight": 10
     },
@@ -17,10 +25,17 @@
     "diagnostic.infoSign": "I",
     "diagnostic.hintSign": "H",
     "signature.enable": false,
+    "signature.hideOnTextChange": true,
     "signature.floatConfig": {
+        "border": false,
+        "highlight": "CocFloating",
+        "close": false,
         "maxHeight": 6
     },
     "hover.floatConfig": {
+        "border": false,
+        "highlight": "CocFloating",
+        "close": false,
         "maxWidth": 100
     },
     "notification.highlightGroup": "CocNotification",

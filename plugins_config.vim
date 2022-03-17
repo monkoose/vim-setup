@@ -18,23 +18,26 @@ g:coc_global_extensions = [
 
 augroup CocAutocmd
     autocmd!
-    autocmd FileType css,scss,javascript,typescript,html,python,json,yaml,vim,sh,c,cpp,lua,rust call s:DefineCocMaps()
+    autocmd FileType
+        \ vim,json,sh,python,javascript,typescript,html,css,scss,yaml,c,cpp,rust,lua
+        \ vim9 DefineCocMaps()
 augroup END
 
 def DefineCocMaps()
     nnoremap <buffer><silent> K        <Cmd>call CocActionAsync('doHover')<CR>
     nmap     <buffer><silent> <space>d <Plug>(coc-definition)
-    nmap     <buffer>         <space>l <Plug>(coc-diagnostic-next)
-    nmap     <buffer>         <space>L <Plug>(coc-diagnostic-prev)
 enddef
 
 g:coc_snippet_next = 'e'
 g:coc_snippet_prev = 'w'
+inoremap <silent> n <Cmd>call coc#float#scroll(1, 4)<CR>
+inoremap <silent> p <Cmd>call coc#float#scroll(0, 4)<CR>
 inoremap <silent><expr>   <C-l>     pumvisible() ? coc#_select_confirm() : coc#refresh()
 inoremap <silent><expr>   <C-j>     pumvisible() ? "\<C-n>" : coc#refresh()
 inoremap <silent><expr>   <C-k>     pumvisible() ? "\<C-p>" : coc#refresh()
 inoremap <silent>         <CR>      <C-g>u<CR><C-r>=coc#on_enter()<CR>
 
+inoremap <silent>         s         <Cmd>call CocActionAsync('showSignatureHelp')<CR>
 nmap     <silent>         <space>kk   <Cmd>CocRestart<CR>
 nmap     <silent>         <space>D    <Plug>(coc-declaration)
 nmap     <silent>         <space>kr   <Plug>(coc-references)
@@ -45,6 +48,8 @@ nmap     <silent>         <space>kl   <Cmd>CocList<CR>
 nmap     <silent>         <space>kf   <Plug>(coc-format)
 nmap     <silent>         <space>ki   <Plug>(coc-diagnostic-info)
 nmap     <silent>         <space>ko   <Cmd>CocList outline<CR>
+nmap     <silent>         <space>l    <Plug>(coc-diagnostic-next)
+nmap     <silent>         <space>L    <Plug>(coc-diagnostic-prev)
 vmap     <silent>         <space>ka   <Plug>(coc-codeaction-selected)
 vmap     <silent>         <space>kf   <Plug>(coc-format-selected)
 
@@ -59,8 +64,8 @@ const fzf_defaults = [
 $FZF_DEFAULT_OPTS = join(fzf_defaults, " ")
 g:fzf_command_prefix = 'Fzf'
 g:fzf_history_dir = '~/.cache/vim/fzf_history'
-g:fzf_layout = { 'right': '50%' }
-# g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.7, 'border': 'none' } }
+# g:fzf_layout = { 'right': '50%' }
+g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'border': 'none' } }
 
 nnoremap <silent> <space>ff   <Cmd>FzfFiles!<CR>
 nnoremap <silent> <space>fh   <Cmd>FzfHelptags!<CR>
