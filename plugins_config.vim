@@ -11,6 +11,7 @@ let g:coc_global_extensions = [
     \ 'coc-yaml',
     \ 'coc-clangd',
     \ 'coc-rust-analyzer',
+    \ 'coc-lua',
     \ ]
 
 
@@ -36,7 +37,7 @@ vmap     <silent>         <space>kf   <Plug>(coc-format-selected)
 
 augroup CocAutocmd
     autocmd!
-    autocmd FileType css,scss,javascript,typescript,html,python,json,yaml,vim,sh,c,cpp
+    autocmd FileType css,scss,javascript,typescript,html,python,json,yaml,vim,sh,c,cpp,lua,rust
             \ call s:define_coc_mappings()
 augroup END
 
