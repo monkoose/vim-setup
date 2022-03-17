@@ -14,7 +14,7 @@ export def PasteBlanklineBelow()
 enddef
 
 def PrintOptionValue(option: string)
-    :execute 'set ' .. option .. '?'
+    execute 'set ' .. option .. '?'
 enddef
 
 export def ToggleOption(option: string)

@@ -3,7 +3,7 @@ vim9script
 const qftitle = '--MYMAKE--'
 
 export def Buffer()
-    :cclose
+    cclose
     if get(g:, 'myterm_winnr') > 0
         const term_wininfo = getwininfo(win_getid(g:myterm_winnr))
         if !!len(term_wininfo) && !!term_wininfo[0].terminal

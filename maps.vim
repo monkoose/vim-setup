@@ -1,6 +1,5 @@
 noremap            Q           gq
 noremap            Y           y$
-nnoremap <silent>  <F3>        <Cmd>setlocal spell!<CR>
 nnoremap <silent>  <space>/    <Cmd>nohlsearch<CR>
 nnoremap           w         <C-w>w
 nnoremap <silent>  f         <Cmd>call custom#endofline#Toggle(';')<CR>
@@ -30,8 +29,8 @@ nnoremap           [<space>    <Cmd>call custom#unimpaired#PasteBlanklineAbove()
 nnoremap           ]<space>    <Cmd>call custom#unimpaired#PasteBlanklineBelow()<CR>
 nnoremap <silent>  <C-@>       <Cmd>let &iminsert = !&iminsert<CR>
 nnoremap           ;           :
-nnoremap           <C-h>       ,
-nnoremap           <C-l>       ;
+nnoremap <expr>    <C-h>       getcharsearch().forward ? ',' : ';'
+nnoremap <expr>    <C-l>       getcharsearch().forward ? ';' : ','
 nnoremap           `         <Cmd>call myterm#Toggle()<CR>
 nnoremap           <space>mf   <Cmd>call mymake#Buffer()<CR>
 nnoremap           <space>mm   <Cmd>call mymake#Makeprg()<CR>
@@ -40,8 +39,8 @@ vnoremap           <space>y    "+y
 vnoremap           <C-j>       <C-d>
 vnoremap           <C-k>       <C-u>
 vnoremap           ;           :
-vnoremap           <C-h>       ,
-vnoremap           <C-l>       ;
+vnoremap <expr>    <C-h>       getcharsearch().forward ? ',' : ';'
+vnoremap <expr>    <C-l>       getcharsearch().forward ? ';' : ','
 
 noremap!           <C-@>         <C-^>
 inoremap           <C-p>       <C-k>
@@ -61,7 +60,7 @@ set termwinkey=<C-q>
 tnoremap           w       <C-q>w
 tnoremap <silent>  q       <Cmd>close!<CR>
 tnoremap           <C-q><C-n> <C-q>N
-tnoremap           `       <Cmd>call myterm#toggle()<CR>
+tnoremap           `       <Cmd>call myterm#Toggle()<CR>
 
 " Fix slow esc, should be after all Alt remaps
 nnoremap <silent><nowait>  <Esc>     <Cmd>call mypopup#Close_popup_atcursor()<CR>

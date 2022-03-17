@@ -65,6 +65,5 @@
                 }
             }
         }
-    },
-    "d.servedPath": "/home/monkoose/.config/coc/extensions/coc-dlang-data/serve-d"
+    }
 }

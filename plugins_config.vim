@@ -1,58 +1,57 @@
 " coc.nvim and coc-fzf {{{
-" let g:coc_global_extensions = [
-"       \ 'coc-vimlsp',
-"       \ 'coc-json',
-"       \ 'coc-sh',
-"       \ 'coc-snippets',
-"       \ 'coc-pyright',
-"       \ 'coc-tsserver',
-"       \ 'coc-html',
-"       \ 'coc-css',
-"       \ 'coc-yaml',
-"       \ 'coc-go',
-"       \ 'coc-svelte',
-"       \ ]
-"
-" let g:coc_snippet_next = 'e'
-" let g:coc_snippet_prev = 'r'
-" inoremap <silent><expr>   <C-l>     pumvisible() ? coc#_select_confirm() : coc#refresh()
-" inoremap <silent><expr>   <C-j>     pumvisible() ? "\<C-n>" : coc#refresh()
-" inoremap <silent><expr>   <C-k>     pumvisible() ? "\<C-p>" : coc#refresh()
-" inoremap <silent>         <CR>      <C-g>u<CR><C-r>=coc#on_enter()<CR>
-"
-" nmap     <silent>         <space>kk   <Cmd>CocRestart<CR>
-" nmap     <silent>         <space>D    <Plug>(coc-declaration)
-" nmap     <silent>         <space>kr   <Plug>(coc-references)
-" nmap     <silent>         <space>kR   <Plug>(coc-rename)
-" nmap     <silent>         <space>ka   <Cmd>CocList actions<CR>
-" nmap     <silent>         <space>kd   <Cmd>CocList diagnostics<CR>
-" nmap     <silent>         <space>kl   <Cmd>CocList<CR>
-" nmap     <silent>         <space>kf   <Plug>(coc-format)
-" nmap     <silent>         <space>ki   <Plug>(coc-diagnostic-info)
-" nmap     <silent>         <space>ko   <Cmd>CocList outline<CR>
-" vmap     <silent>         <space>ka   <Plug>(coc-codeaction-selected)
-" vmap     <silent>         <space>kf   <Plug>(coc-format-selected)
-"
-" augroup CocAutocmd
-"   autocmd!
-"   autocmd FileType css,scss,javascript,typescript,html,python,json,yaml,vim,svelte,sh,c,cpp,go
-"         \ call s:define_coc_mappings()
-" augroup END
-"
-" function! s:define_coc_mappings() abort
-"   nnoremap <buffer><silent> K        <Cmd>call CocActionAsync('doHover')<CR>
-"   nmap     <buffer><silent> <space>d <Plug>(coc-definition)
-"   nmap     <buffer>         <space>l <Plug>(coc-diagnostic-next)
-"   nmap     <buffer>         <space>L <Plug>(coc-diagnostic-prev)
-" endfunction
+let g:coc_global_extensions = [
+    \ 'coc-vimlsp',
+    \ 'coc-json',
+    \ 'coc-sh',
+    \ 'coc-snippets',
+    \ 'coc-pyright',
+    \ 'coc-tsserver',
+    \ 'coc-html',
+    \ 'coc-css',
+    \ 'coc-yaml',
+    \ ]
+
+
+let g:coc_snippet_next = 'e'
+let g:coc_snippet_prev = 'w'
+inoremap <silent><expr>   <C-l>     pumvisible() ? coc#_select_confirm() : coc#refresh()
+inoremap <silent><expr>   <C-j>     pumvisible() ? "\<C-n>" : coc#refresh()
+inoremap <silent><expr>   <C-k>     pumvisible() ? "\<C-p>" : coc#refresh()
+inoremap <silent>         <CR>      <C-g>u<CR><C-r>=coc#on_enter()<CR>
+
+nmap     <silent>         <space>kk   <Cmd>CocRestart<CR>
+nmap     <silent>         <space>D    <Plug>(coc-declaration)
+nmap     <silent>         <space>kr   <Plug>(coc-references)
+nmap     <silent>         <space>kR   <Plug>(coc-rename)
+nmap     <silent>         <space>ka   <Cmd>CocList actions<CR>
+nmap     <silent>         <space>kd   <Cmd>CocList diagnostics<CR>
+nmap     <silent>         <space>kl   <Cmd>CocList<CR>
+nmap     <silent>         <space>kf   <Plug>(coc-format)
+nmap     <silent>         <space>ki   <Plug>(coc-diagnostic-info)
+nmap     <silent>         <space>ko   <Cmd>CocList outline<CR>
+vmap     <silent>         <space>ka   <Plug>(coc-codeaction-selected)
+vmap     <silent>         <space>kf   <Plug>(coc-format-selected)
+
+augroup CocAutocmd
+    autocmd!
+    autocmd FileType css,scss,javascript,typescript,html,python,json,yaml,vim,sh,c,cpp
+            \ call s:define_coc_mappings()
+augroup END
+
+function! s:define_coc_mappings() abort
+    nnoremap <buffer><silent> K        <Cmd>call CocActionAsync('doHover')<CR>
+    nmap     <buffer><silent> <space>d <Plug>(coc-definition)
+    nmap     <buffer>         <space>l <Plug>(coc-diagnostic-next)
+    nmap     <buffer>         <space>L <Plug>(coc-diagnostic-prev)
+endfunction
 "}}}
 " fzf.vim {{{
 let s:fzf_defaults = [
-        \ '--ansi --bind="ctrl-/:toggle-preview,alt-i:toggle-all,ctrl-n:preview-page-down,ctrl-p:preview-page-up,ctrl-l:accept,' ..
-          \ 'ctrl-r:clear-screen,alt-k:next-history,alt-j:previous-history,ctrl-alt-j:page-down,ctrl-alt-k:page-up"',
-      \ '--color=hl:#f158a6,fg+:#b8af96,hl+:#f158a6,bg+:#3b312b,border:#40362f,gutter:#21261d,pointer:#d3c94b,prompt:#c57c41,marker:#d24b98,info:#70a17c',
-      \ '--pointer=● --marker=▶ --layout=reverse --tabstop=2 --info=inline --margin=1,3 --exact --header='
-      \ ]
+    \ '--ansi --bind="ctrl-/:toggle-preview,alt-i:toggle-all,ctrl-n:preview-page-down,ctrl-p:preview-page-up,ctrl-l:accept,' ..
+    \ 'ctrl-r:clear-screen,alt-k:next-history,alt-j:previous-history,ctrl-alt-j:page-down,ctrl-alt-k:page-up"',
+    \ '--color=hl:#f158a6,fg+:#b8af96,hl+:#f158a6,bg+:#3b312b,border:#40362f,gutter:#21261d,pointer:#d3c94b,prompt:#c57c41,marker:#d24b98,info:#70a17c',
+    \ '--pointer=● --marker=▶ --layout=reverse --tabstop=2 --info=inline --margin=1,3 --exact --header='
+\ ]
 let $FZF_DEFAULT_OPTS = join(s:fzf_defaults, " ")
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_history_dir = '~/.cache/vim/fzf_history'
@@ -113,8 +112,8 @@ nmap  <silent>   <space>guu <Plug>(GitGutterUndoHunk)
 nmap  <silent>   <space>gss <Plug>(GitGutterStageHunk)
 
 augroup GitGutterUpdate
-  autocmd!
-  autocmd BufWritePost * GitGutter
+    autocmd!
+    autocmd BufWritePost * GitGutter
 augroup END
 " }}}
 " vim9-stargate {{{
@@ -136,9 +135,6 @@ let g:stargate_keymaps = {
 " packadd termdebug
 " let g:termdebug_wide = 1
 " let g:termdebug_disasm_window = 15
-" }}}
-" vim-go {{{
-let g:go_gopls_enabled = 0
 " }}}
 
 " vim: foldmethod=marker
