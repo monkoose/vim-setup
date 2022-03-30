@@ -42,6 +42,7 @@ set guicursor=
 set keymap=russian-jcuken iminsert=0
 set grepprg=rg\ --vimgrep grepformat=%f:%l:%c:%m
 set clipboard-=autoselect
+set shell=/bin/fish
 
 let g:loaded_getscriptPlugin = 1
 let g:loaded_gzip = 1

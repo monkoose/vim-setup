@@ -69,7 +69,6 @@ function! StatusGitGutter() abort
     let symbols = ['+', '~', '-']
     let changes = join(map(copy(GitGutterGetHunkSummary()), "v:val == 0 ? '' : ' ' .. symbols[v:key] .. v:val"), '')
     return changes
-    " return winwidth(winnr()) > 60 ? changes : ''
 endfunction
 
 function! StatusIminsert() abort

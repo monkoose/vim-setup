@@ -1,5 +1,6 @@
 {
     "suggest.snippetIndicator": " ⮯",
+    "suggest.minTriggerInputLength": 3,
     "suggest.maxCompleteItemCount": 30,
     "suggest.timeout": 3000,
     "suggest.highPrioritySourceLimit": 20,
@@ -7,7 +8,6 @@
     "suggest.removeDuplicateItems": true,
     "suggest.floatConfig": {
         "border": false,
-        "close": false,
         "highlight": "CocFloating"
     },
     "diagnostic.enableMessage": "jump",
