@@ -1,3 +1,5 @@
+vim9script
+
 set background=dark
 colorscheme boa
 
@@ -22,7 +24,7 @@ set ignorecase smartcase
 set sidescrolloff=5 sidescroll=1
 set updatetime=600
 set noswapfile undofile undodir=~/.cache/vim/undo/
-"set viewoptions=cursor,curdir,folds
+# set viewoptions=cursor,curdir,folds
 set linebreak
 set showbreak=└
 set list listchars=tab:→-,trail:·,extends:⌇,precedes:⌇,nbsp:~
@@ -42,17 +44,29 @@ set guicursor=
 set keymap=russian-jcuken iminsert=0
 set grepprg=rg\ --vimgrep grepformat=%f:%l:%c:%m
 set clipboard-=autoselect
-set shell=/bin/fish
+set shell=/bin/fish"
 
-let g:loaded_getscriptPlugin = 1
-let g:loaded_gzip = 1
-let g:loaded_logiPat = 1
-let g:loaded_rrhelper = 1
-let g:loaded_tarPlugin = 1
-let g:loaded_2html_plugin = 1
-let g:loaded_vimballPlugin = 1
-let g:loaded_zipPlugin = 1
-let g:python_highlight_all = 1
-let g:markdown_folding = 0
-let g:loaded_netrw = 1
-let g:loaded_netrwPlugin = 1
+# autocmds
+augroup MyAutocmds
+    autocmd!
+    autocmd FocusGained * silent! checktime
+    autocmd TerminalWinOpen * setlocal nonumber norelativenumber
+    autocmd FileType * syntax sync minlines=200
+    autocmd TextYankPost * silent call custom#on_yank#Highlight(250)
+augroup END
+
+g:python_highlight_all = 1
+g:markdown_folding = 0
+
+# disable built-in plugins
+g:loaded_getscriptPlugin = 1
+g:loaded_gzip = 1
+g:loaded_logiPat = 1
+g:loaded_netrw = 1
+g:loaded_netrwPlugin = 1
+g:loaded_rrhelper = 1
+g:loaded_spellfile_plugin = 1
+g:loaded_tarPlugin = 1
+g:loaded_2html_plugin = 1
+g:loaded_vimballPlugin = 1
+g:loaded_zipPlugin = 1
