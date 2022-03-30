@@ -23,7 +23,7 @@ augroup SetStatusLine
     autocmd WinLeave,WinNew * call SetStatusLine('let &l:statusline = s:statusline_nc')
     autocmd FileType fugitiveblame let &l:statusline = '%< %(%l/%L%) %=%P '
     autocmd FileType fern let &l:statusline = " %{getcwd()->trim()->fnamemodify(':~')} "
-    autocmd TerminalWinOpen * let &l:statusline = '  %{term_gettitle(bufnr())} %=%Y '
+    autocmd TerminalWinOpen * let &l:statusline = '  %Y %= %4*%{term_getstatus(bufnr())}%* '
 augroup END
 
 function! SetStatusLine(cmd) abort
