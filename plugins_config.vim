@@ -14,6 +14,7 @@ g:coc_global_extensions = [
     'coc-clangd',
     'coc-rust-analyzer',
     'coc-lua',
+    'coc-fish',
 ]
 
 augroup CocAutocmd
@@ -42,6 +43,7 @@ nmap     <silent>         <space>kk   <Cmd>CocRestart<CR>
 nmap     <silent>         <space>D    <Plug>(coc-declaration)
 nmap     <silent>         <space>kr   <Plug>(coc-references)
 nmap     <silent>         <space>kR   <Plug>(coc-rename)
+nmap     <silent>         <space>ke   <Plug>(coc-refactor)
 nmap     <silent>         <space>ka   <Cmd>CocList actions<CR>
 nmap     <silent>         <space>kd   <Cmd>CocList diagnostics<CR>
 nmap     <silent>         <space>kl   <Cmd>CocList<CR>

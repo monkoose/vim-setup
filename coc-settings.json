@@ -1,5 +1,5 @@
 {
-    "suggest.snippetIndicator": " ~",
+    "suggest.snippetIndicator": " ⮯",
     "suggest.maxCompleteItemCount": 30,
     "suggest.timeout": 3000,
     "suggest.highPrioritySourceLimit": 20,

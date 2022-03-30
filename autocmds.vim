@@ -5,7 +5,7 @@ augroup END
 
 augroup MyTerminal
     autocmd!
-    autocmd TerminalOpen * set nonumber norelativenumber
+    autocmd TerminalWinOpen * setlocal nonumber norelativenumber
 augroup END
 
 augroup FileTypeOptions
