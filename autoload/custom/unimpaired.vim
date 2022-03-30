@@ -1,16 +1,16 @@
 vim9script
 
-def Pasteblankline(linenr: number)
+def PasteBlankline(linenr: number)
     const lines = repeat([''], v:count1)
     append(linenr, lines)
 enddef
 
 export def PasteBlanklineAbove()
-    Pasteblankline(line('.') - 1)
+    PasteBlankline(line('.') - 1)
 enddef
 
 export def PasteBlanklineBelow()
-    Pasteblankline(line('.'))
+    PasteBlankline(line('.'))
 enddef
 
 def PrintOptionValue(option: string)
@@ -22,15 +22,10 @@ export def ToggleOption(option: string)
     PrintOptionValue(option)
 enddef
 
-export def SwitchOption(option: string, first: string, second: string)
-    const opt_value = trim(execute('echo &' .. option))
-
-    if opt_value ==# first
-        execute('set ' .. option .. '=' .. second)
-    else
-        execute('set ' .. option .. '=' .. first)
-    end
-
+export def SwitchOption(option: string, first: any, second: any)
+    const opt = '&' .. option
+    const new_value = getbufvar('', opt) == first ? second : first
+    setbufvar('', opt, new_value)
     PrintOptionValue(option)
 enddef
 

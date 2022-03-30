@@ -23,8 +23,8 @@ nnoremap           yoc         <Cmd>call custom#unimpaired#ToggleOption('cursorl
 nnoremap           yox         <Cmd>call custom#unimpaired#ToggleOption('cursorcolumn')<CR>
 nnoremap           yos         <Cmd>call custom#unimpaired#ToggleOption('spell')<CR>
 nnoremap           yol         <Cmd>call custom#unimpaired#ToggleOption('list')<CR>
-nnoremap           yof         <Cmd>call custom#unimpaired#SwitchOption('foldcolumn', '0', '1')<CR>
-nnoremap           yoy         <Cmd>call custom#unimpaired#SwitchOption('colorcolumn', '', '100')<CR>
+nnoremap           yof         <Cmd>call custom#unimpaired#SwitchOption('foldcolumn', 0, 1)<CR>
+nnoremap           yoy         <Cmd>call custom#unimpaired#SwitchOption('colorcolumn', '', 100)<CR>
 nnoremap           [<space>    <Cmd>call custom#unimpaired#PasteBlanklineAbove()<CR>
 nnoremap           ]<space>    <Cmd>call custom#unimpaired#PasteBlanklineBelow()<CR>
 nnoremap <silent>  <C-@>       <Cmd>let &iminsert = !&iminsert<CR>
