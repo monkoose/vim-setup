@@ -35,6 +35,7 @@ set smarttab expandtab smartindent shiftround shiftwidth=4 softtabstop=-1
 set nojoinspaces
 set completeopt=menuone,longest,noinsert,noselect,popup
 set wildmode=longest:full
+set wildoptions=fuzzy,pum
 set wildignore+=*/.git/*,*/__pycache__/*,*.pyc,*/node_modules/*
 set wildignore+=*.jpg,*.jpeg,*.bmp,*.gif,*.png
 set wildignorecase

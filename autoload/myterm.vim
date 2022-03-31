@@ -36,7 +36,7 @@ export def Toggle()
         set nobuflisted filetype=myterm
         term.bufnr = bufnr()
         exe 'autocmd! MyTermToggle WinLeave <buffer=' ..
-            term.bufnr .. '> call s:AdjustTermProperties()'
+            term.bufnr .. '> vim9 AdjustTermProperties()'
         return
     endif
 
