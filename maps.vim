@@ -1,3 +1,11 @@
+augroup CocSetKeymaps
+    autocmd!
+    autocmd User CocNvimInit nnoremap <silent><expr> <space>d
+                \ CocHasProvider('definition') ? CocActionAsync('jumpDefinition') : "\<C-]>"
+    autocmd User CocNvimInit nnoremap <silent><expr> K
+                \ CocHasProvider('hover') ? CocActionAsync('doHover') : "K"
+augroup END
+
 noremap            Q           gq
 noremap            Y           y$
 nnoremap <silent>  <space>/    <Cmd>nohlsearch<CR>
@@ -11,7 +19,7 @@ nnoremap <silent>  gx          <Cmd>call myfunctions#Open_path()<CR>
 nnoremap <silent>  zS          <Cmd>call myfunctions#Synnames()<CR>
 nnoremap           <space>q    <Cmd>pclose<CR>
 nnoremap <silent>  <space>a    <C-^>
-nnoremap           <space>d    <C-]>
+" nnoremap           <space>d    <C-]>
 nnoremap           <space>y    "+y
 nnoremap           <space>p    "+
 nnoremap           <C-j>       <C-d>
@@ -55,6 +63,7 @@ cnoremap           <C-j>       <C-n>
 cnoremap           <C-k>       <C-p>
 cnoremap           h         <Left>
 cnoremap           l         <Right>
+cnoremap <expr> <C-l> pumvisible() ? "\<C-y>" : "\<CR>"
 
 set termwinkey=<C-q>
 tnoremap           w       <C-q>w

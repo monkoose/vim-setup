@@ -17,18 +17,6 @@ g:coc_global_extensions = [
     'coc-fish',
 ]
 
-augroup CocAutocmd
-    autocmd!
-    autocmd FileType
-        \ vim,json,sh,python,javascript,typescript,html,css,scss,yaml,c,cpp,rust,lua
-        \ vim9 DefineCocMaps()
-augroup END
-
-def DefineCocMaps()
-    nnoremap <buffer><silent> K        <Cmd>call CocActionAsync('doHover')<CR>
-    nmap     <buffer><silent> <space>d <Plug>(coc-definition)
-enddef
-
 g:coc_snippet_next = 'e'
 g:coc_snippet_prev = 'w'
 inoremap <silent> n <Cmd>call coc#float#scroll(1, 4)<CR>
@@ -37,7 +25,6 @@ inoremap <silent><expr>   <C-l>     pumvisible() ? coc#_select_confirm() : coc#r
 inoremap <silent><expr>   <C-j>     pumvisible() ? "\<C-n>" : coc#refresh()
 inoremap <silent><expr>   <C-k>     pumvisible() ? "\<C-p>" : coc#refresh()
 inoremap <silent>         <CR>      <C-g>u<CR><C-r>=coc#on_enter()<CR>
-
 inoremap <silent>         s         <Cmd>call CocActionAsync('showSignatureHelp')<CR>
 nmap     <silent>         <space>kk   <Cmd>CocRestart<CR>
 nmap     <silent>         <space>D    <Plug>(coc-declaration)
@@ -148,4 +135,5 @@ g:stargate_keymaps = {
 # g:termdebug_disasm_window = 15
 # }}}
 
+defcompile
 # vim: foldmethod=marker
