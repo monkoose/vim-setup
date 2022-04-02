@@ -12,7 +12,6 @@ Plug 'monkoose/vim9-stargate'
 " Plug 'Vimjas/vim-python-pep8-indent', {'for': ['python']}
 " Plug 'cespare/vim-toml', {'for': ['toml']}
 Plug 'lacygoill/vim9-syntax'
-" Plug 'Shougo/context_filetype.vim'
 " Plug 'thinca/vim-themis'
 " Plug 'evanleck/vim-svelte', {'for': ['svelte']}
 
