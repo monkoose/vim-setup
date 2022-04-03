@@ -1,1 +1,1 @@
-setlocal iskeyword-=#
+setlocal iskeyword-=# shiftwidth=2

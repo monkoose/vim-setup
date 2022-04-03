@@ -49,11 +49,11 @@ set shell=/bin/fish
 
 # autocmds
 augroup MyAutocmds
-    autocmd!
-    autocmd FocusGained * silent! checktime
-    autocmd TerminalWinOpen * setlocal nonumber norelativenumber
-    autocmd FileType * syntax sync minlines=200
-    autocmd TextYankPost * silent call custom#on_yank#Highlight(250)
+  autocmd!
+  autocmd FocusGained * silent! checktime
+  autocmd TerminalWinOpen * setlocal nonumber norelativenumber
+  autocmd FileType * syntax sync minlines=200
+  autocmd TextYankPost * silent call custom#on_yank#Highlight(250)
 augroup END
 
 g:python_highlight_all = 1

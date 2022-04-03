@@ -2,19 +2,19 @@ vim9script
 
 # coc.nvim and coc-fzf {{{
 g:coc_global_extensions = [
-    'coc-vimlsp',
-    'coc-json',
-    'coc-sh',
-    'coc-snippets',
-    'coc-pyright',
-    'coc-tsserver',
-    'coc-html',
-    'coc-css',
-    'coc-yaml',
-    'coc-clangd',
-    'coc-rust-analyzer',
-    'coc-lua',
-    'coc-fish',
+  'coc-vimlsp',
+  'coc-json',
+  'coc-sh',
+  'coc-snippets',
+  'coc-pyright',
+  'coc-tsserver',
+  'coc-html',
+  'coc-css',
+  'coc-yaml',
+  'coc-clangd',
+  'coc-rust-analyzer',
+  'coc-lua',
+  'coc-fish',
 ]
 
 g:coc_snippet_next = 'e'
@@ -45,15 +45,14 @@ vmap     <silent>         <space>kf   <Plug>(coc-format-selected)
 # }}}
 # fzf.vim {{{
 const fzf_defaults = [
-    '--ansi --bind="ctrl-/:toggle-preview,alt-i:toggle-all,ctrl-n:preview-page-down,ctrl-p:preview-page-up,ctrl-l:accept,' ..
-    'ctrl-r:clear-screen,alt-k:next-history,alt-j:previous-history,ctrl-alt-j:page-down,ctrl-alt-k:page-up"',
-    '--color=hl:#f158a6,fg+:#b8af96,hl+:#f158a6,bg+:#3b312b,border:#40362f,gutter:#21261d,pointer:#d3c94b,prompt:#c57c41,marker:#d24b98,info:#70a17c',
-    '--pointer=● --marker=▶ --layout=reverse --tabstop=2 --info=inline --margin=1,3 --exact --header='
+  '--ansi --bind="ctrl-/:toggle-preview,alt-i:toggle-all,ctrl-n:preview-page-down,ctrl-p:preview-page-up,ctrl-l:accept,' ..
+  'ctrl-r:clear-screen,alt-k:next-history,alt-j:previous-history,ctrl-alt-j:page-down,ctrl-alt-k:page-up"',
+  '--color=hl:#f158a6,fg+:#b8af96,hl+:#f158a6,bg+:#3b312b,border:#40362f,gutter:#21261d,pointer:#d3c94b,prompt:#c57c41,marker:#d24b98,info:#70a17c',
+  '--pointer=● --marker=▶ --layout=reverse --tabstop=2 --info=inline --margin=1,3 --exact --header='
 ]
 $FZF_DEFAULT_OPTS = join(fzf_defaults, " ")
 g:fzf_command_prefix = 'Fzf'
 g:fzf_history_dir = '~/.cache/vim/fzf_history'
-# g:fzf_layout = { 'right': '50%' }
 g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'border': 'none' } }
 
 nnoremap <silent> <space>ff   <Cmd>FzfFiles!<CR>
@@ -70,8 +69,8 @@ nnoremap <silent> <space>gC   <Cmd>FzfBCommits!<CR>
 # }}}
 # fzf-hoogle.vim {{{
 # augroup HoogleMaps
-#     autocmd!
-#     autocmd FileType haskell nnoremap <buffer>   <space>hh :Hoogle <C-r><C-w><CR>
+#   autocmd!
+#   autocmd FileType haskell nnoremap <buffer>   <space>hh :Hoogle <C-r><C-w><CR>
 # augroup END
 # g:hoogle_fzf_header = ''
 # g:hoogle_fzf_preview = 'down:50%:wrap'
@@ -110,8 +109,8 @@ nmap  <silent>   <space>guu <Plug>(GitGutterUndoHunk)
 nmap  <silent>   <space>gss <Plug>(GitGutterStageHunk)
 
 augroup GitGutterUpdate
-    autocmd!
-    autocmd BufWritePost * GitGutter
+  autocmd!
+  autocmd BufWritePost * GitGutter
 augroup END
 # }}}
 # vim9-stargate {{{
@@ -119,14 +118,14 @@ noremap <space><space> <Cmd>call stargate#OKvim(1)<CR>
 nnoremap <space>w <Cmd>call stargate#Galaxy()<CR>
 
 g:stargate_keymaps = {
-    "~": "Ё",
-    "Q": "Й", "W": "Ц", "E": "У", "R": "К", "T": "Е", "Y": "Н", "U": "Г", "I": "Ш", "O": "Щ", "P": "З", "{": "Х", "}": "Ъ",
-     "A": "Ф", "S": "Ы", "D": "В", "F": "А", "G": "П", "H": "Р", "J": "О", "K": "Л", "L": "Д", ":": "Ж", '"': "Э",
-      "Z": "Я", "X": "Ч", "C": "С", "V": "М", "B": "И", "N": "Т", "M": "Ь", "<": "Б", ">": "Ю",
-    "`": "ё",
-    "q": "й", "w": "ц", "e": "у", "r": "к", "t": "е", "y": "н", "u": "г", "i": "ш", "o": "щ", "p": "з", "[": "х", "]": "ъ",
-     "a": "ф", "s": "ы", "d": "в", "f": "а", "g": "п", "h": "р", "j": "о", "k": "л", "l": "д", ";": "ж", "'": "э",
-      "z": "я", "x": "ч", "c": "с", "v": "м", "b": "и", "n": "т", "m": "ь", ",": "б", ".": "ю"
+  "~": "Ё",
+  "Q": "Й", "W": "Ц", "E": "У", "R": "К", "T": "Е", "Y": "Н", "U": "Г", "I": "Ш", "O": "Щ", "P": "З", "{": "Х", "}": "Ъ",
+   "A": "Ф", "S": "Ы", "D": "В", "F": "А", "G": "П", "H": "Р", "J": "О", "K": "Л", "L": "Д", ":": "Ж", '"': "Э",
+    "Z": "Я", "X": "Ч", "C": "С", "V": "М", "B": "И", "N": "Т", "M": "Ь", "<": "Б", ">": "Ю",
+  "`": "ё",
+  "q": "й", "w": "ц", "e": "у", "r": "к", "t": "е", "y": "н", "u": "г", "i": "ш", "o": "щ", "p": "з", "[": "х", "]": "ъ",
+   "a": "ф", "s": "ы", "d": "в", "f": "а", "g": "п", "h": "р", "j": "о", "k": "л", "l": "д", ";": "ж", "'": "э",
+    "z": "я", "x": "ч", "c": "с", "v": "м", "b": "и", "n": "т", "m": "ь", ",": "б", ".": "ю"
 }
 # }}}
 # termdebug {{{

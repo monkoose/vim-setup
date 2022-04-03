@@ -1,5 +1,5 @@
 if exists('b:did_ftplugin')
-    finish
+  finish
 end
 let b:did_ftplugin = 1
 
@@ -16,8 +16,8 @@ setlocal iskeyword=@,48-57,+,-,_,.
 setlocal suffixesadd^=.fish
 
 if executable('fish')
-    setlocal formatprg=fish_indent
-    let b:formatprg = [ 'fish_indent' ]
+  setlocal formatprg=fish_indent
+  let b:formatprg = [ 'fish_indent' ]
 endif
 
 let &cpo = s:save_cpo
