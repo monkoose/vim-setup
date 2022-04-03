@@ -1,89 +1,100 @@
-let s:git = "%1*%{StatusGitBranch()}%*%4*%{StatusGitCommit()}%*%{StatusGitGutter()}"
-let s:git_nc = "%{StatusGitBranch()}%{StatusGitCommit()}"
-let s:spell = "%5*%{&spell ? '  SPELL ' : ''}%*"
-let s:right = ' %='
-let s:coc = "%7*%{StatusDiagnostic()}%*"
-let s:tail = ' %Y  %4*%P%* '
-let s:tail_nc = ' %=%Y  %P '
-let s:fname = '  %3*%f%* %7*%m%* '
-let s:fname_nc = '  %f %6*%M%*   '
-let s:ro = "%6*%{&ro ? '' : ''}%*  "
-let s:iminsert = "%6*%{StatusIminsert()}%*"
-" let s:lncol = "%< %-9(%3*%l%*·%4*%c%V%*%) "
-" let s:session = "%{fnamemodify(v:this_session, ':t')}"
+vim9script
 
-let s:statusline = s:iminsert .. s:fname .. s:ro .. s:git .. s:spell .. s:right .. s:coc .. s:tail
-let s:statusline_nc = s:fname_nc .. s:git_nc .. s:tail_nc
+const git = "%1*%{StatusGitBranch()}%*%4*%{StatusGitCommit()}%* %{StatusGitGutter()}"
+const git_nc = "%{StatusGitBranch()}%{StatusGitCommit()}"
+const spell = "%5*%{&spell ? '  SPELL ' : ''}%*"
+const right = ' %='
+const coc = "%7*%{StatusDiagnostic()}%*"
+const tail = ' %Y  %4*%P%* '
+const tail_nc = ' %=%Y  %P '
+const fname = '  %3*%f%* %7*%m%* '
+const fname_nc = '  %f %6*%M%*   '
+const ro = "%6*%{&ro ? '' : ''}%*  "
+const iminsert = "%6*%{StatusIminsert()}%*"
+# const lncol = "%< %-9(%3*%l%*·%4*%c%V%*%) "
+# const session = "%{fnamemodify(v:this_session, ':t')}"
 
-let &statusline = s:statusline
+const hash = '\c^fugitive:\%(//\)\=.\{-\}\%(//\|::\)' ..
+             '\zs\%(\x\{40,\}\|[0-3]\)\ze' ..
+             '\%(/.*\)\=$'
+
+const statusline = iminsert .. fname .. ro .. git .. spell .. right .. coc .. tail
+const statusline_nc = fname_nc .. git_nc .. tail_nc
+&statusline = statusline
 
 augroup SetStatusLine
-    autocmd!
-    autocmd WinEnter * call SetStatusLine('let &l:statusline = s:statusline')
-    autocmd WinLeave,WinNew * call SetStatusLine('let &l:statusline = s:statusline_nc')
-    autocmd FileType fugitiveblame let &l:statusline = '%< %(%l/%L%) %=%P '
-    autocmd FileType fern let &l:statusline = " %3*%{getcwd()->trim()->fnamemodify(':~')}%* "
-    autocmd TerminalWinOpen * let &l:statusline = '  %Y %= %4*%{term_getstatus(bufnr())}%* '
+  autocmd!
+  autocmd WinEnter * call SetStatusLine('&l:statusline = statusline')
+  autocmd WinLeave,WinNew * call SetStatusLine('&l:statusline = statusline_nc')
+  autocmd FileType fugitiveblame &l:statusline = '%< %(%l/%L%) %=%P '
+  autocmd FileType fern &l:statusline = " %3*%{getcwd()->trim()->fnamemodify(':~')}%* "
+  autocmd TerminalWinOpen * &l:statusline = '  %Y %= %4*%{term_getstatus(bufnr())}%* '
 augroup END
 
-function! SetStatusLine(cmd) abort
-    if index(['fugitiveblame', 'fern'], &filetype) != -1
-        return
-    endif
+def SetStatusLine(cmd: string): void
+  if index(['fugitiveblame', 'fern'], &filetype) != -1
+    return
+  endif
 
-    let win_info = getwininfo(win_getid())[0]
-    if win_info.quickfix || win_info.terminal
-        return
-    endif
+  const win_info = getwininfo(win_getid())[0]
+  if win_info.quickfix || win_info.terminal
+    return
+  endif
 
-    execute a:cmd
-endfunction
+  execute cmd
+enddef
 
-function! StatusGitBranch() abort
-    let dir = FugitiveGitDir(bufnr())
-    if empty(dir)
-        let b:is_in_git = 0
-        return ''
-    endif
-    let b:is_in_git = 1
-    return ' ' .. FugitiveHead(7, dir)
-endfunction
+def g:StatusGitBranch(): string
+  const dir = g:FugitiveGitDir(bufnr())
+  if empty(dir)
+    b:is_in_git = 0
+    return ''
+  endif
+  b:is_in_git = 1
+  return ' ' .. g:FugitiveHead(7, dir)
+enddef
 
-function! StatusGitCommit() abort
-    if !b:is_in_git
-        return ' '
-    endif
+def g:StatusGitCommit(): string
+  if !b:is_in_git
+    return ' '
+  endif
 
-    let commit = matchstr(@%, '\c^fugitive:\%(//\)\=.\{-\}\%(//\|::\)\zs\%(\x\{40,\}\|[0-3]\)\ze\%(/.*\)\=$')
-    if len(commit)
-        let commit = '·' .. commit[0:6]
-    endif
-    return commit .. ' '
-endfunction
+  var commit = matchstr(@%, hash)
+  if len(commit)
+    commit = '·' .. commit[0 : 6]
+  endif
+  return commit .. ' '
+enddef
 
-function! StatusGitGutter() abort
-    if !b:is_in_git
-        return ''
-    endif
+def g:StatusGitGutter(): string
+  if !b:is_in_git
+    return ''
+  endif
 
-    let symbols = ['+', '~', '-']
-    let changes = join(map(copy(GitGutterGetHunkSummary()), "v:val == 0 ? '' : ' ' .. symbols[v:key] .. v:val"), '')
-    return changes
-endfunction
+  const symbols = ['+', '~', '-']
+  return g:GitGutterGetHunkSummary()
+          ->mapnew((k, v) => v == 0 ? '' : symbols[k] .. v)
+          ->join('')
+enddef
 
-function! StatusIminsert() abort
-    return &iminsert ? '   RU ' : ''
-endfunction
+def g:StatusIminsert(): string
+  return &iminsert ? '   RU ' : ''
+enddef
 
-function! StatusDiagnostic() abort
-    let info = get(b:, 'coc_diagnostic_info', {})
-    if empty(info) | return '' | endif
-    let msgs = []
-    if get(info, 'error', 0)
-        call add(msgs, 'E:' .. info.error)
-    endif
-    if get(info, 'warning', 0)
-        call add(msgs, 'W:' .. info.warning)
-    endif
-    return join(msgs, ' ') .. ' ' .. get(g:, 'coc_status', '')
-endfunction
+def g:StatusDiagnostic(): string
+  const info = get(b:, 'coc_diagnostic_info', {})
+  if empty(info)
+    return ''
+  endif
+
+  const msgs = []
+  if get(info, 'error')
+    call add(msgs, 'E:' .. info.error)
+  endif
+  if get(info, 'warning')
+    call add(msgs, 'W:' .. info.warning)
+  endif
+  return get(g:, 'coc_status', '') .. ' ' .. join(msgs, ' ')
+enddef
+
+defcompile
