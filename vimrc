@@ -1,9 +1,17 @@
-unlet! skip_defaults_vim
-source $VIMRUNTIME/defaults.vim
+vim9script
 
-let s:config_dir = expand('<sfile>:p:h') .. '/'
-execute 'source ' .. s:config_dir .. 'vimplug.vim'
-execute 'source ' .. s:config_dir .. 'plugins_config.vim'
-execute 'source ' .. s:config_dir .. 'options.vim'
-execute 'source ' .. s:config_dir .. 'statusline.vim'
-execute 'source ' .. s:config_dir .. 'maps.vim'
+def LoadConfigFiles(files: list<string>)
+  for file in files
+    execute('source ~/.vim/config/' .. file .. '.vim')
+  endfor
+enddef
+
+LoadConfigFiles([
+  'vimplug',
+  'options',
+  'plugins',
+  'statusline',
+  'maps',
+])
+
+defcompile

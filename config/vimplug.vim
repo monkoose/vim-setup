@@ -1,3 +1,5 @@
+filetype plugin indent on
+
 call plug#begin('~/.vim/plugged')
 Plug 'monkoose/boa-vim.vim'
 Plug 'tpope/vim-repeat'

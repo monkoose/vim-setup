@@ -7,7 +7,8 @@ augroup CocSetKeymaps
 augroup END
 
 noremap  ;  :
-noremap  Q  gq
+map  Q  gq
+sunmap Q
 noremap  Y  y$
 noremap <expr>  <C-h>  getcharsearch().forward ? ',' : ';'
 noremap <expr>  <C-l>  getcharsearch().forward ? ';' : ','

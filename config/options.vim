@@ -1,8 +1,18 @@
 vim9script
 
+g:skip_defaults_vim = 1
+set nocompatible
+set history=300
+set showcmd
+set display=truncate
+set incsearch
+set nrformats-=octal
+set nolangremap
+
 set background=dark
 colorscheme boa
 
+set ttimeout
 set ttimeoutlen=50
 set belloff=
 set signcolumn=yes
@@ -21,7 +31,7 @@ set pumheight=10
 set nowrap
 set number relativenumber
 set ignorecase smartcase
-set sidescrolloff=5 sidescroll=1
+set scrolloff=5 sidescrolloff=5 sidescroll=1
 set updatetime=600
 set noswapfile undofile undodir=~/.cache/vim/undo/
 # set viewoptions=cursor,curdir,folds
@@ -34,11 +44,10 @@ set splitbelow splitright
 set smarttab expandtab smartindent shiftround shiftwidth=4 softtabstop=-1
 set nojoinspaces
 set completeopt=menuone,longest,noinsert,noselect,popup
-set wildmode=longest:full
-set wildoptions=fuzzy,pum
+set wildmenu wildmode=longest:full wildoptions=fuzzy,pum
+set wildignorecase
 set wildignore+=*/.git/*,*/__pycache__/*,*.pyc,*/node_modules/*
 set wildignore+=*.jpg,*.jpeg,*.bmp,*.gif,*.png
-set wildignorecase
 set shortmess=filnrxtToOFIc
 set diffopt=filler,vertical,closeoff
 set guicursor=
@@ -47,6 +56,14 @@ set grepprg=rg\ --vimgrep grepformat=%f:%l:%c:%m
 set clipboard-=autoselect
 set shell=/bin/fish
 
+def JumpToLastPosition()
+  const last_pos = line("'\"")
+  if last_pos >= 1 && last_pos <= line('$')
+                   && &filetype !~# 'commit'
+    exe 'normal! g`"'
+  endif
+enddef
+
 # autocmds
 augroup MyAutocmds
   autocmd!
@@ -54,6 +71,7 @@ augroup MyAutocmds
   autocmd TerminalWinOpen * setlocal nonumber norelativenumber
   autocmd FileType * syntax sync minlines=200
   autocmd TextYankPost * silent call custom#on_yank#Highlight(250)
+  autocmd BufReadPost * JumpToLastPosition()
 augroup END
 
 g:python_highlight_all = 1
