@@ -39,6 +39,9 @@ nnoremap  <space>ki  <Plug>(coc-diagnostic-info)
 nnoremap  <space>ko  <Cmd>CocList outline<CR>
 nnoremap  <space>l   <Plug>(coc-diagnostic-next)
 nnoremap  <space>L   <Plug>(coc-diagnostic-prev)
+nnoremap <expr> K g:CocHasProvider('hover') ? g:CocActionAsync('doHover') : "K"
+nnoremap <expr> <space>d
+      \ g:CocHasProvider('definition') ? g:CocActionAsync('jumpDefinition') : "\<C-]>"
 vnoremap  <space>ka  <Plug>(coc-codeaction-selected)
 vnoremap  <space>kf  <Plug>(coc-format-selected)
 

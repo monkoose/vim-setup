@@ -1,11 +1,3 @@
-augroup CocSetKeymaps
-  autocmd!
-  autocmd User CocNvimInit nnoremap <silent><expr> <space>d
-        \ CocHasProvider('definition') ? CocActionAsync('jumpDefinition') : "\<C-]>"
-  autocmd User CocNvimInit nnoremap <silent><expr> K
-        \ CocHasProvider('hover') ? CocActionAsync('doHover') : "K"
-augroup END
-
 noremap  ;  :
 map  Q  gq
 sunmap Q
