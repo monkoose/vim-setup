@@ -1,4 +1,4 @@
-vim9script noclear
+vim9script
 
 export def Toggle(char: string)
   var line = getline('.')

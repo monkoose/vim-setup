@@ -41,6 +41,7 @@ set list listchars=tab:→-,trail:·,extends:⌇,precedes:⌇,nbsp:~
 set fillchars=vert:█,fold:·
 set noruler
 set splitbelow splitright
+set backspace=indent,eol,start
 set smarttab expandtab smartindent shiftround shiftwidth=4 softtabstop=-1
 set nojoinspaces
 set completeopt=menuone,longest,noinsert,noselect,popup
@@ -69,7 +70,6 @@ augroup MyAutocmds
   autocmd!
   autocmd FocusGained * silent! checktime
   autocmd TerminalWinOpen * setlocal nonumber norelativenumber
-  autocmd FileType * syntax sync minlines=200
   autocmd TextYankPost * silent call custom#on_yank#Highlight(250)
   autocmd BufReadPost * JumpToLastPosition()
 augroup END
