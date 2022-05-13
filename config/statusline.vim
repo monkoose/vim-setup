@@ -87,11 +87,11 @@ def g:StatusDiagnostic(): string
     return ''
   endif
 
-  const msgs = []
-  if get(info, 'error', 0)
+  final msgs = []
+  if get(info, 'error', 0) > 0
     call add(msgs, 'E:' .. info.error)
   endif
-  if get(info, 'warning', 0)
+  if get(info, 'warning', 0) > 0
     call add(msgs, 'W:' .. info.warning)
   endif
   return get(g:, 'coc_status', '') .. ' ' .. join(msgs, ' ')
