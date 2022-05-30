@@ -44,6 +44,7 @@
     "list.limitLines": 20000,
     "list.maxPreviewHeight": 10,
     "list.previewSplitRight": true,
+    "list.previewHighlightGroup": "Visual",
     "list.source.diagnostics.pathFormat": "short",
     "coc.preferences.enableMessageDialog": true,
     "coc.preferences.extensionUpdateCheck": "never",
