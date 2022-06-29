@@ -47,9 +47,9 @@ def StatusGitBranch()
   const dir = g:FugitiveGitDir(bufnr())
   if empty(dir)
     b:status_gitbranch = ''
-    return
+  else
+    b:status_gitbranch = ' ' .. g:FugitiveHead(7, dir)
   endif
-  b:status_gitbranch = ' ' .. g:FugitiveHead(7, dir)
 enddef
 
 def StatusGitCommit()
@@ -67,10 +67,9 @@ enddef
 
 def StatusGitGutter()
   const symbols = ['+', '~', '-']
-  b:status_gitgutter = '  ' ..
-                       g:GitGutterGetHunkSummary()
-                        ->mapnew((k, v) => v == 0 ? '' : symbols[k] .. v)
-                        ->join('')
+  b:status_gitgutter = '  ' .. g:GitGutterGetHunkSummary()
+                            ->mapnew((k, v) => v == 0 ? '' : symbols[k] .. v)
+                            ->join(' ')
 enddef
 
 def StatusIminsert()

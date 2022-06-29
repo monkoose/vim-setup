@@ -38,7 +38,7 @@ set noswapfile undofile undodir=~/.cache/vim/undo/
 set linebreak
 set showbreak=└
 set list listchars=tab:→-,trail:·,extends:⌇,precedes:⌇,nbsp:~
-set fillchars=vert:█,fold:·
+set fillchars=
 set noruler
 set splitbelow splitright
 set backspace=indent,eol,start

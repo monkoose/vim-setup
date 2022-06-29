@@ -47,19 +47,6 @@ vnoremap  <space>kf  <Plug>(coc-format-selected)
 
 # }}}
 # fzf.vim {{{
-const fzf_keys = [
-  'ctrl-/:toggle-preview',
-  'alt-i:toggle-all',
-  'ctrl-n:preview-page-down',
-  'ctrl-p:preview-page-up',
-  'ctrl-l:accept',
-  'ctrl-r:clear-screen',
-  'alt-k:next-history',
-  'alt-j:previous-history',
-  'ctrl-alt-j:page-down',
-  'ctrl-alt-k:page-up',
-]
-
 const fzf_colors = [
   'hl:#f158a6',
   'fg+:#b8af96',
@@ -74,21 +61,14 @@ const fzf_colors = [
 ]
 
 const fzf_defaults = [
-  '--ansi',
-  '--pointer=●',
-  '--marker=▶',
-  '--layout=reverse',
-  '--tabstop=2',
-  '--info=inline',
   '--margin=1,3',
   '--exact',
   '--header=',
   '--preview-window=down,50%,border-top',
-  '--bind=' .. join(fzf_keys, ','),
   '--color=' .. join(fzf_colors, ','),
 ]
 
-setenv('FZF_DEFAULT_OPTS', join(fzf_defaults, " "))
+setenv('FZF_DEFAULT_OPTS', getenv('FZF_DEFAULT_OPTS') .. ' ' .. join(fzf_defaults, " "))
 g:fzf_command_prefix = 'Fzf'
 g:fzf_history_dir = '~/.cache/vim/fzf_history'
 g:fzf_layout = { window: { width: 0.9,
