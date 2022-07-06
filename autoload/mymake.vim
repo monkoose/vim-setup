@@ -52,4 +52,3 @@ def ProcessCmd(cmd: list<any>)
   })
 enddef
 
-defcompile

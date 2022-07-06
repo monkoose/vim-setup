@@ -22,5 +22,3 @@ export def Highlight(timeout: number)
   endif
   timer_start(timeout, (_) => prop_remove({ type: 'yank_prop' }))
 enddef
-
-defcompile

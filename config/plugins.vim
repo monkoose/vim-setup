@@ -1,6 +1,6 @@
 vim9script
 
-# coc.nvim and coc-fzf {{{
+# coc.nvim {{{
 g:coc_global_extensions = [
   'coc-vimlsp',
   'coc-json',
@@ -144,5 +144,4 @@ g:stargate_keymaps = {
 # g:termdebug_disasm_window = 15
 # }}}
 
-defcompile
 # vim: foldmethod=marker

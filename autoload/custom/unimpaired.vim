@@ -28,5 +28,3 @@ export def SwitchOption(option: string, first: any, second: any)
   setbufvar('', opt, new_value)
   PrintOptionValue(option)
 enddef
-
-defcompile

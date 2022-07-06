@@ -1,3 +1,11 @@
+vim9script
+
+import autoload '../autoload/myfunctions.vim' as mf
+import autoload '../autoload/custom/unimpaired.vim'
+import autoload '../autoload/custom/endofline.vim'
+import autoload '../autoload/mypopup.vim'
+import autoload '../autoload/myterm.vim'
+
 noremap  ;  :
 map  Q  gq
 sunmap Q
@@ -6,36 +14,34 @@ noremap <expr>  <C-h>  getcharsearch().forward ? ',' : ';'
 noremap <expr>  <C-l>  getcharsearch().forward ? ';' : ','
 
 nnoremap  <space>/  <Cmd>nohlsearch<CR>
-nnoremap  gx  <Cmd>call myfunctions#OpenPath()<CR>
-nnoremap  zS  <Cmd>call myfunctions#Synnames()<CR>
+nnoremap  gx  <ScriptCmd>mf.OpenPath()<CR>
+nnoremap  zS  <ScriptCmd>mf.Synnames()<CR>
 nnoremap  <space>q  <Cmd>pclose<CR>
 nnoremap  <space>a  <C-^>
 nnoremap  <space>y  "+y
 nnoremap  <space>p  "+
 nnoremap  <C-j>  <C-d>
 nnoremap  <C-k>  <C-u>
-nnoremap  <C-n>  <Cmd>call mypopup#ScrolldownOrNextHunk()<CR>
-nnoremap  <C-p>  <Cmd>call mypopup#ScrollupOrPrevHunk()<CR>
+nnoremap  <C-n>  <ScriptCmd>mypopup.ScrolldownOrNextHunk()<CR>
+nnoremap  <C-p>  <ScriptCmd>mypopup.ScrollupOrPrevHunk()<CR>
 nnoremap  w  <C-w>w
 nnoremap  q  <C-w>c
 nnoremap  o  <C-w>o
-nnoremap  f  <Cmd>call custom#endofline#Toggle(';')<CR>
-nnoremap  2  <Cmd>call myfunctions#ToggleQfWindow()<CR>
-nnoremap  3  <Cmd>call myfunctions#ToggleLoclistWindow()<CR>
-nnoremap  yow  <Cmd>call custom#unimpaired#ToggleOption('wrap')<CR>
-nnoremap  yoc  <Cmd>call custom#unimpaired#ToggleOption('cursorline')<CR>
-nnoremap  yox  <Cmd>call custom#unimpaired#ToggleOption('cursorcolumn')<CR>
-nnoremap  yos  <Cmd>call custom#unimpaired#ToggleOption('spell')<CR>
-nnoremap  yop  <Cmd>call custom#unimpaired#ToggleOption('paste')<CR>
-nnoremap  yol  <Cmd>call custom#unimpaired#ToggleOption('list')<CR>
-nnoremap  yof  <Cmd>call custom#unimpaired#SwitchOption('foldcolumn', 0, 1)<CR>
-nnoremap  yoy  <Cmd>call custom#unimpaired#SwitchOption('colorcolumn', '', 100)<CR>
-nnoremap  [<space>  <Cmd>call custom#unimpaired#PasteBlanklineAbove()<CR>
-nnoremap  ]<space>  <Cmd>call custom#unimpaired#PasteBlanklineBelow()<CR>
+nnoremap  f  <ScriptCmd>endofline.Toggle(';')<CR>
+nnoremap  2  <ScriptCmd>mf.ToggleQfWindow()<CR>
+nnoremap  3  <ScriptCmd>mf.ToggleLoclistWindow()<CR>
+nnoremap  yow  <ScriptCmd>unimpaired.ToggleOption('wrap')<CR>
+nnoremap  yoc  <ScriptCmd>unimpaired.ToggleOption('cursorline')<CR>
+nnoremap  yox  <ScriptCmd>unimpaired.ToggleOption('cursorcolumn')<CR>
+nnoremap  yos  <ScriptCmd>unimpaired.ToggleOption('spell')<CR>
+nnoremap  yop  <ScriptCmd>unimpaired.ToggleOption('paste')<CR>
+nnoremap  yol  <ScriptCmd>unimpaired.ToggleOption('list')<CR>
+nnoremap  yof  <ScriptCmd>unimpaired.SwitchOption('foldcolumn', 0, 1)<CR>
+nnoremap  yoy  <ScriptCmd>unimpaired.SwitchOption('colorcolumn', '', 100)<CR>
+nnoremap  [<space>  <ScriptCmd>unimpaired.PasteBlanklineAbove()<CR>
+nnoremap  ]<space>  <ScriptCmd>unimpaired.PasteBlanklineBelow()<CR>
 nnoremap  <C-@>  <Cmd>let &iminsert = !&iminsert<CR>
-nnoremap  `  <Cmd>call myterm#Toggle()<CR>
-nnoremap  <space>mf  <Cmd>call mymake#Buffer()<CR>
-nnoremap  <space>mm  <Cmd>call mymake#Makeprg()<CR>
+nnoremap  `  <ScriptCmd>myterm.Toggle()<CR>
 
 vnoremap  <C-j>  <C-d>
 vnoremap  <C-k>  <C-u>
@@ -59,16 +65,16 @@ cnoremap <expr>  <C-l>  pumvisible() ? "\<C-y>" : "\<CR>"
 set termwinkey=<C-q>
 tnoremap  w  <C-q>w
 tnoremap  q  <Cmd>close!<CR>
-tnoremap  `  <Cmd>call myterm#Toggle()<CR>
+tnoremap  `  <ScriptCmd>myterm.Toggle()<CR>
 tnoremap  <C-q><C-n>  <C-q>N
 
-" Fix slow esc, should be after all Alt remaps
-nnoremap <nowait>  <Esc>  <Cmd>call mypopup#ClosePopupAtCursor()<CR>
+# Fix slow esc, should be after all Alt remaps
+nnoremap <nowait>  <Esc>  <ScriptCmd>mypopup.ClosePopupAtCursor()<CR>
 inoremap <nowait>  <Esc>  <Esc>
 xnoremap <nowait>  <Esc>  <Esc>
 snoremap <nowait>  <Esc>  <C-c>
 cnoremap <nowait>  <Esc>  <C-c>
 tnoremap <nowait>  <Esc>  <Esc>
 
-" example ':Time 18 call str2nr(102)'
-command! -nargs=1 -complete=command Time call myfunctions#Time(<q-args>)
+# example ':Time 50 call str2nr(102)'
+command! -nargs=1 -complete=command Time mf.Time(<q-args>)

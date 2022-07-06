@@ -11,5 +11,3 @@ export def Toggle(char: string)
   endif
   setline('.', line)
 enddef
-
-defcompile

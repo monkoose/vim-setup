@@ -13,5 +13,3 @@ LoadConfigFiles([
   'statusline',
   'maps',
 ])
-
-defcompile

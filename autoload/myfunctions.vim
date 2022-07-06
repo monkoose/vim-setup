@@ -72,5 +72,3 @@ export def ToggleQfWindow()
   endfor
   botright copen
 enddef
-
-defcompile

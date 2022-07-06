@@ -23,8 +23,8 @@ const statusline_nc = fname_nc .. git_nc .. tail_nc
 
 augroup SetStatusLine
   autocmd!
-  autocmd WinEnter * call SetStatusLine('&l:statusline = statusline')
-  autocmd WinLeave,WinNew * call SetStatusLine('&l:statusline = statusline_nc')
+  autocmd WinEnter * SetStatusLine('&l:statusline = statusline')
+  autocmd WinLeave,WinNew * SetStatusLine('&l:statusline = statusline_nc')
   autocmd FileType fugitiveblame &l:statusline = '%< %(%l/%L%) %=%P '
   autocmd FileType fern &l:statusline = " %3*%{getcwd()->trim()->fnamemodify(':~')}%* "
   autocmd TerminalWinOpen * &l:statusline = '  %Y %= %4*%{term_getstatus(bufnr())}%* '
@@ -95,13 +95,11 @@ enddef
 
 augroup StatusLine
   autocmd!
-  autocmd User FugitiveChanged,FugitiveObject call StatusGitBranch()
-  autocmd WinEnter,BufWinEnter,FocusGained * call StatusGitBranch()
-  autocmd User FugitiveChanged,FugitiveObject call StatusGitCommit()
-  autocmd BufWinEnter * call StatusIminsert()
-  autocmd OptionSet iminsert call StatusIminsert()
-  autocmd User GitGutter call StatusGitGutter()
-  autocmd User CocDiagnosticChange call StatusDiagnostic()
+  autocmd User FugitiveChanged,FugitiveObject StatusGitBranch()
+  autocmd WinEnter,BufWinEnter,FocusGained * StatusGitBranch()
+  autocmd User FugitiveChanged,FugitiveObject StatusGitCommit()
+  autocmd BufWinEnter * StatusIminsert()
+  autocmd OptionSet iminsert StatusIminsert()
+  autocmd User GitGutter StatusGitGutter()
+  autocmd User CocDiagnosticChange StatusDiagnostic()
 augroup END
-
-defcompile

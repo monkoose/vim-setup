@@ -1,5 +1,7 @@
 vim9script
 
+import autoload '../autoload/custom/on_yank.vim'
+
 g:skip_defaults_vim = 1
 set nocompatible
 set history=300
@@ -70,7 +72,7 @@ augroup MyAutocmds
   autocmd!
   autocmd FocusGained * silent! checktime
   autocmd TerminalWinOpen * setlocal nonumber norelativenumber
-  autocmd TextYankPost * silent call custom#on_yank#Highlight(250)
+  autocmd TextYankPost * on_yank.Highlight(250)
   autocmd BufReadPost * JumpToLastPosition()
 augroup END
 

@@ -75,5 +75,3 @@ export def ScrollupOrPrevHunk()
     ExecuteCmdPvwOrCurrWin("normal! 3\<C-y>", "normal [c")
   endif
 enddef
-
-defcompile
