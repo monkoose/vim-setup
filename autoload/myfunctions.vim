@@ -17,22 +17,22 @@ export def Time(arg: string)
     redraw
     const times_str = nr == 1 ? 'time' : 'times'
     echohl Type
-    echomsg ' ' string(result * 1000)
+    echomsg '' string(result * 1000)
     echohl None
     echon ' ms spent to run '
     echohl String
     echon cmd
     echohl None
-    echon ' ' times ' ' times_str
+    echon '' times '' times_str
   endtry
 enddef
 
 # Show syntax names
 export def Synnames()
-  echo ' ' .. synstack(line('.'), col('.'))
-                ->mapnew((_, v) => synIDattr(v, 'name'))
-                ->reverse()
-                ->join(' ')
+  echo '' synstack(line('.'), col('.'))
+            ->mapnew((_, v) => synIDattr(v, 'name'))
+            ->reverse()
+            ->join(' ')
 enddef
 
 export def OpenPath()
@@ -45,26 +45,30 @@ export def OpenPath()
   echohl None
 enddef
 
+def JumpToPreviousWindow()
+  execute ':' .. winnr('#') .. 'wincmd w'
+enddef
+
 export def ToggleLoclistWindow()
-  if getwininfo(win_getid())[0].loclist
-    execute ':' .. winnr('#') .. 'wincmd w'
+  if win_gettype() ==? 'loclist'
+    JumpToPreviousWindow()
     lclose
   else
     try
       lopen
     catch /E776/
       echohl WarningMsg
-      echo 'Location List is empty'
+      echo ' Location List is empty'
       echohl None
     endtry
   endif
 enddef
 
 export def ToggleQfWindow()
-  for win in getwininfo()
-    if win.quickfix && !win.loclist
-      if win.winid == win_getid()
-        execute ':' .. winnr('#') .. 'wincmd w'
+  for win in range(1, winnr('$'))
+    if win_gettype(win) == 'quickfix'
+      if win_getid(win) == win_getid()
+        JumpToPreviousWindow()
       endif
       cclose
       return
