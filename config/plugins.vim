@@ -10,9 +10,7 @@ g:coc_global_extensions = [
   'coc-tsserver',
   'coc-html',
   'coc-css',
-  'coc-yaml',
   'coc-clangd',
-  'coc-rust-analyzer',
   'coc-lua',
   'coc-fish',
 ]
@@ -142,6 +140,9 @@ g:stargate_keymaps = {
 # packadd termdebug
 # g:termdebug_wide = 1
 # g:termdebug_disasm_window = 15
+# }}}
+# vlime {{{
+g:vlime_leader = ","
 # }}}
 
 # vim: foldmethod=marker

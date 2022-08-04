@@ -66,6 +66,5 @@
         "<C-x>": "action:split",
         "<C-t>": "action:tabe"
     },
-    "vimlsp.diagnostic.enable": false,
-    "rust-analyzer.server.path": "rust-analyzer"
+    "vimlsp.diagnostic.enable": false
 }

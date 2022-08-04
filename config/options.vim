@@ -62,7 +62,6 @@ set shell=/bin/fish
 def JumpToLastPosition()
   const last_pos = line("'\"")
   if last_pos >= 1 && last_pos <= line('$')
-                   && &filetype !~# 'commit'
     exe 'normal! g`"'
   endif
 enddef

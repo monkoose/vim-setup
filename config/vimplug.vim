@@ -11,8 +11,9 @@ Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'honza/vim-snippets'
 Plug 'monkoose/vim9-stargate'
-" Plug 'cespare/vim-toml', {'for': ['toml']}
 Plug 'lacygoill/vim9-syntax'
+Plug 'monkoose/vlime', {'rtp': 'vim/'}
+" Plug 'cespare/vim-toml', {'for': ['toml']}
 " Plug 'thinca/vim-themis'
 
 " PLUGINS WITH CUSTOM CONFIG
