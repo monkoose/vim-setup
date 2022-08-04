@@ -11,11 +11,12 @@ set incsearch
 set nrformats-=octal
 set nolangremap
 
-set background=dark
+set termguicolors
 colorscheme boa
+set t_ut=
 
 set ttimeout
-set ttimeoutlen=50
+set ttimeoutlen=30
 set belloff=
 set signcolumn=yes
 set encoding=utf-8
@@ -25,7 +26,6 @@ set nostartofline
 set hlsearch
 set laststatus=2
 set autoread
-set termguicolors
 set title
 set hidden
 set spelllang=en_us,ru_yo

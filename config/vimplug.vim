@@ -11,11 +11,9 @@ Plug 'othree/html5.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'honza/vim-snippets'
 Plug 'monkoose/vim9-stargate'
-" Plug 'Vimjas/vim-python-pep8-indent', {'for': ['python']}
 " Plug 'cespare/vim-toml', {'for': ['toml']}
 Plug 'lacygoill/vim9-syntax'
 " Plug 'thinca/vim-themis'
-" Plug 'evanleck/vim-svelte', {'for': ['svelte']}
 
 " PLUGINS WITH CUSTOM CONFIG
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
