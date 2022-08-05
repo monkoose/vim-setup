@@ -1,5 +1,5 @@
 {
-    "suggest.snippetIndicator": " ⮯",
+    "suggest.noselect": true,
     "suggest.minTriggerInputLength": 3,
     "suggest.maxCompleteItemCount": 30,
     "suggest.timeout": 3000,

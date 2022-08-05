@@ -15,13 +15,15 @@ g:coc_global_extensions = [
   'coc-fish',
 ]
 
-g:coc_snippet_next = 'e'
-g:coc_snippet_prev = 'w'
-inoremap  n  <Cmd>call coc#float#scroll(1, 4)<CR>
-inoremap  p  <Cmd>call coc#float#scroll(0, 4)<CR>
-inoremap <expr>  <C-l>  pumvisible() ? coc#_select_confirm() : coc#refresh()
-inoremap <expr>  <C-j>  pumvisible() ? "\<C-n>" : coc#refresh()
-inoremap <expr>  <C-k>  pumvisible() ? "\<C-p>" : coc#refresh()
+g:coc_snippet_next = '<C-s>'
+g:coc_snippet_prev = 's'
+inoremap <silent><expr>  <C-s>  coc#jumpable() ? "\<C-s>" : ""
+inoremap  <C-n>  <Cmd>call coc#float#scroll(1, 4)<CR>
+inoremap  <C-p>  <Cmd>call coc#float#scroll(0, 4)<CR>
+inoremap <silent><expr>  <C-l>  coc#pum#visible() ? coc#_select_confirm() : pumvisible() ? "\<C-y>" : coc#refresh()
+inoremap <silent><expr>  <C-j>  coc#pum#visible() ? coc#pum#next(1) : pumvisible() ? "\<C-n>" : coc#refresh()
+inoremap <silent><expr>  <C-k>  coc#pum#visible() ? coc#pum#prev(1) : pumvisible() ? "\<C-p>" : coc#refresh()
+inoremap <silent><expr>  <C-e> coc#pum#visible() ? coc#pum#cancel() : "\<C-e>"
 inoremap  <CR>  <C-g>u<CR><C-r>=coc#on_enter()<CR>
 inoremap  s  <Cmd>call CocActionAsync('showSignatureHelp')<CR>
 nnoremap  <space>kk  <Cmd>CocRestart<CR>

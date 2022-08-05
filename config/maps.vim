@@ -48,7 +48,7 @@ vnoremap  <C-k>  <C-u>
 vnoremap  <space>y  "+y
 
 noremap!  <C-@>  <C-^>
-inoremap  <C-p>  <C-k>
+inoremap  k  <C-k>
 inoremap  <C-u>  <C-g>u<C-u>
 inoremap  h  <Left>
 inoremap  l  <Right>
