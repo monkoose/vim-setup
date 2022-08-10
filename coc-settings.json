@@ -1,11 +1,14 @@
 {
     "suggest.noselect": true,
-    "suggest.minTriggerInputLength": 3,
+    "suggest.enablePreselect": false,
+    "suggest.labelMaxLength": 80,
+    "suggest.minTriggerInputLength": 2,
     "suggest.maxCompleteItemCount": 30,
     "suggest.timeout": 3000,
-    "suggest.highPrioritySourceLimit": 20,
-    "suggest.lowPrioritySourceLimit": 10,
+    "suggest.highPrioritySourceLimit": 40,
+    "suggest.lowPrioritySourceLimit": 20,
     "suggest.removeDuplicateItems": true,
+    "suggest.defaultSortMethod": "alphabetical",
     "suggest.floatConfig": {
         "border": false,
         "highlight": "CocFloating"

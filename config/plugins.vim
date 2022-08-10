@@ -20,7 +20,7 @@ g:coc_snippet_prev = 's'
 inoremap <silent><expr>  <C-s>  coc#jumpable() ? "\<C-s>" : ""
 inoremap  <C-n>  <Cmd>call coc#float#scroll(1, 4)<CR>
 inoremap  <C-p>  <Cmd>call coc#float#scroll(0, 4)<CR>
-inoremap <silent><expr>  <C-l>  coc#pum#visible() ? coc#_select_confirm() : pumvisible() ? "\<C-y>" : coc#refresh()
+inoremap <silent><expr>  <C-l>  coc#pum#visible() ? coc#pum#confirm() : pumvisible() ? "\<C-y>" : coc#refresh()
 inoremap <silent><expr>  <C-j>  coc#pum#visible() ? coc#pum#next(1) : pumvisible() ? "\<C-n>" : coc#refresh()
 inoremap <silent><expr>  <C-k>  coc#pum#visible() ? coc#pum#prev(1) : pumvisible() ? "\<C-p>" : coc#refresh()
 inoremap <silent><expr>  <C-e> coc#pum#visible() ? coc#pum#cancel() : "\<C-e>"
@@ -48,32 +48,38 @@ vnoremap  <space>kf  <Plug>(coc-format-selected)
 # }}}
 # fzf.vim {{{
 const fzf_colors = [
-  'hl:#f158a6',
-  'fg+:#b8af96',
-  'hl+:#f158a6',
-  'bg+:#3b312b',
-  'border:#40362f',
-  'gutter:#21261d',
-  'pointer:#d3c94b',
-  'prompt:#c57c41',
-  'marker:#d24b98',
-  'info:#70a17c',
-]
+  'fg:-1',
+  'bg:-1',
+  'hl:205',
+  'fg+:248',
+  'hl+:205',
+  'bg+:235',
+  'border:71',
+  'preview-fg:-1',
+  'preview-bg:-1',
+  'gutter:-1',
+  'query:-1',
+  'spinner:3',
+  'prompt:3',
+  'marker:32',
+  'info:6',
+  ]
 
 const fzf_defaults = [
-  '--margin=1,3',
+  '--margin=0,0',
   '--exact',
   '--header=',
   '--preview-window=down,50%,border-top',
-  '--color=' .. join(fzf_colors, ','),
-]
+  '--color=16,' .. join(fzf_colors, ','),
+  ]
 
 setenv('FZF_DEFAULT_OPTS', getenv('FZF_DEFAULT_OPTS') .. ' ' .. join(fzf_defaults, " "))
 g:fzf_command_prefix = 'Fzf'
 g:fzf_history_dir = '~/.cache/vim/fzf_history'
-g:fzf_layout = { window: { width: 0.9,
-                           height: 0.9,
-                           border: 'none' }}
+g:fzf_layout = { window: {
+  width: 0.9,
+  height: 0.9,
+  border: 'sharp' }}
 
 nnoremap <silent> <space>ff   <Cmd>FzfFiles<CR>
 nnoremap <silent> <space>fh   <Cmd>FzfHelptags<CR>
@@ -103,10 +109,10 @@ nnoremap    <space>gb    <Cmd>Git blame<CR>
 nnoremap    <space>gd    <Cmd>Git diff<CR>
 nnoremap    <space>ge    <Cmd>Gedit<CR>
 # }}}
-# gh {{{
+# # gh {{{
 # nnoremap <space>gl <Cmd>split gh://monkoose/gists<CR>
 # nnoremap <space>gp :split gh://gists/new/
-# }}}
+# # }}}
 # fern {{{
 g:fern#drawer_width = 35
 nnoremap 1 <Cmd>Fern . -drawer -toggle<CR>
@@ -138,11 +144,11 @@ g:stargate_keymaps = {
     "z": "я", "x": "ч", "c": "с", "v": "м", "b": "и", "n": "т", "m": "ь", ",": "б", ".": "ю"
 }
 # }}}
-# termdebug {{{
+# # termdebug {{{
 # packadd termdebug
 # g:termdebug_wide = 1
 # g:termdebug_disasm_window = 15
-# }}}
+# # }}}
 # vlime {{{
 g:vlime_leader = ","
 # }}}

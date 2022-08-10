@@ -11,9 +11,10 @@ set incsearch
 set nrformats-=octal
 set nolangremap
 
-set notermguicolors
+set noshowcmd
+# set termguicolors t_ut=
 colorscheme boa
-set t_ut=
+set t_cl= t_cd=
 
 set ttimeout
 set ttimeoutlen=30
@@ -40,7 +41,7 @@ set noswapfile undofile undodir=~/.cache/vim/undo/
 set linebreak
 set showbreak=└
 set list listchars=tab:→-,trail:·,extends:⌇,precedes:⌇,nbsp:~
-# set fillchars=
+set fillchars=
 set noruler
 set splitbelow splitright
 set backspace=indent,eol,start
