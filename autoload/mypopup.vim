@@ -12,7 +12,7 @@ enddef
 def PopupWindowIdAtCursor(): number
   const cursor_pos = screenpos(win_getid(), line('.'), col('.'))
   var popup_window = popup_locate(cursor_pos.row + 1, cursor_pos.col)
-  if !popup_window
+  if popup_window == 0
     popup_window = popup_locate(cursor_pos.row - 1, cursor_pos.col)
   endif
   return popup_window
@@ -20,7 +20,7 @@ enddef
 
 def ScrollInPopup(winid: number, step: number)
   const popup_info = popup_getpos(winid)
-  if !popup_info.scrollbar
+  if popup_info.scrollbar == 0
     return
   endif
   const firstline = popup_getoptions(winid).firstline
@@ -36,7 +36,7 @@ enddef
 def ExecuteCmdPvwOrCurrWin(cmd: string, curr_cmd: string)
   const pvw_nr = PreviewWindowNr()
   const curr_nr = winnr()
-  if !!pvw_nr
+  if pvw_nr != 0
     try
       execute ':' .. pvw_nr .. 'wincmd w'
       execute cmd
@@ -50,7 +50,7 @@ enddef
 
 export def ClosePopupAtCursor()
   const popup_winid = PopupWindowIdAtCursor()
-  if !!popup_winid
+  if popup_winid != 0
     popup_close(popup_winid)
   else
     # just Esc press
@@ -60,7 +60,7 @@ enddef
 
 export def ScrolldownOrNextHunk()
   const popup_winid = PopupWindowIdAtCursor()
-  if !!popup_winid
+  if popup_winid != 0
     ScrollInPopup(popup_winid, 5)
   else
     ExecuteCmdPvwOrCurrWin("normal! 3\<C-e>", "normal ]c")
@@ -69,7 +69,7 @@ enddef
 
 export def ScrollupOrPrevHunk()
   const popup_winid = PopupWindowIdAtCursor()
-  if !!popup_winid
+  if popup_winid != 0
     ScrollInPopup(popup_winid, -5)
   else
     ExecuteCmdPvwOrCurrWin("normal! 3\<C-y>", "normal [c")

@@ -11,7 +11,7 @@ export def Time(arg: string)
   const time = reltime()
 
   try
-      execute(cmds, '')
+    execute(cmds, '')
   finally
     const result = reltimefloat(reltime(time))
     redraw

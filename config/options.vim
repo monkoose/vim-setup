@@ -12,13 +12,16 @@ set nrformats-=octal
 set nolangremap
 
 set noshowcmd
-# set termguicolors t_ut=
-colorscheme boa
-set t_cl= t_ut=
-&t_AU = "\e[58:5:%dm"
-&t_SI = "\e[6 q"
-&t_SR = "\e[4 q"
-&t_EI = "\e[2 q"
+set t_ut=
+if !has('gui_running')
+  # set termguicolors
+  colorscheme boa
+  set t_cl=
+  &t_AU = "\e[58:5:%dm"
+  &t_SI = "\e[6 q"
+  &t_SR = "\e[4 q"
+  &t_EI = "\e[2 q"
+endif
 
 set ttimeout
 set ttimeoutlen=30
@@ -56,7 +59,7 @@ set wildmenu wildmode=longest:full wildoptions=fuzzy,pum
 set wildignorecase
 set wildignore+=*/.git/*,*/__pycache__/*,*.pyc,*/node_modules/*
 set wildignore+=*.jpg,*.jpeg,*.bmp,*.gif,*.png
-set shortmess=filnrxtToOFIc
+set shortmess=filnrxtToOFIcs
 set diffopt=filler,vertical,closeoff
 set guicursor=
 set keymap=russian-jcuken iminsert=0

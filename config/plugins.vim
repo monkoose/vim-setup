@@ -24,7 +24,7 @@ inoremap <silent><expr>  <C-l>  coc#pum#visible() ? coc#pum#confirm() : pumvisib
 inoremap <silent><expr>  <C-j>  coc#pum#visible() ? coc#pum#next(1) : pumvisible() ? "\<C-n>" : coc#refresh()
 inoremap <silent><expr>  <C-k>  coc#pum#visible() ? coc#pum#prev(1) : pumvisible() ? "\<C-p>" : coc#refresh()
 inoremap <silent><expr>  <C-e> coc#pum#visible() ? coc#pum#cancel() : "\<C-e>"
-inoremap  <CR>  <C-g>u<CR><C-r>=coc#on_enter()<CR>
+inoremap <silent> <CR>  <C-g>u<CR><C-r>=coc#on_enter()<CR>
 inoremap  s  <Cmd>call CocActionAsync('showSignatureHelp')<CR>
 nnoremap  <space>kk  <Cmd>CocRestart<CR>
 nnoremap  <space>D   <Plug>(coc-declaration)
@@ -58,9 +58,9 @@ const fzf_colors = [
   'preview-fg:-1',
   'preview-bg:-1',
   'gutter:-1',
-  'query:-1',
-  'spinner:3',
-  'prompt:3',
+  'query:3',
+  'spinner:160:italic',
+  'prompt:4',
   'marker:32',
   'info:6',
   ]
@@ -151,6 +151,16 @@ g:stargate_keymaps = {
 # # }}}
 # vlime {{{
 g:vlime_leader = ","
+# }}}
+# vim9-syntax {{{
+
+g:vim9_syntax = {
+  errors: {
+    event_wrong_case: false,
+    octal_missing_o_prefix: false,
+    range_missing_space: false,
+    range_missing_specifier: false,
+    strict_whitespace: true }}
 # }}}
 
 # vim: foldmethod=marker
