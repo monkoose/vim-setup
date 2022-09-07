@@ -2,29 +2,27 @@ vim9script
 
 # simple calculation of the time wasted to execute command
 export def Time(arg: string)
-  var times: string
-  var cmd: any
-  [times; cmd] = split(arg)
-  cmd = trim(join(cmd))
-  const nr = str2nr(times)
+  const str = trim(arg)
+  const times = matchstr(str, '^\d*')
+  const times_len = strcharlen(times)
+  const cmd = str->strcharpart(times_len)->trim()
+  const nr = times_len > 0 ? str2nr(times) : 1
   var cmds = repeat([cmd], nr)
   const time = reltime()
 
-  try
-    execute(cmds, '')
-  finally
-    const result = reltimefloat(reltime(time))
-    redraw
-    const times_str = nr == 1 ? 'time' : 'times'
-    echohl Type
-    echomsg '' string(result * 1000)
-    echohl None
-    echon ' ms spent to run '
-    echohl String
-    echon cmd
-    echohl None
-    echon '' times '' times_str
-  endtry
+  execute(cmds, '')
+
+  const result = reltimefloat(reltime(time))
+  redraw
+  const times_str = nr == 1 ? 'time' : 'times'
+  echohl Type
+  echomsg ' ' string(result * 1000)
+  echohl None
+  echon ' ms spent to run '
+  echohl String
+  echon cmd
+  echohl None
+  echon ' ' nr ' ' times_str
 enddef
 
 # Show syntax names

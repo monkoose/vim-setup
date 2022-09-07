@@ -1,13 +1,13 @@
 vim9script
 
 export def Toggle(char: string)
-  var line = getline('.')
+  const line = getline('.')
   const len = strchars(line)
-  const lastchar = strgetchar(line, len - 1)
-  if lastchar ==# char2nr(char)
-    line = strcharpart(line, 0, len - 1)
+  const last_index = len - 1
+  const last_char = strgetchar(line, last_index)
+  if last_char == char2nr(char)
+    setline('.', strcharpart(line, 0, last_index))
   else
-    line = line .. char
+    setline('.', line .. char)
   endif
-  setline('.', line)
 enddef

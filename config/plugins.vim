@@ -67,7 +67,7 @@ const fzf_colors = [
 
 const fzf_defaults = [
   '--margin=0,0',
-  '--exact',
+  # '--exact',
   '--header=',
   '--preview-window=down,50%,border-top',
   '--color=16,' .. join(fzf_colors, ','),
