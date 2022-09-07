@@ -77,4 +77,4 @@ cnoremap <nowait>  <Esc>  <C-c>
 tnoremap <nowait>  <Esc>  <Esc>
 
 # example ':Time 50 call str2nr(102)'
-command! -nargs=1 -complete=command Time mf.Time(<q-args>)
+command! -nargs=1 -complete=command Time mf.PrintTime(<q-args>)

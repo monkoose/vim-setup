@@ -27,7 +27,7 @@ augroup SetStatusLine
   autocmd WinLeave,WinNew * SetStatusLine('&l:statusline = statusline_nc')
   autocmd FileType fugitiveblame &l:statusline = '%< %(%l/%L%) %=%P '
   autocmd FileType fern &l:statusline = " %3*%{getcwd()->trim()->fnamemodify(':~')}%* "
-  autocmd TerminalWinOpen * &l:statusline = '  %Y %= %4*%{term_getstatus(bufnr())}%* '
+  autocmd TerminalWinOpen * &l:statusline = '  %Y  %4*%{term_gettitle(bufnr())}%* %= %4*%{term_getstatus(bufnr())}%* '
 augroup END
 
 def SetStatusLine(cmd: string): void

@@ -1,28 +1,32 @@
 vim9script
 
-# simple calculation of the time wasted to execute command
-export def Time(arg: string)
-  const str = trim(arg)
+def TimeSpend(cmd_string: string): list<any>
+  const str = trim(cmd_string)
   const times = matchstr(str, '^\d*')
   const times_len = strcharlen(times)
   const cmd = str->strcharpart(times_len)->trim()
   const nr = times_len > 0 ? str2nr(times) : 1
-  var cmds = repeat([cmd], nr)
+  const range = range(nr)
   const time = reltime()
+  for _ in range
+    execute cmd
+  endfor
+  const time_spend = reltimefloat(reltime(time))
+  const time_per_cmd = time_spend / nr
+  return [cmd, time_per_cmd]
+enddef
 
-  execute(cmds, '')
-
-  const result = reltimefloat(reltime(time))
+# simple calculation of the time wasted to execute command
+export def PrintTime(cmd_string: string)
+  const [cmd, time_per_cmd] = TimeSpend(cmd_string)
   redraw
-  const times_str = nr == 1 ? 'time' : 'times'
   echohl Type
-  echomsg ' ' string(result * 1000)
+  echomsg ' ' string(time_per_cmd * 1000)
   echohl None
   echon ' ms spent to run '
   echohl String
   echon cmd
   echohl None
-  echon ' ' nr ' ' times_str
 enddef
 
 # Show syntax names
@@ -48,7 +52,7 @@ def JumpToPreviousWindow()
 enddef
 
 export def ToggleLoclistWindow()
-  if win_gettype() ==? 'loclist'
+  if win_gettype() == 'loclist'
     JumpToPreviousWindow()
     lclose
   else
