@@ -15,9 +15,10 @@ g:coc_global_extensions = [
   'coc-fish',
 ]
 
-g:coc_snippet_next = '<C-s>'
-g:coc_snippet_prev = 's'
-inoremap <silent><expr>  <C-s>  coc#jumpable() ? "\<C-s>" : ""
+g:coc_snippet_next = '<C-i>'
+exe "set <M-e>=\ee"
+g:coc_snippet_prev = '<M-e>'
+inoremap <silent><expr>  <M-e>  coc#jumpable() ? "\<M-e>" : ""
 inoremap  <C-n>  <Cmd>call coc#float#scroll(1, 4)<CR>
 inoremap  <C-p>  <Cmd>call coc#float#scroll(0, 4)<CR>
 inoremap <silent><expr>  <C-l>  coc#pum#visible() ? coc#pum#confirm() : pumvisible() ? "\<C-y>" : coc#refresh()
@@ -25,7 +26,9 @@ inoremap <silent><expr>  <C-j>  coc#pum#visible() ? coc#pum#next(1) : pumvisible
 inoremap <silent><expr>  <C-k>  coc#pum#visible() ? coc#pum#prev(1) : pumvisible() ? "\<C-p>" : coc#refresh()
 inoremap <silent><expr>  <C-e> coc#pum#visible() ? coc#pum#cancel() : "\<C-e>"
 inoremap <silent> <CR>  <C-g>u<CR><C-r>=coc#on_enter()<CR>
-inoremap  s  <Cmd>call CocActionAsync('showSignatureHelp')<CR>
+# required to fix timeout escape from insert mode
+exe "set <M-s>=\es"
+inoremap <M-s>  <Cmd>call CocActionAsync('showSignatureHelp')<CR>
 nnoremap  <space>kk  <Cmd>CocRestart<CR>
 nnoremap  <space>D   <Plug>(coc-declaration)
 nnoremap  <space>kr  <Plug>(coc-references)

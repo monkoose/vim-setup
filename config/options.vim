@@ -21,6 +21,8 @@ if !has('gui_running')
   &t_SI = "\e[6 q"
   &t_SR = "\e[4 q"
   &t_EI = "\e[2 q"
+  &t_fe = "\e[?1004h"
+  &t_fd = "\e[?1004l"
 endif
 
 set ttimeout

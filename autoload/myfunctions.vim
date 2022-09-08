@@ -18,10 +18,10 @@ enddef
 
 # simple calculation of the time wasted to execute command
 export def PrintTime(cmd_string: string)
-  const [cmd, time_per_cmd] = TimeSpend(cmd_string)
+  const [cmd: string, time_per_cmd: float] = TimeSpend(cmd_string)
   redraw
   echohl Type
-  echomsg ' ' string(time_per_cmd * 1000)
+  echomsg ' ' .. string(time_per_cmd * 1000.0)
   echohl None
   echon ' ms spent to run '
   echohl String
@@ -78,3 +78,5 @@ export def ToggleQfWindow()
   endfor
   botright copen
 enddef
+
+defcompile
