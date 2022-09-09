@@ -44,7 +44,7 @@ set nowrap
 set number relativenumber
 set ignorecase smartcase
 set scrolloff=5 sidescrolloff=5 sidescroll=1
-set updatetime=600
+set updatetime=250
 set noswapfile undofile undodir=~/.cache/vim/undo/
 # set viewoptions=cursor,curdir,folds
 set linebreak

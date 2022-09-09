@@ -13,8 +13,7 @@ Plug 'honza/vim-snippets'
 Plug 'monkoose/vim9-stargate'
 Plug 'lacygoill/vim9-syntax'
 Plug 'lacygoill/vim9asm'
-" Plug 'cespare/vim-toml', {'for': ['toml']}
-" Plug 'thinca/vim-themis'
+Plug 'thinca/vim-themis'
 
 " PLUGINS WITH CUSTOM CONFIG
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}
