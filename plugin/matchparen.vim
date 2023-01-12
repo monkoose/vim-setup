@@ -6,7 +6,7 @@ vim9script noclear
 # - there are no colors (looks like the cursor jumps)
 if exists('g:loaded_matchparen')
     || &compatible
-    || &t_Co->str2nr() < 8 && !has('gui_running')
+    || str2nr(&t_Co) < 8 && !has('gui_running')
   finish
 endif
 g:loaded_matchparen = 1
@@ -17,9 +17,9 @@ var config: dict<any> = {
   compatible: true,
   on_startup: true,
   syntax_ignored: false,
-  # Need to inspect g:matchparen_timeout to be backward compatible.
-  timeout: get(g:, 'matchparen_timeout', 300),
-  timeout_insert: get(g:, 'matchparen_insert_timeout', 60),
+  syntax_groups: ['string', 'comment', 'character', 'singlequote'],
+  timeout: 200,
+  timeout_insert: 50,
 }
 
 extend(config, get(g:, 'matchparen_config', {}))
@@ -33,12 +33,6 @@ endif
 # Define command that will disable and enable the plugin.
 command -bar -complete=custom,Complete -nargs=? MatchParen Toggle(<q-args>)
 
-# Need to install these commands to be backward compatible.
-if config.compatible
-  command -bar DoMatchParen MatchParen on
-  command -bar NoMatchParen MatchParen off
-endif
-
 # Autocommands {{{1
 
 # Wrap the autocommands inside a function so that they can be easily installed
@@ -47,13 +41,15 @@ def Autocmds(enable: bool)
   if enable && !exists('#matchparen')
     augroup matchparen
       autocmd!
+      autocmd BufWinEnter * SetBufConfig()
       # FileType because 'matchpairs' could be (re)set by a filetype plugin
       autocmd WinEnter,BufWinEnter,FileType,VimEnter * ParseMatchpairs()
       autocmd OptionSet matchpairs ParseMatchpairs()
 
-      autocmd CursorMoved,CursorMovedI,WinEnter,WinScrolled * UpdateHighlight()
-      autocmd InsertEnter * UpdateHighlight(true)
-      autocmd TextChanged,TextChangedI * UpdateHighlight()
+      autocmd CursorMoved,WinEnter,WinScrolled * UpdateHighlight()
+      autocmd InsertEnter,CursorMovedI * UpdateHighlight(true)
+      autocmd TextChanged * UpdateHighlightOnChange()
+      autocmd TextChangedI * UpdateHighlightOnChange(true)
       # In case we reload the buffer while the cursor is on a paren.
       # Need to delay with SafeState because when reloading, the cursor is
       # temporarily on line 1 col 1, no matter its position before the reload.
@@ -74,7 +70,7 @@ if config.on_startup
   Autocmds(true)
 endif
 
-# Variable Declarations {{{1
+# Variables {{{1
 var before: number
 var c_lnum: number
 var c_col: number
@@ -82,42 +78,37 @@ var m_lnum: number
 var m_col: number
 var matchpairs: string
 var pairs: dict<list<string>>
+var change_tick: number = -1
 
 # Functions {{{1
 def Complete(_, _, _): string  #{{{2
-  return ['on', 'off', 'toggle']->join("\n")
-enddef
-
-def IsInsertMode(): bool  #{{{2
-  const mode = mode()
-  return mode == 'i' || mode == 'R'
+  return join(['on', 'off', 'toggle'], "\n")
 enddef
 
 def ParseMatchpairs()  #{{{2
-  if matchpairs == &matchpairs
-    return
-  endif
-  matchpairs = &matchpairs
-  pairs = {}
-  for [opening: string, closing: string] in
+  if matchpairs != &matchpairs
+    matchpairs = &matchpairs
+    const splitted_matchpairs: list<list<string>> =
       matchpairs
         ->split(',')
-        ->map((_, v: string): list<string> => split(v, ':'))
-    pairs[opening] = [escape(opening, '[]'), escape(closing, '[]'),  'nW', 'w$']
-    pairs[closing] = [escape(opening, '[]'), escape(closing, '[]'), 'bnW', 'w0']
-  endfor
+        ->map((_, v) => split(v, ':'))
+    pairs = {}
+    for [opening, closing] in splitted_matchpairs
+      pairs[opening] = [escape(opening, '[]'), escape(closing, '[]'),  'nW', 'w$']
+      pairs[closing] = [escape(opening, '[]'), escape(closing, '[]'), 'bnW', 'w0']
+    endfor
+  endif
 enddef
 
-def UpdateHighlight(insert_enter: bool = false)  #{{{2
+def UpdateHighlight(in_insert: bool = false)  #{{{2
 # The function that is invoked (very often) to define a highlighting for any
 # matching paren.
 
+  change_tick = b:changedtick
   RemoveHighlight()
 
-  # Avoid that we remove the popup menu
-  if pumvisible()
-      # Nothing to highlight if we're in a closed fold
-      || foldclosed('.') != -1
+  # Nothing to highlight if we're in a closed fold
+  if foldclosed('.') != -1
     return
   endif
 
@@ -127,11 +118,10 @@ def UpdateHighlight(insert_enter: bool = false)  #{{{2
   [_, c_lnum, c_col; _] = saved_cursor
   const text = getline(c_lnum)
   const charcol = charcol('.')
-  const in_insert_mode = insert_enter || IsInsertMode()
   var c = text[charcol - 1]
   before = 0
   # In Insert mode try character before the cursor
-  if in_insert_mode
+  if in_insert
     const c_before = charcol == 1 ? '' : text[charcol - 2]
     if has_key(pairs, c_before)
       if c_col > 1
@@ -175,10 +165,10 @@ def UpdateHighlight(insert_enter: bool = false)  #{{{2
 
   # Limit the search time to avoid a hang on very long lines.
   var timeout: number
-  if in_insert_mode
-    timeout = GetOption('timeout_insert')
+  if in_insert
+    timeout = b:matchparen_config.timeout_insert
   else
-    timeout = GetOption('timeout')
+    timeout = b:matchparen_config.timeout
   endif
   try
     [m_lnum, m_col] = searchpairpos(c, '', c2, s_flags, Skip, line(stopline), timeout)
@@ -191,6 +181,12 @@ def UpdateHighlight(insert_enter: bool = false)  #{{{2
 
   if m_lnum > 0
     Highlight()
+  endif
+enddef
+
+def UpdateHighlightOnChange(in_insert: bool = false)  #{{{2
+  if change_tick != b:changedtick
+    UpdateHighlight(in_insert)
   endif
 enddef
 
@@ -218,11 +214,11 @@ def Toggle(args: string)  #{{{2
       # to toggle the plugin
       :MatchParen toggle
     END
-    echo usage->join("\n")
+    echo join(usage, "\n")
     return
   endif
 
-  if ['on', 'off', 'toggle']->index(args) == -1
+  if index(['on', 'off', 'toggle'], args) == -1
     redraw
     echohl ErrorMsg
     echomsg 'matchparen: invalid argument'
@@ -274,18 +270,21 @@ def InStringOrComment(): bool  #{{{2
     synstack = synstack('.', col('.'))
   endif
 
+  var synname: string
+  const syntax_groups: list<string> = b:matchparen_config.syntax_groups
   for synID: number in synstack
-    # We match `escape` and `symbol` for special items, such as
-    # `lispEscapeSpecial` or `lispBarSymbol`.
-    if synIDattr(synID, 'name') =~? 'string\|character\|singlequote\|escape\|symbol\|comment'
-      return true
-    endif
+    synname = synIDattr(synID, 'name')
+    for group in syntax_groups
+      if synname =~? group
+        return true
+      endif
+    endfor
   endfor
   return false
 enddef
 
 def GetSkip(): func(): bool  #{{{2
-  if !exists('b:current_syntax') || GetOption('syntax_ignored')
+  if !exists('b:current_syntax') || b:matchparen_config.syntax_ignored
     return (): bool => false
   else
     # If evaluating the expression determines that the cursor is
@@ -303,22 +302,9 @@ def GetSkip(): func(): bool  #{{{2
   endif
 enddef
 
-def GetOption(name: string): any  #{{{2
-  var value: number = -1
-  # Special  cases needed  to be  backward compatible  and support  old variable
-  # names.
-  if name == 'timeout'
-    value = get(b:, 'matchparen_timeout', -1)
-  elseif name == 'timeout_insert'
-    value = get(b:, 'matchparen_insert_timeout', -1)
-  endif
-
-  if value != -1
-    return value
-  else
-    return get(b:, 'matchparen_config', {})
-            ->get(name, config[name])
-  endif
+def SetBufConfig()  #{{{2
+  b:matchparen_config = get(b:, 'matchparen_config', {})
+  extend(b:matchparen_config, config, 'keep')
 enddef
 
 # vim: fdm=marker

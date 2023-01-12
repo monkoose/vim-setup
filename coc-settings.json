@@ -1,4 +1,5 @@
 {
+    "suggest.autoTrigger": "none",
     "suggest.noselect": true,
     "suggest.enablePreselect": false,
     "suggest.labelMaxLength": 80,
@@ -7,7 +8,7 @@
     "suggest.timeout": 3000,
     "suggest.highPrioritySourceLimit": 40,
     "suggest.lowPrioritySourceLimit": 20,
-    "suggest.removeDuplicateItems": true,
+    "suggest.removeDuplicateItems": false,
     "suggest.defaultSortMethod": "alphabetical",
     "suggest.floatConfig": {
         "border": false,

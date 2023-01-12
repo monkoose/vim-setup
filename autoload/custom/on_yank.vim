@@ -1,9 +1,11 @@
 vim9script
 
 if empty(prop_type_get('yank_prop'))
-  prop_type_add('yank_prop', { highlight: "HighlightedyankRegion",
-                               combine: true,
-                               priority: 100, })
+  prop_type_add('yank_prop', {
+    highlight: "HighlightedyankRegion",
+    combine: true,
+    priority: 100,
+  })
 endif
 
 export def Highlight(timeout: number)

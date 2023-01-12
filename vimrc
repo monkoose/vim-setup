@@ -1,15 +1,4 @@
 vim9script
 
-def LoadConfigFiles(files: list<string>)
-  for file in files
-    execute('source ~/.vim/config/' .. file .. '.vim')
-  endfor
-enddef
-
-LoadConfigFiles([
-  'vimplug',
-  'options',
-  'plugins',
-  'statusline',
-  'maps',
-])
+['vimplug', 'options', 'plugins', 'statusline', 'maps']
+  ->map((_, val) => execute('source ~/.vim/config/' .. val .. '.vim'))

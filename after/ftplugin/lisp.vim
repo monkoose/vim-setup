@@ -1,7 +1,10 @@
+vim9script
+
 setlocal shiftwidth=2
 
-nnoremap <buffer> ( <Cmd>call searchpair("(", "", ")", "bW")<CR>
-nnoremap <buffer> ) <Cmd>call searchpair("(", "", ")", "W")<CR>
+b:matchparen_config = {
+  syntax_groups: ['string', 'comment', 'escape', 'symbol'],
+}
 
 if !exists('#VlimeLisp')
     augroup VlimeLisp
