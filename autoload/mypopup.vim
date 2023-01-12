@@ -1,9 +1,9 @@
 vim9script
 
-def PreviewWindowNr(): number
+def PreviewWinId(): number
   for nr in range(1, winnr('$'))
-    if getwinvar(nr, '&pvw')
-      return nr
+    if win_gettype(nr) == 'preview'
+      return win_getid(nr)
     endif
   endfor
   return 0
@@ -34,24 +34,25 @@ def ScrollInPopup(winid: number, step: number)
 enddef
 
 def ExecuteCmdPvwOrCurrWin(cmd: string, curr_cmd: string)
-  const pvw_nr = PreviewWindowNr()
+  const pvw_winid = PreviewWinId()
   const curr_nr = winnr()
-  if pvw_nr != 0
-    try
-      execute ':' .. pvw_nr .. 'wincmd w'
-      execute cmd
-    finally
-      execute ':' .. curr_nr .. 'wincmd w'
-    endtry
+  if pvw_winid != 0
+    win_execute(pvw_winid, cmd)
   else
     execute curr_cmd
   endif
 enddef
 
-export def ClosePopupAtCursor()
+export def ClosePopupOrPvw()
   const popup_winid = PopupWindowIdAtCursor()
   if popup_winid != 0
     popup_close(popup_winid)
+    return
+  endif
+
+  const pvw_winid = PreviewWinId()
+  if pvw_winid != 0 && pvw_winid != win_getid()
+    win_execute(pvw_winid, 'close!')
   else
     # just Esc press
     execute "normal! \<Esc>"

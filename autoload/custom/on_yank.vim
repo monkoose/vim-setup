@@ -2,7 +2,7 @@ vim9script
 
 if empty(prop_type_get('yank_prop'))
   prop_type_add('yank_prop', {
-    highlight: "HighlightedyankRegion",
+    highlight: "QuickFixLine",
     combine: true,
     priority: 100,
   })
@@ -21,6 +21,8 @@ export def Highlight(timeout: number)
       start_line, start_col,
       { end_lnum: end_line, end_col: length, type: 'yank_prop' }
     ))
+
+    timer_start(timeout,
+      (_) => prop_remove( {type: 'yank_prop'}, start_line, end_line))
   endif
-  timer_start(timeout, (_) => prop_remove({ type: 'yank_prop' }))
 enddef

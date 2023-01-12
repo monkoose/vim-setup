@@ -69,7 +69,7 @@ tnoremap  `  <ScriptCmd>myterm.Toggle()<CR>
 tnoremap  <C-q><C-n>  <C-q>N
 
 # Fix slow esc, should be after all Alt remaps
-nnoremap <nowait>  <Esc>  <ScriptCmd>mypopup.ClosePopupAtCursor()<CR>
+nnoremap <nowait>  <Esc>  <ScriptCmd>mypopup.ClosePopupOrPvw()<CR>
 inoremap <nowait>  <Esc>  <Esc>
 xnoremap <nowait>  <Esc>  <Esc>
 snoremap <nowait>  <Esc>  <C-c>
