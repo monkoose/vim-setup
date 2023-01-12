@@ -51,10 +51,8 @@
     "list.source.diagnostics.pathFormat": "short",
     "coc.preferences.enableMessageDialog": true,
     "coc.preferences.extensionUpdateCheck": "never",
-    "coc.preferences.formatOnSaveFiletypes": [],
-    "coc.preferences.rootPatterns": [
-        ".git"
-    ],
+    "coc.preferences.formatOnSave": false,
+    "workspace.rootPatterns": [".git"],
     "coc.preferences.willSaveHandlerTimeout": 1000,
     "list.insertMappings": {
         "<C-l>": "do:defaultaction",
@@ -68,6 +66,5 @@
         "<C-v>": "action:vsplit",
         "<C-x>": "action:split",
         "<C-t>": "action:tabe"
-    },
-    "vimlsp.diagnostic.enable": false
+    }
 }

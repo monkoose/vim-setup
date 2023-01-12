@@ -1,9 +1,5 @@
 vim9script noclear
 
-# Vim plugin for showing matching parens
-# Maintainer:  Bram Moolenaar <Bram@vim.org>
-# Last Change: 2021 Jun 09
-
 # Exit quickly when:
 # - this plugin was already loaded (or disabled)
 # - 'compatible' is set
@@ -26,11 +22,10 @@ var config: dict<any> = {
   timeout_insert: get(g:, 'matchparen_insert_timeout', 60),
 }
 
-config->extend(get(g:, 'matchparen_config', {}))
+extend(config, get(g:, 'matchparen_config', {}))
 
-if has('textprop')
-  # `silent!` in case the property already exists
-  silent! prop_type_add('matchparen', {highlight: 'MatchParen'})
+if empty(prop_type_get('matchparen'))
+  prop_type_add('matchparen', {highlight: 'MatchParen'})
 endif
 
 # Commands {{{1
@@ -56,7 +51,9 @@ def Autocmds(enable: bool)
       autocmd WinEnter,BufWinEnter,FileType,VimEnter * ParseMatchpairs()
       autocmd OptionSet matchpairs ParseMatchpairs()
 
-      autocmd CursorMoved,CursorMovedI,TextChanged,TextChangedI,WinEnter,WinScrolled * UpdateHighlight()
+      autocmd CursorMoved,CursorMovedI,WinEnter,WinScrolled * UpdateHighlight()
+      autocmd InsertEnter * UpdateHighlight(true)
+      autocmd TextChanged,TextChangedI * UpdateHighlight()
       # In case we reload the buffer while the cursor is on a paren.
       # Need to delay with SafeState because when reloading, the cursor is
       # temporarily on line 1 col 1, no matter its position before the reload.
@@ -78,7 +75,6 @@ if config.on_startup
 endif
 
 # Variable Declarations {{{1
-
 var before: number
 var c_lnum: number
 var c_col: number
@@ -88,11 +84,16 @@ var matchpairs: string
 var pairs: dict<list<string>>
 
 # Functions {{{1
-def Complete(_, _, _): string #{{{2
+def Complete(_, _, _): string  #{{{2
   return ['on', 'off', 'toggle']->join("\n")
 enddef
 
-def ParseMatchpairs() #{{{2
+def IsInsertMode(): bool  #{{{2
+  const mode = mode()
+  return mode == 'i' || mode == 'R'
+enddef
+
+def ParseMatchpairs()  #{{{2
   if matchpairs == &matchpairs
     return
   endif
@@ -107,42 +108,50 @@ def ParseMatchpairs() #{{{2
   endfor
 enddef
 
-def UpdateHighlight() #{{{2
+def UpdateHighlight(insert_enter: bool = false)  #{{{2
 # The function that is invoked (very often) to define a highlighting for any
 # matching paren.
 
   RemoveHighlight()
 
-  # Avoid that we remove the popup menu.
+  # Avoid that we remove the popup menu
   if pumvisible()
-  # Nothing to highlight if we're in a closed fold.
-  || foldclosed('.') != -1
+      # Nothing to highlight if we're in a closed fold
+      || foldclosed('.') != -1
     return
   endif
 
-  # Get the character under the cursor and check if it's in 'matchpairs'.
-  [c_lnum, c_col] = [line('.'), col('.')]
-  var text: string = getline(c_lnum)
-  var charcol: number = charcol('.')
-  var c: string = text[charcol - 1]
-  var c_before: string = charcol == 1 ? '' : text[charcol - 2]
-  var in_insert_mode: bool = mode() == 'i' || mode() == 'R'
+  # Save cursor position so it can be used later
+  const saved_cursor = getcurpos()
+  # Get the character under the cursor and check if it's in 'matchpairs'
+  [_, c_lnum, c_col; _] = saved_cursor
+  const text = getline(c_lnum)
+  const charcol = charcol('.')
+  const in_insert_mode = insert_enter || IsInsertMode()
+  var c = text[charcol - 1]
   before = 0
-  # The character under the cursor is not in 'matchpairs'.
-  if !pairs->has_key(c)
-    # In Insert mode try character before the cursor.
-    if c_col > 1 && in_insert_mode
-      before = strlen(c_before)
-      c = c_before
+  # In Insert mode try character before the cursor
+  if in_insert_mode
+    const c_before = charcol == 1 ? '' : text[charcol - 2]
+    if has_key(pairs, c_before)
+      if c_col > 1
+        before = strlen(c_before)
+        c = c_before
+      endif
+    else
+      # Still not on matching bracket
+      if !has_key(pairs, c)
+        return
+      endif
     endif
-    if !pairs->has_key(c)
-      # Still not in 'matchpairs', nothing to do.
+  else
+    if !has_key(pairs, c)
       return
     endif
   endif
 
-  # Figure out the arguments for searchpairpos().
-  # Use a stopline to limit the search to lines visible in the window.
+  # Figure out the arguments for searchpairpos()
+  # Use a stopline to limit the search to lines visible in the window
   var c2: string
   var s_flags: string
   var stopline: string
@@ -150,9 +159,7 @@ def UpdateHighlight() #{{{2
 
   # Find the match.
   # When it was just before the cursor, move the latter there for a moment.
-  var save_cursor: list<number>
   if before > 0
-    save_cursor = getcurpos()
     cursor(c_lnum, c_col - before)
   endif
 
@@ -179,7 +186,7 @@ def UpdateHighlight() #{{{2
   endtry
 
   if before > 0
-    setpos('.', save_cursor)
+    setpos('.', saved_cursor)
   endif
 
   if m_lnum > 0
@@ -187,49 +194,19 @@ def UpdateHighlight() #{{{2
   endif
 enddef
 
-# RemoveHighlight {{{2
+def RemoveHighlight()  #{{{2
+  # `:silent!` to suppress E16 in case `line('w$')` is 0
+  silent! prop_remove({type: 'matchparen', all: true}, line('w0'), line('w$'))
+enddef
 
-if has('textprop')
 
-  def RemoveHighlight()
-    # `:silent!` to suppress E16 in case `line('w$')` is 0
-    silent! prop_remove({type: 'matchparen', all: true}, line('w0'), line('w$'))
-  enddef
+def Highlight()  #{{{2
+  var props: dict<any> = {length: 1, type: 'matchparen'}
+  prop_add(c_lnum, c_col - before, props)
+  prop_add(m_lnum, m_col, props)
+enddef
 
-else
-
-  def RemoveHighlight()
-    if get(w:, 'matchparen') != 0
-      silent! matchdelete(w:matchparen)
-      w:matchparen = 0
-    endif
-  enddef
-
-endif
-
-# Highlight {{{2
-if has('textprop')
-
-  # use text properties if available
-  def Highlight()
-    var props: dict<any> = {length: 1, type: 'matchparen'}
-    prop_add(c_lnum, c_col - before, props)
-    prop_add(m_lnum, m_col, props)
-  enddef
-
-else
-
-  # fall back on matchaddpos() otherwise
-  def Highlight()
-    w:matchparen = matchaddpos('MatchParen', [
-      [c_lnum, c_col - before],
-      [m_lnum, m_col]
-    ])
-  enddef
-
-endif
-
-def Toggle(args: string) #{{{2
+def Toggle(args: string)  #{{{2
   if args == ''
     var usage: list<string> =<< trim END
       # to enable the plugin
@@ -277,7 +254,7 @@ def Toggle(args: string) #{{{2
   endif
 enddef
 
-def InStringOrComment(): bool #{{{2
+def InStringOrComment(): bool  #{{{2
 # Should return true when the current cursor position is in certain syntax types
 # (string, comment,  etc.); evaluated inside  lambda passed as skip  argument to
 # searchpairpos().
@@ -288,11 +265,11 @@ def InStringOrComment(): bool #{{{2
     return false
   endif
 
-  # After moving to  the end of a line  with `$`, then onto the  line below with
+  # After moving to the end of a line  with `$`, then onto the  line below with
   # `k`, `synstack()` might wrongly give an empty stack.  Possible bug:
   # https://github.com/vim/vim/issues/5252
   var synstack: list<number> = synstack('.', col('.'))
-  if synstack->empty() && getcurpos()[-1] == v:maxcol
+  if empty(synstack) && getcurpos()[-1] == v:maxcol
     # As a workaround, we ask for the syntax a second time.
     synstack = synstack('.', col('.'))
   endif
@@ -300,44 +277,33 @@ def InStringOrComment(): bool #{{{2
   for synID: number in synstack
     # We match `escape` and `symbol` for special items, such as
     # `lispEscapeSpecial` or `lispBarSymbol`.
-    if synIDattr(synID, 'name') =~ '\cstring\|character\|singlequote\|escape\|symbol\|comment'
+    if synIDattr(synID, 'name') =~? 'string\|character\|singlequote\|escape\|symbol\|comment'
       return true
     endif
   endfor
   return false
 enddef
 
-# GetSkip {{{2
-if !has('syntax')
-
-  def GetSkip(): func
-    return () => false
-  enddef
-
-else
-
-  def GetSkip(): func
-    if !exists('g:syntax_on') || GetOption('syntax_ignored')
-      return () => false
+def GetSkip(): func(): bool  #{{{2
+  if !exists('b:current_syntax') || GetOption('syntax_ignored')
+    return (): bool => false
+  else
+    # If evaluating the expression determines that the cursor is
+    # currently in a text with some specific syntax type (like a string
+    # or a comment), then we want searchpairpos() to find a pair within
+    # a text of similar type; i.e. we want to ignore a pair of different
+    # syntax type.
+    if InStringOrComment()
+      return (): bool => !InStringOrComment()
+    # Otherwise, the cursor is outside of these specific syntax types,
+    # and we want searchpairpos() to find a pair which is also outside.
     else
-      # If evaluating the expression determines that the cursor is
-      # currently in a text with some specific syntax type (like a string
-      # or a comment), then we want searchpairpos() to find a pair within
-      # a text of similar type; i.e. we want to ignore a pair of different
-      # syntax type.
-      if InStringOrComment()
-        return (): bool => !InStringOrComment()
-      # Otherwise, the cursor is outside of these specific syntax types,
-      # and we want searchpairpos() to find a pair which is also outside.
-      else
-        return (): bool => InStringOrComment()
-      endif
+      return (): bool => InStringOrComment()
     endif
-  enddef
+  endif
+enddef
 
-endif
-
-def GetOption(name: string): any #{{{2
+def GetOption(name: string): any  #{{{2
   var value: number = -1
   # Special  cases needed  to be  backward compatible  and support  old variable
   # names.
@@ -351,6 +317,8 @@ def GetOption(name: string): any #{{{2
     return value
   else
     return get(b:, 'matchparen_config', {})
-         ->get(name, config[name])
+            ->get(name, config[name])
   endif
 enddef
+
+# vim: fdm=marker

@@ -2,7 +2,6 @@ vim9script
 
 # coc.nvim {{{
 g:coc_global_extensions = [
-  'coc-vimlsp',
   'coc-json',
   'coc-sh',
   'coc-snippets',
@@ -152,6 +151,7 @@ g:stargate_keymaps = {
 # # }}}
 # vlime {{{
 g:vlime_leader = ","
+g:vlime_contribs = ["SWANK-ASDF", "SWANK-TRACE-DIALOG", "SWANK-PACKAGE-FU", "SWANK-PRESENTATIONS", "SWANK-FANCY-INSPECTOR", "SWANK-C-P-C", "SWANK-ARGLISTS", "SWANK-REPL", "SWANK-FUZZY"]
 # }}}
 # vim9-syntax {{{
 

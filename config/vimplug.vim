@@ -14,6 +14,8 @@ Plug 'monkoose/vim9-stargate'
 Plug 'lacygoill/vim9-syntax'
 Plug 'lacygoill/vim9asm'
 Plug 'thinca/vim-themis'
+Plug 'vlime/vlime'
+Plug 'kovisoft/paredit'
 
 " PLUGINS WITH CUSTOM CONFIG
 Plug 'neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'}

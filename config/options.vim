@@ -3,7 +3,6 @@ vim9script
 import autoload '../autoload/custom/on_yank.vim'
 
 g:skip_defaults_vim = 1
-set nocompatible
 set history=300
 set showcmd
 set display=truncate
@@ -11,7 +10,7 @@ set incsearch
 set nrformats-=octal
 set nolangremap
 
-set noshowcmd
+
 set t_ut=
 if !has('gui_running')
   # set termguicolors
@@ -25,6 +24,8 @@ if !has('gui_running')
   &t_fd = "\e[?1004l"
 endif
 
+set noshowcmd
+set noshowmode
 set ttimeout
 set ttimeoutlen=30
 set belloff=
@@ -39,7 +40,7 @@ set autoread
 set title
 set hidden
 set spelllang=en_us,ru_yo
-set pumheight=10
+set pumheight=5 pumwidth=30
 set nowrap
 set number relativenumber
 set ignorecase smartcase
@@ -64,7 +65,7 @@ set wildignore+=*.jpg,*.jpeg,*.bmp,*.gif,*.png
 set shortmess=filnrxtToOFIcs
 set diffopt=filler,vertical,closeoff
 set guicursor=
-set keymap=russian-jcuken iminsert=0
+# set keymap=russian-jcuken iminsert=0
 set grepprg=rg\ --vimgrep grepformat=%f:%l:%c:%m
 set clipboard-=autoselect
 set shell=/bin/fish
