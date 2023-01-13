@@ -47,7 +47,7 @@ vnoremap  <C-j>  <C-d>
 vnoremap  <C-k>  <C-u>
 vnoremap  <space>y  "+y
 
-noremap!  <C-@>  <C-^>
+noremap!  <C-@>  <Cmd>let &iminsert = !&iminsert<CR><C-^>
 inoremap  k  <C-k>
 inoremap  <C-u>  <C-g>u<C-u>
 inoremap  h  <Left>
