@@ -16,9 +16,11 @@ noremap <expr>  <C-l>  getcharsearch().forward ? ';' : ','
 nnoremap  <space>/  <Cmd>nohlsearch<CR>
 nnoremap  gx  <ScriptCmd>mf.OpenPath()<CR>
 nnoremap  zS  <ScriptCmd>mf.Synnames()<CR>
-nnoremap  <space>q  <Cmd>pclose<CR>
+nnoremap  <space>q  <Cmd>cnext<CR>
+nnoremap  <space>Q  <Cmd>cprevious<CR>
 nnoremap  <space>a  <C-^>
 nnoremap  <space>y  "+y
+nnoremap  <space>Y  "+y$
 nnoremap  <space>p  "+
 nnoremap  <C-j>  <C-d>
 nnoremap  <C-k>  <C-u>
@@ -67,6 +69,8 @@ tnoremap  w  <C-q>w
 tnoremap  q  <Cmd>close!<CR>
 tnoremap  `  <ScriptCmd>myterm.Toggle()<CR>
 tnoremap  <C-q><C-n>  <C-q>N
+tnoremap  <C-q>;  <C-q>:
+tnoremap  <C-]>  <C-q>N
 
 # Fix slow esc, should be after all Alt remaps
 nnoremap <nowait>  <Esc>  <ScriptCmd>mypopup.ClosePopupOrPvw()<CR>
