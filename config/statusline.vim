@@ -14,10 +14,11 @@ const fname = '  %3*%f%* %7*%m%* '
 const fname_nc = '  %f %6*%M%*   '
 const ro = "%6*%{&ro ? '' : ''}%*  "
 const iminsert = "%6*%{get(b:, 'status_iminsert', '')}%*"
+const mode = "  %2(%{%StatusLineMode()%}%) "
 # const lncol = "%< %-9(%3*%l%*·%4*%c%V%*%) "
 # const session = "%{fnamemodify(v:this_session, ':t')}"
 
-const statusline = iminsert .. fname .. ro .. git .. spell .. right .. coc .. tail
+const statusline = mode .. iminsert .. fname .. ro .. git .. spell .. right .. coc .. tail
 const statusline_nc = fname_nc .. git_nc .. tail_nc
 &statusline = statusline
 
@@ -91,6 +92,24 @@ def StatusDiagnostic()
     add(msgs, 'W:' .. info.warning)
   endif
   b:status_diagnostics = join(msgs, ' ')
+enddef
+
+final modes = {
+  n: 'N',
+  i: '%2*I%*',
+  R: 'R',
+  v: 'V',
+  V: 'VL',
+  "\<C-v>": 'VB',
+  c: 'C',
+  s: 'S',
+  S: 'SL',
+  "\<C-s>": 'SB',
+  t: 'T',
+}
+
+def g:StatusLineMode(): string
+  return get(modes, mode(), '')
 enddef
 
 augroup StatusLine
