@@ -8,7 +8,7 @@
     "suggest.timeout": 3000,
     "suggest.highPrioritySourceLimit": 40,
     "suggest.lowPrioritySourceLimit": 20,
-    "suggest.removeDuplicateItems": false,
+    "suggest.removeDuplicateItems": true,
     "suggest.defaultSortMethod": "alphabetical",
     "suggest.floatConfig": {
         "border": false,

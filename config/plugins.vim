@@ -1,6 +1,6 @@
 vim9script
 
-# coc.nvim {{{
+# coc.nvim {{{1
 g:coc_global_extensions = [
   'coc-json',
   'coc-sh',
@@ -45,8 +45,7 @@ nnoremap <expr> <space>d
 vnoremap  <space>ka  <Plug>(coc-codeaction-selected)
 vnoremap  <space>kf  <Plug>(coc-format-selected)
 
-# }}}
-# fzf.vim {{{
+# fzf.vim {{{1
 const fzf_colors = [
   'fg:-1',
   'bg:-1',
@@ -91,33 +90,31 @@ nnoremap <silent> <space>sw   :<C-u>FzfRg <C-r><C-w><CR>
 nnoremap <silent> <space>gc   <Cmd>FzfCommits<CR>
 nnoremap <silent> <space>gC   <Cmd>FzfBCommits<CR>
 
-
-# }}}
-# undotree {{{
+# undotree {{{1
 g:undotree_SetFocusWhenToggle = 1
 g:undotree_WindowLayout       = 2
 g:undotree_ShortIndicators    = 1
 g:undotree_HelpLine           = 0
 nmap    <silent>    4    <Cmd>UndotreeToggle<CR>
-# }}}
-# vim-easy-align {{{
+
+# vim-easy-align {{{1
 vmap    <Enter>    <Plug>(EasyAlign)
-# }}}
-# vim-fugitive {{{
+
+# vim-fugitive {{{1
 nnoremap    <space>gg    <Cmd>Git<CR>
 nnoremap    <space>gb    <Cmd>Git blame<CR>
 nnoremap    <space>gd    <Cmd>Git diff<CR>
 nnoremap    <space>ge    <Cmd>Gedit<CR>
-# }}}
-# # gh {{{
-# nnoremap <space>gl <Cmd>split gh://monkoose/gists<CR>
-# nnoremap <space>gp :split gh://gists/new/
-# # }}}
-# fern {{{
+
+ # # gh {{{1
+ # nnoremap <space>gl <Cmd>split gh://monkoose/gists<CR>
+ # nnoremap <space>gp :split gh://gists/new/
+
+# fern {{{1
 g:fern#drawer_width = 35
 nnoremap 1 <Cmd>Fern . -drawer -toggle<CR>
-# }}}
-# vim-gitgutter {{{
+
+# vim-gitgutter {{{1
 g:gitgutter_sign_modified_removed  = '≃'
 
 nmap  <silent>   <space>gi <Plug>(GitGutterPreviewHunk)
@@ -128,8 +125,8 @@ augroup GitGutterUpdate
   autocmd!
   autocmd BufWritePost * GitGutter
 augroup END
-# }}}
-# vim9-stargate {{{
+
+# vim9-stargate {{{1
 noremap <space><space> <Cmd>call stargate#OKvim(1)<CR>
 nnoremap <space>w <Cmd>call stargate#Galaxy()<CR>
 
@@ -143,18 +140,17 @@ g:stargate_keymaps = {
    "a": "ф", "s": "ы", "d": "в", "f": "а", "g": "п", "h": "р", "j": "о", "k": "л", "l": "д", ";": "ж", "'": "э",
     "z": "я", "x": "ч", "c": "с", "v": "м", "b": "и", "n": "т", "m": "ь", ",": "б", ".": "ю"
 }
-# }}}
-# # termdebug {{{
+
+# # termdebug {{{1
 # packadd termdebug
 # g:termdebug_wide = 1
 # g:termdebug_disasm_window = 15
-# # }}}
-# vlime {{{
+
+# vlime {{{1
 g:vlime_leader = ","
 g:vlime_contribs = ["SWANK-ASDF", "SWANK-TRACE-DIALOG", "SWANK-PACKAGE-FU", "SWANK-PRESENTATIONS", "SWANK-FANCY-INSPECTOR", "SWANK-C-P-C", "SWANK-ARGLISTS", "SWANK-REPL", "SWANK-FUZZY"]
-# }}}
-# vim9-syntax {{{
 
+# vim9-syntax {{{1
 g:vim9_syntax = {
   errors: {
     event_wrong_case: false,
@@ -162,6 +158,6 @@ g:vim9_syntax = {
     range_missing_space: false,
     range_missing_specifier: false,
     strict_whitespace: true }}
-# }}}
+# }}}1
 
 # vim: foldmethod=marker

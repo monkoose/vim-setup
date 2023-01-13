@@ -17,9 +17,9 @@ if !has('gui_running')
   colorscheme boa
   set t_cl=
   &t_AU = "\e[58:5:%dm"
-  &t_SI = "\e[6 q"
-  &t_SR = "\e[4 q"
-  &t_EI = "\e[2 q"
+  # &t_SI = "\e[6 q"
+  # &t_SR = "\e[4 q"
+  # &t_EI = "\e[2 q"
   &t_fe = "\e[?1004h"
   &t_fd = "\e[?1004l"
 endif
@@ -40,7 +40,7 @@ set autoread
 set title
 set hidden
 set spelllang=en_us,ru_yo
-set pumheight=5 pumwidth=30
+set pumheight=10 pumwidth=30
 set nowrap
 set number relativenumber
 set ignorecase smartcase
