@@ -1,6 +1,22 @@
 vim9script
 
-# coc.nvim {{{1
+plug#begin('~/.vim/plugged')
+
+plug#('monkoose/boa-vim.vim')
+plug#('tpope/vim-repeat')
+plug#('tpope/vim-surround')
+plug#('tpope/vim-characterize')
+plug#('tpope/vim-commentary')
+plug#('hail2u/vim-css3-syntax')
+plug#('othree/html5.vim')
+plug#('pangloss/vim-javascript')
+plug#('honza/vim-snippets')
+plug#('lacygoill/vim9asm')
+plug#('thinca/vim-themis')
+plug#('monkoose/paredit')
+
+plug#('neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'})  #{{{1
+
 g:coc_global_extensions = [
   'coc-json',
   'coc-sh',
@@ -15,6 +31,7 @@ g:coc_global_extensions = [
 ]
 
 g:coc_snippet_next = '<C-i>'
+# workaround to make '<M-i>' work
 exe "set <M-i>=\ei"
 g:coc_snippet_prev = '<M-i>'
 inoremap <silent><expr>  <M-i>  coc#jumpable() ? "\<M-i" : ""
@@ -45,7 +62,8 @@ nnoremap <expr> <space>d
 vnoremap  <space>ka  <Plug>(coc-codeaction-selected)
 vnoremap  <space>kf  <Plug>(coc-format-selected)
 
-# fzf.vim {{{1
+plug#('junegunn/fzf.vim')  #{{{1
+
 const fzf_colors = [
   'fg:-1',
   'bg:-1',
@@ -90,31 +108,33 @@ nnoremap <silent> <space>sw   :<C-u>FzfRg <C-r><C-w><CR>
 nnoremap <silent> <space>gc   <Cmd>FzfCommits<CR>
 nnoremap <silent> <space>gC   <Cmd>FzfBCommits<CR>
 
-# undotree {{{1
+plug#('mbbill/undotree', {'on': 'UndotreeToggle'})  #{{{1
+
 g:undotree_SetFocusWhenToggle = 1
 g:undotree_WindowLayout       = 2
 g:undotree_ShortIndicators    = 1
 g:undotree_HelpLine           = 0
 nmap    <silent>    4    <Cmd>UndotreeToggle<CR>
 
-# vim-easy-align {{{1
+plug#('junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'})  #{{{1
+
 vmap    <Enter>    <Plug>(EasyAlign)
 
-# vim-fugitive {{{1
+plug#('tpope/vim-fugitive')  #{{{1
+
 nnoremap    <space>gg    <Cmd>Git<CR>
 nnoremap    <space>gb    <Cmd>Git blame<CR>
 nnoremap    <space>gd    <Cmd>Git diff<CR>
 nnoremap    <space>ge    <Cmd>Gedit<CR>
 
- # # gh {{{1
- # nnoremap <space>gl <Cmd>split gh://monkoose/gists<CR>
- # nnoremap <space>gp :split gh://gists/new/
+plug#('lambdalisue/fern.vim')  #{{{1
+plug#('lambdalisue/fern-hijack.vim')
 
-# fern {{{1
 g:fern#drawer_width = 35
 nnoremap 1 <Cmd>Fern . -drawer -toggle<CR>
 
-# vim-gitgutter {{{1
+plug#('airblade/vim-gitgutter')  #{{{1
+
 g:gitgutter_sign_modified_removed  = '≃'
 
 nmap  <silent>   <space>gi <Plug>(GitGutterPreviewHunk)
@@ -126,7 +146,8 @@ augroup GitGutterUpdate
   autocmd BufWritePost * GitGutter
 augroup END
 
-# vim9-stargate {{{1
+plug#('monkoose/vim9-stargate')  #{{{1
+
 noremap <space><space> <Cmd>call stargate#OKvim(1)<CR>
 nnoremap <space>w <Cmd>call stargate#Galaxy()<CR>
 
@@ -141,16 +162,13 @@ g:stargate_keymaps = {
     "z": "я", "x": "ч", "c": "с", "v": "м", "b": "и", "n": "т", "m": "ь", ",": "б", ".": "ю"
 }
 
-# # termdebug {{{1
-# packadd termdebug
-# g:termdebug_wide = 1
-# g:termdebug_disasm_window = 15
+plug#('vlime/vlime')  #{{{1
 
-# vlime {{{1
 g:vlime_leader = ","
 g:vlime_contribs = ["SWANK-ASDF", "SWANK-TRACE-DIALOG", "SWANK-PACKAGE-FU", "SWANK-PRESENTATIONS", "SWANK-FANCY-INSPECTOR", "SWANK-C-P-C", "SWANK-ARGLISTS", "SWANK-REPL", "SWANK-FUZZY"]
 
-# vim9-syntax {{{1
+plug#('lacygoill/vim9-syntax')  #{{{1
+
 g:vim9_syntax = {
   errors: {
     event_wrong_case: false,
@@ -158,6 +176,17 @@ g:vim9_syntax = {
     range_missing_space: false,
     range_missing_specifier: false,
     strict_whitespace: true }}
-# }}}1
+
+# plug#('skanehira/gh.vim')  #{{{1
+#
+# nnoremap <space>gl <Cmd>split gh://monkoose/gists<CR>
+# nnoremap <space>gp :split gh://gists/new/
+
+# packadd termdebug  #{{{1
+# g:termdebug_wide = 1
+# g:termdebug_disasm_window = 15
+# #}}}1
+
+plug#end()
 
 # vim: foldmethod=marker

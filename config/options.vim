@@ -10,14 +10,13 @@ set incsearch
 set nrformats-=octal
 set nolangremap
 
-
 set t_ut=
 if !has('gui_running')
   # set termguicolors
   colorscheme boa
   set t_cl=
   &t_AU = "\e[58:5:%dm"
-  # &t_SI = "\e[6 q"
+  &t_SI = "\e[6 q"
   &t_SR = "\e[4 q"
   &t_EI = "\e[2 q"
   &t_fe = "\e[?1004h"
@@ -81,7 +80,7 @@ enddef
 augroup MyAutocmds
   autocmd!
   autocmd FocusGained * silent! checktime
-  autocmd TerminalWinOpen * setlocal nonumber norelativenumber
+  autocmd TerminalWinOpen * setlocal nonumber norelativenumber signcolumn=no nolist
   autocmd TextYankPost * on_yank.Highlight(250)
   autocmd BufReadPost * JumpToLastPosition()
 augroup END
