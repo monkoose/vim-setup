@@ -78,20 +78,26 @@ def StatusIminsert()
 enddef
 
 def StatusDiagnostic()
-  const info = get(b:, 'coc_diagnostic_info', {})
-  if empty(info)
+  const diagn = ale#statusline#Count(bufnr())
+  if diagn.total == 0
     b:status_diagnostics = ''
     return
   endif
 
-  final msgs = []
-  if get(info, 'error', 0) > 0
-    add(msgs, 'E:' .. info.error)
+  var result = ''
+  const errors = diagn.error + diagn.style_error
+  const warnings = diagn.warning + diagn.style_warning
+  if errors > 0
+    result ..= 'E:' .. errors
   endif
-  if get(info, 'warning', 0) > 0
-    add(msgs, 'W:' .. info.warning)
+  if warnings > 0
+    result ..= 'W:' .. warnings
   endif
-  b:status_diagnostics = join(msgs, ' ')
+  if diagn.info > 0
+    result ..= 'I:' .. diagn.info
+  endif
+  b:status_diagnostics = result
+  echom b:status_diagnostics
 enddef
 
 final modes = {
@@ -120,5 +126,5 @@ augroup StatusLine
   autocmd BufWinEnter * StatusIminsert()
   autocmd OptionSet iminsert StatusIminsert()
   autocmd User GitGutter StatusGitGutter()
-  autocmd User CocDiagnosticChange StatusDiagnostic()
+  autocmd User ALELintPost StatusDiagnostic()
 augroup END
