@@ -15,6 +15,40 @@ plug#('lacygoill/vim9asm')
 plug#('thinca/vim-themis')
 plug#('monkoose/paredit')
 
+plug#('dense-analysis/ale')  #{{{1
+g:ale_completion_enabled = 0
+g:ale_floating_preview = 1
+g:ale_echo_cursor = 0
+g:ale_hover_cursor = 0
+g:ale_echo_msg_format = '[%linter%] %code: %%s'
+g:ale_pattern_options_enabled = 0
+g:ale_sign_error = 'E'
+g:ale_sign_warning = 'W'
+g:ale_sign_info = 'I'
+g:ale_shell = '/bin/bash'
+g:ale_virtualtext_cursor = 'current'
+g:ale_virtualtext_delay = 100
+g:ale_virtualtext_prefix = '   [%linter%] '
+g:ale_warn_about_trailing_whitespace = 0
+g:ale_completion_max_suggestions = 30
+g:ale_disable_lsp = 1
+g:ale_floating_preview_popup_opts = {
+  close: 'none',
+  highlight: 'Normal',
+  borderhighlight: ['PopupBorder'],
+  borderchars: ['━', '┃', '━', '┃', '┏', '┓', '┛', '┗'],
+}
+
+g:ale_linters = {
+  vim: [],
+  d: ['dub', 'serve-d', 'dscanner'],
+}
+
+nmap  <space>kd  3
+nnoremap  <space>ki  <Cmd>ALEDetail<CR>
+nnoremap  <space>l   <Cmd>ALENextWrap<CR>
+nnoremap  <space>L   <Cmd>ALEPreviousWrap<CR>
+
 plug#('neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'})  #{{{1
 
 g:coc_global_extensions = [
@@ -49,13 +83,9 @@ nnoremap  <space>kr  <Plug>(coc-references)
 nnoremap  <space>kR  <Plug>(coc-rename)
 nnoremap  <space>ke  <Plug>(coc-refactor)
 nnoremap  <space>ka  <Cmd>CocList actions<CR>
-nnoremap  <space>kd  <Cmd>CocList diagnostics<CR>
 nnoremap  <space>kl  <Cmd>CocList<CR>
 nnoremap  <space>kf  <Plug>(coc-format)
-nnoremap  <space>ki  <Plug>(coc-diagnostic-info)
 nnoremap  <space>ko  <Cmd>CocList outline<CR>
-nnoremap  <space>l   <Plug>(coc-diagnostic-next)
-nnoremap  <space>L   <Plug>(coc-diagnostic-prev)
 nnoremap <expr> K g:CocHasProvider('hover') ? g:CocActionAsync('doHover') : "K"
 nnoremap <expr> <space>d
       \ g:CocHasProvider('definition') ? g:CocActionAsync('jumpDefinition') : "\<C-]>"
@@ -188,5 +218,6 @@ g:vim9_syntax = {
 # #}}}1
 
 plug#end()
+
 
 # vim: foldmethod=marker

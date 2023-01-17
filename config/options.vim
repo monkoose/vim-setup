@@ -39,7 +39,7 @@ set autoread
 set title
 set hidden
 set spelllang=en_us,ru_yo
-set pumheight=10 pumwidth=30
+set pumheight=10 pumwidth=20
 set nowrap
 set number relativenumber
 set ignorecase smartcase
@@ -57,6 +57,7 @@ set backspace=indent,eol,start
 set smarttab expandtab smartindent shiftround shiftwidth=4 softtabstop=-1
 set nojoinspaces
 set completeopt=menuone,longest,noinsert,noselect,popup
+set completepopup=align:menu,border:off
 set wildmenu wildmode=longest:full wildoptions=fuzzy,pum
 set wildignorecase
 set wildignore+=*/.git/*,*/__pycache__/*,*.pyc,*/node_modules/*

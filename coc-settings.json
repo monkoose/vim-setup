@@ -10,6 +10,7 @@
     "suggest.lowPrioritySourceLimit": 20,
     "suggest.removeDuplicateItems": true,
     "suggest.defaultSortMethod": "alphabetical",
+    "coc.source.omni.filetypes": ["d"],
     "suggest.floatConfig": {
         "border": false,
         "highlight": "CocFloating"
@@ -23,6 +24,7 @@
         "maxWidth": 100,
         "maxHeight": 10
     },
+    "diagnostic.displayByAle": true,
     "diagnostic.checkCurrentLine": true,
     "diagnostic.errorSign": "E",
     "diagnostic.warningSign": "W",
