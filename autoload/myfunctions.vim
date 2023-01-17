@@ -53,16 +53,24 @@ enddef
 
 export def ToggleLoclistWindow()
   if win_gettype() == 'loclist'
-    JumpToPreviousWindow()
+    const main_winid = getloclist(0, { filewinid: 0 }).filewinid
+    if main_winid != 0
+      exe ':' .. win_id2win(main_winid) .. 'wincmd w'
+    endif
     lclose
   else
-    try
-      lopen
-    catch /E776/
-      echohl WarningMsg
-      echo ' Location List is empty'
-      echohl None
-    endtry
+    const loc_winid = getloclist(0, { winid: 0 }).winid
+    if loc_winid != 0
+      lclose
+    else
+      try
+        lopen
+      catch /E776/
+        echohl WarningMsg
+        echo ' Location List is empty'
+        echohl None
+      endtry
+    endif
   endif
 enddef
 

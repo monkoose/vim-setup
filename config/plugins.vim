@@ -13,7 +13,7 @@ plug#('pangloss/vim-javascript')
 plug#('honza/vim-snippets')
 plug#('lacygoill/vim9asm')
 plug#('thinca/vim-themis')
-plug#('monkoose/paredit')
+# plug#('monkoose/paredit')
 
 plug#('dense-analysis/ale')  #{{{1
 g:ale_completion_enabled = 0
@@ -41,7 +41,7 @@ g:ale_floating_preview_popup_opts = {
 
 g:ale_linters = {
   vim: [],
-  d: ['dub', 'serve-d', 'dscanner'],
+  d: ['serve-d'],
 }
 
 nmap  <space>kd  3
@@ -192,10 +192,10 @@ g:stargate_keymaps = {
     "z": "я", "x": "ч", "c": "с", "v": "м", "b": "и", "n": "т", "m": "ь", ",": "б", ".": "ю"
 }
 
-plug#('vlime/vlime')  #{{{1
+# plug#('vlime/vlime')  #{{{1
 
-g:vlime_leader = ","
-g:vlime_contribs = ["SWANK-ASDF", "SWANK-TRACE-DIALOG", "SWANK-PACKAGE-FU", "SWANK-PRESENTATIONS", "SWANK-FANCY-INSPECTOR", "SWANK-C-P-C", "SWANK-ARGLISTS", "SWANK-REPL", "SWANK-FUZZY"]
+# g:vlime_leader = ","
+# g:vlime_contribs = ["SWANK-ASDF", "SWANK-TRACE-DIALOG", "SWANK-PACKAGE-FU", "SWANK-PRESENTATIONS", "SWANK-FANCY-INSPECTOR", "SWANK-C-P-C", "SWANK-ARGLISTS", "SWANK-REPL", "SWANK-FUZZY"]
 
 plug#('lacygoill/vim9-syntax')  #{{{1
 
