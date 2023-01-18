@@ -8,8 +8,8 @@ const git_nc = gitbranch .. gitcommit
 const spell = "%5*%{&spell ? '  SPELL ' : ''}%*"
 const right = ' %='
 const coc = "%{get(g:, 'coc_status', '')} %7*%{get(b:, 'status_diagnostics', '')}%*"
-const tail = '  %Y  %4*%P%* '
-const tail_nc = ' %=%Y  %P '
+const tail = '  %{&filetype}  %4*%P%* '
+const tail_nc = ' %=%{&filetype}  %P '
 const fname = '  %3*%f%* %7*%m%* '
 const fname_nc = '  %f %6*%M%*   '
 const ro = "%6*%{&ro ? '' : ''}%*  "
