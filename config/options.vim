@@ -58,6 +58,7 @@ set smarttab expandtab smartindent shiftround shiftwidth=4 softtabstop=-1
 set nojoinspaces
 set completeopt=menuone,noinsert,noselect,popup
 set completepopup=align:menu,border:off
+# set previewpopup=height:12,width:80
 set wildmenu wildmode=longest:full wildoptions=fuzzy,pum
 set wildignorecase
 set wildignore+=*/.git/*,*/__pycache__/*,*.pyc,*/node_modules/*
