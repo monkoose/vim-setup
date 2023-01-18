@@ -41,7 +41,7 @@ def Autocmds(enable: bool)
   if enable && !exists('#matchparen')
     augroup matchparen
       autocmd!
-      autocmd BufWinEnter * SetBufConfig()
+      autocmd BufWinEnter,VimEnter,Filetype * SetBufConfig()
       # FileType because 'matchpairs' could be (re)set by a filetype plugin
       autocmd WinEnter,BufWinEnter,FileType,VimEnter * ParseMatchpairs()
       autocmd OptionSet matchpairs ParseMatchpairs()
@@ -228,6 +228,7 @@ def Toggle(args: string)  #{{{2
 
   def Enable()
     Autocmds(true)
+    SetBufConfig()
     ParseMatchpairs()
     UpdateHighlight()
   enddef
