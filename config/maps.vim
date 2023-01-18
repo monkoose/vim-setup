@@ -18,7 +18,8 @@ def SetKeymaps()
   nnoremap  gx  <ScriptCmd>mf.OpenPath()<CR>
   nnoremap  zS  <ScriptCmd>mf.Synnames()<CR>
   nnoremap  <space>q  <Cmd>cnext<CR>
-  nnoremap  <space>Q  <Cmd>cprevious<CR>
+  nnoremap  <space><C-q>  <Cmd>cprevious<CR>
+  nnoremap  <C-@><C-q>  <Cmd>cprevious<CR>
   nnoremap  <space>a  <C-^>
   nnoremap  <space>y  "+y
   nnoremap  <space>Y  "+y$
@@ -43,7 +44,7 @@ def SetKeymaps()
   nnoremap  yoy  <ScriptCmd>unimpaired.SwitchOption('colorcolumn', '', 100)<CR>
   nnoremap  [<space>  <ScriptCmd>unimpaired.PasteBlanklineAbove()<CR>
   nnoremap  ]<space>  <ScriptCmd>unimpaired.PasteBlanklineBelow()<CR>
-  nnoremap  <C-@>  <Cmd>let &iminsert = !&iminsert<CR>
+  nnoremap  <C-@><C-@>  <Cmd>let &iminsert = !&iminsert<CR>
   nnoremap  `  <ScriptCmd>myterm.Toggle()<CR>
 
   vnoremap  <C-j>  <C-d>

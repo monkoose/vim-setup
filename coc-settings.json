@@ -1,4 +1,12 @@
 {
+    "Lua.diagnostics.disable": [],
+    "languageserver": {
+        "d": {
+            "command": "/home/monkoose/Downloads/serve-d",
+            "filetypes": ["d"],
+            "rootPatterns": ["dub.json", "dub.sdl"]
+        }
+    },
     "suggest.autoTrigger": "none",
     "suggest.noselect": true,
     "suggest.enablePreselect": false,
@@ -10,11 +18,11 @@
     "suggest.lowPrioritySourceLimit": 20,
     "suggest.removeDuplicateItems": true,
     "suggest.defaultSortMethod": "alphabetical",
-    "coc.source.omni.filetypes": ["d"],
     "suggest.floatConfig": {
         "border": false,
         "highlight": "CocFloating"
     },
+    "diagnostic.displayByAle": true,
     "diagnostic.enableMessage": "jump",
     "diagnostic.messageDelay": 100,
     "diagnostic.floatConfig": {
@@ -24,7 +32,6 @@
         "maxWidth": 100,
         "maxHeight": 10
     },
-    "diagnostic.displayByAle": true,
     "diagnostic.checkCurrentLine": true,
     "diagnostic.errorSign": "E",
     "diagnostic.warningSign": "W",

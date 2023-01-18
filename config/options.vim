@@ -56,7 +56,7 @@ set splitbelow splitright
 set backspace=indent,eol,start
 set smarttab expandtab smartindent shiftround shiftwidth=4 softtabstop=-1
 set nojoinspaces
-set completeopt=menuone,longest,noinsert,noselect,popup
+set completeopt=menuone,noinsert,noselect,popup
 set completepopup=align:menu,border:off
 set wildmenu wildmode=longest:full wildoptions=fuzzy,pum
 set wildignorecase

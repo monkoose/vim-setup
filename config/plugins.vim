@@ -15,6 +15,56 @@ plug#('lacygoill/vim9asm')
 plug#('thinca/vim-themis')
 # plug#('monkoose/paredit')
 
+# plug#('prabirshrestha/vim-lsp')  #{{{1
+# plug#('rhysd/vim-lsp-ale')
+# var serve_d: dict<any>
+# def SetupServed()
+#   if executable('serve-d')
+#     serve_d = {
+#       name: 'serve-d',
+#       cmd: ['serve-d'],
+#       allowlist: ['d'],
+#     }
+#   endif
+# enddef
+# autocmd User lsp_setup lsp#register_server({
+#       \ name: 'serve-d',
+#       \ cmd: ['/home/monkoose/Downloads/serve-d'],
+#       \ allowlist: ['d'],
+#       \ root_uri: (server_info) => lsp#utils#path_to_uri(
+#       \   lsp#utils#find_nearest_parent_file_directory(
+#       \     lsp#utils#get_buffer_path(),
+#       \     ['dub.sdl', 'dub.json']
+#       \   )
+#       \ )
+#       \ })
+# plug#('prabirshrestha/asyncomplete.vim')
+# plug#('prabirshrestha/asyncomplete-lsp.vim')
+# plug#('prabirshrestha/asyncomplete-file.vim')
+# plug#('prabirshrestha/asyncomplete-buffer.vim')
+# g:asyncomplete_popup_delay = 50
+# g:asyncomplete_auto_completeopt = 0
+# # g:asyncomplete_auto_popup = 0
+# g:asyncomplete_matchfuzzy = 0
+# def AsyncompleteRegister()
+#   asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+#     name: 'file',
+#     allowlist: ['*'],
+#     priority: 10,
+#     completor: function('asyncomplete#sources#file#completor')
+#   }))
+#   asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+#     name: 'buffer',
+#     allowlist: ['*'],
+#     blocklist: ['go'],
+#     completor: function('asyncomplete#sources#buffer#completor'),
+#     config: {
+#       max_buffer_size: 5000000,
+#     },
+#   }))
+# enddef
+# au User asyncomplete_setup AsyncompleteRegister()
+
 plug#('dense-analysis/ale')  #{{{1
 g:ale_completion_enabled = 0
 g:ale_floating_preview = 1
@@ -31,7 +81,6 @@ g:ale_virtualtext_delay = 100
 g:ale_virtualtext_prefix = '   [%linter%] '
 g:ale_warn_about_trailing_whitespace = 0
 g:ale_completion_max_suggestions = 30
-g:ale_disable_lsp = 1
 g:ale_floating_preview_popup_opts = {
   close: 'none',
   highlight: 'Normal',
@@ -41,13 +90,14 @@ g:ale_floating_preview_popup_opts = {
 
 g:ale_linters = {
   vim: [],
-  d: ['serve-d'],
+  d: ['dub'],
 }
 
 nmap  <space>kd  3
 nnoremap  <space>ki  <Cmd>ALEDetail<CR>
 nnoremap  <space>l   <Cmd>ALENextWrap<CR>
-nnoremap  <space>L   <Cmd>ALEPreviousWrap<CR>
+nnoremap  <space><C-l>   <Cmd>ALEPreviousWrap<CR>
+nnoremap  <C-@><C-l>   <Cmd>ALEPreviousWrap<CR>
 
 plug#('neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'})  #{{{1
 
