@@ -1,4 +1,4 @@
-vim9script
+vim9script noclear
 
 import autoload '../autoload/custom/on_yank.vim'
 
@@ -72,9 +72,9 @@ set clipboard-=autoselect
 set shell=/bin/fish
 
 def JumpToLastPosition()
-  const last_pos = line("'\"")
-  if last_pos >= 1 && last_pos <= line('$')
-    exe 'normal! g`"'
+  const last_pos = getpos("'\"")
+  if last_pos[1] >= 1 && last_pos[1] <= line('$')
+    setpos('.', getpos("'\""))
   endif
 enddef
 

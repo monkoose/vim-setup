@@ -1,4 +1,4 @@
-vim9script
+vim9script noclear
 
 const on_windows = has('win32')
 

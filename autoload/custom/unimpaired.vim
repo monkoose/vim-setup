@@ -1,4 +1,4 @@
-vim9script
+vim9script noclear
 
 def PasteBlankline(linenr: number)
   const lines = repeat([''], v:count1)

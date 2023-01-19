@@ -62,6 +62,7 @@ g:coc_global_extensions = [
   'coc-clangd',
   'coc-lua',
   'coc-fish',
+  'coc-dlang',
 ]
 
 g:coc_snippet_next = '<C-i>'

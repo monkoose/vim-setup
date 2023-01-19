@@ -1,4 +1,4 @@
-vim9script
+vim9script noclear
 
 def TimeSpend(cmd_string: string): list<any>
   const str = trim(cmd_string)

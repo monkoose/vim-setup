@@ -1,4 +1,4 @@
-vim9script
+vim9script noclear
 
 g:loaded_fastfold = 1
 if exists('g:loaded_fastfold')

@@ -1,4 +1,4 @@
-vim9script
+vim9script noclear
 
 import autoload '../autoload/myfunctions.vim' as mf
 import autoload '../autoload/custom/unimpaired.vim'
@@ -26,8 +26,8 @@ def SetKeymaps()
   nnoremap  <space>p  "+
   nnoremap  <C-j>  <C-d>
   nnoremap  <C-k>  <C-u>
-  nnoremap  <C-n>  <ScriptCmd>mypopup.ScrolldownOrNextHunk()<CR>
-  nnoremap  <C-p>  <ScriptCmd>mypopup.ScrollupOrPrevHunk()<CR>
+  nnoremap  <C-n>  <ScriptCmd>mypopup.ScrollDownOrJumpNextHunk()<CR>
+  nnoremap  <C-p>  <ScriptCmd>mypopup.ScrollUpOrJumpPrevHunk()<CR>
   nnoremap  w  <C-w>w
   nnoremap  q  <C-w>c
   nnoremap  o  <C-w>o
@@ -75,7 +75,7 @@ def SetKeymaps()
   tnoremap  <C-]>  <C-q>N
 
   # Fix slow esc, should be after all Alt remaps
-  nnoremap <nowait>  <Esc>  <ScriptCmd>mypopup.ClosePopupOrPvw()<CR>
+  nnoremap <nowait>  <Esc>  <ScriptCmd>mypopup.ClosePopupOrPvwOrPressEsc()<CR>
   inoremap <nowait>  <Esc>  <Esc>
   xnoremap <nowait>  <Esc>  <Esc>
   snoremap <nowait>  <Esc>  <C-c>

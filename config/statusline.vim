@@ -1,4 +1,4 @@
-vim9script
+vim9script noclear
 
 const gitgutter = "%{get(b:, 'status_gitgutter', '')}"
 const gitcommit = "%{get(b:, 'status_gitcommit', '')}"
@@ -97,7 +97,6 @@ def StatusDiagnostic()
     result ..= 'I:' .. diagn.info
   endif
   b:status_diagnostics = result
-  echom b:status_diagnostics
 enddef
 
 final modes = {

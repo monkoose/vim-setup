@@ -1,4 +1,4 @@
-vim9script
+vim9script noclear
 
 def PreviewWinId(): number
   for nr in range(1, winnr('$'))
@@ -9,70 +9,85 @@ def PreviewWinId(): number
   return 0
 enddef
 
-def PopupWindowIdAtCursor(): number
-  const cursor_pos = screenpos(win_getid(), line('.'), col('.'))
-  var popup_window = popup_locate(cursor_pos.row + 1, cursor_pos.col)
-  if popup_window == 0
-    popup_window = popup_locate(cursor_pos.row - 1, cursor_pos.col)
-  endif
-  return popup_window
+def PopupWindowId(): number
+  const popups = popup_list()
+  return empty(popups) ? 0 : popups[0]
 enddef
 
-def ScrollInPopup(winid: number, step: number)
-  const popup_info = popup_getpos(winid)
-  if popup_info.scrollbar == 0
+def ScrollPopup(winid: number, step: number)
+  const pinfo = popup_getpos(winid)
+  const bufinfo = getbufinfo(winbufnr(winid))[0]
+  # If all lines are visible don't do anything
+  if pinfo.core_height >= bufinfo.linecount
     return
   endif
-  const firstline = popup_getoptions(winid).firstline
-  if step < 0 && firstline <= abs(step)
+
+  const new_firstline = pinfo.firstline + step
+  if new_firstline < 1
     popup_setoptions(winid, {'firstline': 1})
-  elseif step > 0 && firstline + step > popup_info.lastline
-    return
+  elseif bufinfo.linecount - new_firstline < pinfo.core_height
+    popup_setoptions(winid, {
+      'firstline': max([1, bufinfo.linecount - pinfo.core_height + 1])
+    })
   else
-    popup_setoptions(winid, {'firstline': firstline + step})
+    popup_setoptions(winid, {'firstline': new_firstline})
   endif
 enddef
 
-def ExecuteCmdPvwOrCurrWin(cmd: string, curr_cmd: string)
+def ExePopupOrPvwOrCur(PopupCb: func(number), PvwCb: func(number), CurCb: func())
+  const popup_winid = PopupWindowId()
+  if popup_winid != 0
+    PopupCb(popup_winid)
+    return
+  endif
+
   const pvw_winid = PreviewWinId()
-  const curr_nr = winnr()
   if pvw_winid != 0
-    win_execute(pvw_winid, cmd)
-  else
-    execute curr_cmd
-  endif
-enddef
-
-export def ClosePopupOrPvw()
-  const popup_winid = PopupWindowIdAtCursor()
-  if popup_winid != 0
-    popup_close(popup_winid)
+    PvwCb(pvw_winid)
     return
   endif
 
-  const pvw_winid = PreviewWinId()
-  if pvw_winid != 0 && pvw_winid != win_getid()
-    win_execute(pvw_winid, 'close!')
-  else
-    # just Esc press
-    execute "normal! \<Esc>"
-  endif
+  CurCb()
 enddef
 
-export def ScrolldownOrNextHunk()
-  const popup_winid = PopupWindowIdAtCursor()
-  if popup_winid != 0
-    ScrollInPopup(popup_winid, 5)
-  else
-    ExecuteCmdPvwOrCurrWin("normal! 3\<C-e>", "normal ]c")
-  endif
+export def ClosePopupOrPvwOrPressEsc()
+  ExePopupOrPvwOrCur(
+    (winid) => {
+      popup_close(winid)
+    },
+    (winid) => {
+      if winid != win_getid()
+        pclose!
+      endif
+    },
+    () => {
+      feedkeys("\<Esc>", 'nt')
+    }
+  )
 enddef
 
-export def ScrollupOrPrevHunk()
-  const popup_winid = PopupWindowIdAtCursor()
-  if popup_winid != 0
-    ScrollInPopup(popup_winid, -5)
-  else
-    ExecuteCmdPvwOrCurrWin("normal! 3\<C-y>", "normal [c")
-  endif
+export def ScrollDownOrJumpNextHunk()
+  ExePopupOrPvwOrCur(
+    (winid) => ScrollPopup(winid, 5),
+    (winid) => {
+      const bufnr = winbufnr(winid)
+    },
+    () => {
+      feedkeys(']c', 't')
+    }
+  )
 enddef
+
+export def ScrollUpOrJumpPrevHunk()
+  ExePopupOrPvwOrCur(
+    (winid) => ScrollPopup(winid, -5),
+    (winid) => {
+      const bufnr = winbufnr(winid)
+    },
+    () => {
+      feedkeys('[c', 't')
+    }
+  )
+enddef
+
+defcompile

@@ -1,4 +1,4 @@
-vim9script
+vim9script noclear
 
 def RunDscannerCommand(bufnr: number): any
   const file = fnamemodify(bufname(bufnr), '.')

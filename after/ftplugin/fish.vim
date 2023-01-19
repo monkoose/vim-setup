@@ -1,24 +1,20 @@
+vim9script noclear
+
 if exists('b:did_ftplugin')
   finish
-end
-let b:did_ftplugin = 1
-
-let s:save_cpo = &cpo
-set cpo&vim
+endif
+b:did_ftplugin = 1
 
 setlocal comments=:#
 setlocal commentstring=#%s
-setlocal define=\\v^\\s*function>
 setlocal formatoptions+=jn1
 setlocal formatoptions-=t
-setlocal include=\\v^\\s*\\.>
 setlocal iskeyword=@,48-57,+,-,_,.
 setlocal suffixesadd^=.fish
+&l:include='^\s*\.\>'
+&l:define = '^\s*function\>'
 
 if executable('fish')
   setlocal formatprg=fish_indent
-  let b:formatprg = [ 'fish_indent' ]
+  b:formatprg = [ 'fish_indent' ]
 endif
-
-let &cpo = s:save_cpo
-unlet s:save_cpo

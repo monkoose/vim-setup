@@ -1,4 +1,4 @@
-vim9script
+vim9script noclear
 
 if empty(prop_type_get('yank_prop'))
   prop_type_add('yank_prop', {

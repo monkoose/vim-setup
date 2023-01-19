@@ -1,12 +1,5 @@
 {
     "Lua.diagnostics.disable": [],
-    "languageserver": {
-        "d": {
-            "command": "serve-d",
-            "filetypes": ["d"],
-            "rootPatterns": ["dub.json", "dub.sdl"]
-        }
-    },
     "suggest.autoTrigger": "none",
     "suggest.noselect": true,
     "suggest.enablePreselect": false,
@@ -51,7 +44,7 @@
         "close": false,
         "maxWidth": 100
     },
-    "notification.highlightGroup": "CocNotification",
+    "notification.timeout": 4000,
     "list.alignColumns": true,
     "list.height": 12,
     "list.limitLines": 20000,

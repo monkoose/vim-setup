@@ -1,4 +1,4 @@
-vim9script
+vim9script noclear
 
 ale#linter#Define('d', {
   name: 'serve-d',
