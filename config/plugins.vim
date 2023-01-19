@@ -152,6 +152,7 @@ plug#('junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'})  #{{{1
 vmap    <Enter>    <Plug>(EasyAlign)
 
 plug#('tpope/vim-fugitive')  #{{{1
+plug#('tpope/vim-rhubarb')
 
 nnoremap    <space>gg    <Cmd>Git<CR>
 nnoremap    <space>gb    <Cmd>Git blame<CR>
