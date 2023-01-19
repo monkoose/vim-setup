@@ -11,7 +11,7 @@ setlocal formatoptions+=jn1
 setlocal formatoptions-=t
 setlocal iskeyword=@,48-57,+,-,_,.
 setlocal suffixesadd^=.fish
-&l:include='^\s*\.\>'
+&l:include = '^\s*\.\>'
 &l:define = '^\s*function\>'
 
 if executable('fish')
