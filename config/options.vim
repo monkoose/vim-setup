@@ -66,7 +66,7 @@ endif
 &showbreak = '└'
 &list = true
 &listchars = 'tab:→-,trail:·,extends:⌇,precedes:⌇,nbsp:~'
-&fillchars = ''
+&fillchars = 'vert:┃'
 
 &splitbelow = true
 &splitright = true
@@ -93,13 +93,16 @@ endif
 &wildcharm = &wildchar
 
 &shortmess = 'filnrxtToOFIcs'
-&diffopt = 'filler,vertical,closeoff'
+&diffopt = 'internal,filler,closeoff' ..
+           ',algorithm:patience,context:3,foldcolumn:1' ..
+           ',followwrap,hiddenoff,indent-heuristic,vertical'
 &guicursor = ''
 &keymap = 'russian-jcuken'
 &iminsert = 0
 
 &grepprg = 'rg\ --vimgrep'
 &grepformat = '%f:%l:%c:%m'
+&errorformat ..= ',%f\|%\s%#%l col%\s%#%c%\s%#\| %m'
 
 &clipboard = 'exclude:cons\|linux'
 &shell = '/bin/fish'

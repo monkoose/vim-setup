@@ -16,20 +16,6 @@
         "highlight": "CocFloating"
     },
     "diagnostic.displayByAle": true,
-    "diagnostic.enableMessage": "jump",
-    "diagnostic.messageDelay": 100,
-    "diagnostic.floatConfig": {
-        "border": false,
-        "highlight": "CocFloating",
-        "close": false,
-        "maxWidth": 100,
-        "maxHeight": 10
-    },
-    "diagnostic.checkCurrentLine": true,
-    "diagnostic.errorSign": "E",
-    "diagnostic.warningSign": "W",
-    "diagnostic.infoSign": "I",
-    "diagnostic.hintSign": "H",
     "signature.enable": false,
     "signature.hideOnTextChange": true,
     "signature.floatConfig": {
@@ -44,7 +30,14 @@
         "close": false,
         "maxWidth": 100
     },
-    "notification.timeout": 4000,
+    "notification.timeout": 5000,
+    "list.statusLineSegments": [
+        "%#CocListMode#  COC %{coc#list#status(\"args\")}%*",
+        "%1(%{coc#list#status(\"loading\")}%)",
+        "%L/%{coc#list#status(\"total\")} - %l ",
+        "%=",
+        "%#CocListPath# %{coc#list#status(\"cwd\")} %*"
+    ],
     "list.alignColumns": true,
     "list.height": 12,
     "list.limitLines": 20000,
