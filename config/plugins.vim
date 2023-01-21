@@ -14,7 +14,8 @@ plug#('lacygoill/vim9asm')
 plug#('thinca/vim-themis')
 # plug#('monkoose/paredit')
 
-plug#('dense-analysis/ale')  #{{{1
+# dense-analysis/ale {{{1
+plug#('dense-analysis/ale')
 g:ale_completion_enabled = 0
 g:ale_floating_preview = 1
 g:ale_echo_cursor = 0
@@ -48,7 +49,8 @@ nnoremap  <space>l   <Cmd>ALENextWrap<CR>
 nnoremap  <space><C-l>   <Cmd>ALEPreviousWrap<CR>
 nnoremap  <C-@><C-l>   <Cmd>ALEPreviousWrap<CR>
 
-plug#('neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'})  #{{{1
+# neoclide/coc.nvim {{{1
+plug#('neoclide/coc.nvim', {'branch': 'master', 'do': 'yarn install --frozen-lockfile'})
 
 g:coc_global_extensions = [
   'coc-json',
@@ -92,7 +94,8 @@ nnoremap <expr> <space>d
 vnoremap  <space>ka  <Plug>(coc-codeaction-selected)
 vnoremap  <space>kf  <Plug>(coc-format-selected)
 
-plug#('junegunn/fzf.vim')  #{{{1
+# junegunn/fzf.vim {{{1
+plug#('junegunn/fzf.vim')
 
 const fzf_colors = [
   'fg:-1',
@@ -138,7 +141,8 @@ nnoremap <silent> <space>sw   :<C-u>FzfRg <C-r><C-w><CR>
 nnoremap <silent> <space>gc   <Cmd>FzfCommits<CR>
 nnoremap <silent> <space>gC   <Cmd>FzfBCommits<CR>
 
-plug#('mbbill/undotree', {'on': 'UndotreeToggle'})  #{{{1
+# mbbill/undotree {{{1
+plug#('mbbill/undotree', {'on': 'UndotreeToggle'})
 
 g:undotree_SetFocusWhenToggle = 1
 g:undotree_WindowLayout       = 2
@@ -146,11 +150,13 @@ g:undotree_ShortIndicators    = 1
 g:undotree_HelpLine           = 0
 nmap    <silent>    4    <Cmd>UndotreeToggle<CR>
 
-plug#('junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'})  #{{{1
+# junegunn/vim-easy-align {{{1
+plug#('junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'})
 
 vmap    <Enter>    <Plug>(EasyAlign)
 
-plug#('tpope/vim-fugitive')  #{{{1
+# tpope/vim-fugitive {{{1
+plug#('tpope/vim-fugitive')
 plug#('tpope/vim-rhubarb')
 
 nnoremap    <space>gg    <Cmd>Git<CR>
@@ -158,13 +164,15 @@ nnoremap    <space>gb    <Cmd>Git blame<CR>
 nnoremap    <space>gd    <Cmd>Git diff<CR>
 nnoremap    <space>ge    <Cmd>Gedit<CR>
 
-plug#('lambdalisue/fern.vim')  #{{{1
+# lambdalisue/fern.vim {{{1
+plug#('lambdalisue/fern.vim')
 plug#('lambdalisue/fern-hijack.vim')
 
 g:fern#drawer_width = 35
 nnoremap 1 <Cmd>Fern . -drawer -toggle<CR>
 
-plug#('airblade/vim-gitgutter')  #{{{1
+# airblade/vim-gitgutter {{{1
+plug#('airblade/vim-gitgutter')
 
 g:gitgutter_sign_modified_removed  = '≃'
 
@@ -177,7 +185,8 @@ augroup GitGutterUpdate
   autocmd BufWritePost * GitGutter
 augroup END
 
-plug#('monkoose/vim9-stargate')  #{{{1
+# monkoose/vim9-stargate {{{1
+plug#('monkoose/vim9-stargate')
 
 noremap <space><space> <Cmd>call stargate#OKvim(1)<CR>
 nnoremap <space>w <Cmd>call stargate#Galaxy()<CR>
@@ -193,12 +202,8 @@ g:stargate_keymaps = {
     "z": "я", "x": "ч", "c": "с", "v": "м", "b": "и", "n": "т", "m": "ь", ",": "б", ".": "ю"
 }
 
-# plug#('vlime/vlime')  #{{{1
-
-# g:vlime_leader = ","
-# g:vlime_contribs = ["SWANK-ASDF", "SWANK-TRACE-DIALOG", "SWANK-PACKAGE-FU", "SWANK-PRESENTATIONS", "SWANK-FANCY-INSPECTOR", "SWANK-C-P-C", "SWANK-ARGLISTS", "SWANK-REPL", "SWANK-FUZZY"]
-
-plug#('lacygoill/vim9-syntax')  #{{{1
+# lacygoill/vim9-syntax {{{1
+plug#('lacygoill/vim9-syntax')
 
 g:vim9_syntax = {
   errors: {
@@ -208,17 +213,24 @@ g:vim9_syntax = {
     range_missing_specifier: false,
     strict_whitespace: true }}
 
-# plug#('skanehira/gh.vim')  #{{{1
-#
+# # vlime/vlime {{{1
+# plug#('vlime/vlime')
+
+# g:vlime_leader = ","
+# g:vlime_contribs = ["SWANK-ASDF", "SWANK-TRACE-DIALOG", "SWANK-PACKAGE-FU", "SWANK-PRESENTATIONS", "SWANK-FANCY-INSPECTOR", "SWANK-C-P-C", "SWANK-ARGLISTS", "SWANK-REPL", "SWANK-FUZZY"]
+
+# # skanehira/gh.vim {{{1
+# plug#('skanehira/gh.vim')
+
 # nnoremap <space>gl <Cmd>split gh://monkoose/gists<CR>
 # nnoremap <space>gp :split gh://gists/new/
 
-# packadd termdebug  #{{{1
+# # termdebug {{{1
+# packadd termdebug
 # g:termdebug_wide = 1
 # g:termdebug_disasm_window = 15
-# #}}}1
+# # }}}1
 
 plug#end()
-
 
 # vim: foldmethod=marker

@@ -2,7 +2,8 @@ vim9script noclear
 
 import autoload '../autoload/custom/on_yank.vim'
 
-g:skip_defaults_vim = 1
+filetype plugin indent on
+
 &history = 300
 &display = 'truncate'
 &incsearch = true

@@ -44,15 +44,6 @@ def SetStatusLine(cmd: string): void
   execute cmd
 enddef
 
-def StatusGitBranch()
-  const dir = g:FugitiveGitDir(bufnr())
-  if empty(dir)
-    b:status_gitbranch = ''
-  else
-    b:status_gitbranch = ' ' .. g:FugitiveHead(7, dir)
-  endif
-enddef
-
 def StatusGitCommit()
   const buf_name = bufname()
   if match(buf_name, '\c^fugitive:') != -1
@@ -64,6 +55,15 @@ def StatusGitCommit()
     endif
   endif
   b:status_gitcommit = ''
+enddef
+
+def StatusGitBranch()
+  const dir = g:FugitiveGitDir(bufnr())
+  if empty(dir)
+    b:status_gitbranch = ''
+  else
+    b:status_gitbranch = ' ' .. g:FugitiveHead(7, dir)
+  endif
 enddef
 
 def StatusGitGutter()
@@ -119,9 +119,11 @@ enddef
 
 augroup StatusLine
   autocmd!
-  autocmd User FugitiveChanged,FugitiveObject StatusGitBranch()
-  autocmd WinEnter,BufWinEnter,FocusGained * StatusGitBranch()
-  autocmd User FugitiveChanged,FugitiveObject StatusGitCommit()
+  autocmd User FugitiveChanged,FugitiveObject StatusGitBranch() | StatusGitCommit()
+  autocmd WinEnter,BufWinEnter,FocusGained *
+        \ if exists('*g:FugitiveGitDir') |
+          \ StatusGitBranch() |
+        \ endif
   autocmd BufWinEnter * StatusIminsert()
   autocmd OptionSet iminsert StatusIminsert()
   autocmd User GitGutter StatusGitGutter()
