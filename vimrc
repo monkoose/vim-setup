@@ -1,4 +1,16 @@
 vim9script noclear
 
-['plugins', 'options', 'statusline', 'maps']
-  ->map((_, val) => execute('source ~/.vim/config/' .. val .. '.vim'))
+const config_dir = fnamemodify($MYVIMRC, ':h') .. '/config'
+
+def Source(file: string)
+    exe $'source {config_dir}/{file}'
+enddef
+
+Source('options.vim')
+Source('plugins.vim')
+Source('statusline.vim')
+
+augroup StartupSetup
+    autocmd!
+    autocmd VimEnter * ++once Source('maps.vim')
+augroup END

@@ -2,7 +2,6 @@ vim9script
 
 plug#begin('~/.vim/plugged')
 
-plug#('monkoose/boa-vim.vim')
 plug#('tpope/vim-repeat')
 plug#('tpope/vim-surround')
 plug#('tpope/vim-characterize')
