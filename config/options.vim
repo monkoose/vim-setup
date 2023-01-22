@@ -13,7 +13,6 @@ filetype plugin indent on
 &t_ut = ''
 if !has('gui_running')
   # set termguicolors
-  colorscheme boa
   &t_cl = ''
   &t_AU = "\e[58:5:%dm"
   &t_SI = "\e[6 q"

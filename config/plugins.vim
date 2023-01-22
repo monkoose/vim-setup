@@ -2,6 +2,7 @@ vim9script
 
 plug#begin('~/.vim/plugged')
 
+plug#('monkoose/boa-vim')
 plug#('tpope/vim-repeat')
 plug#('tpope/vim-surround')
 plug#('tpope/vim-characterize')
@@ -14,6 +15,7 @@ plug#('lacygoill/vim9asm')
 plug#('thinca/vim-themis')
 # plug#('monkoose/paredit')
 
+# monkoose/boa-vim {{{1
 # dense-analysis/ale {{{1
 plug#('dense-analysis/ale')
 g:ale_completion_enabled = 0
@@ -88,8 +90,8 @@ nnoremap  <space>ka  <Cmd>CocList actions<CR>
 nnoremap  <space>kl  <Cmd>CocList<CR>
 nnoremap  <space>kf  <Plug>(coc-format)
 nnoremap  <space>ko  <Cmd>CocList outline<CR>
-nnoremap <expr> K g:CocHasProvider('hover') ? g:CocActionAsync('doHover') : "K"
-nnoremap <expr> <space>d
+nmap <expr> K g:CocHasProvider('hover') ? g:CocActionAsync('doHover') : "K"
+nmap <expr> <space>d
       \ g:CocHasProvider('definition') ? g:CocActionAsync('jumpDefinition') : "\<C-]>"
 vnoremap  <space>ka  <Plug>(coc-codeaction-selected)
 vnoremap  <space>kf  <Plug>(coc-format-selected)
@@ -232,5 +234,6 @@ g:vim9_syntax = {
 # # }}}1
 
 plug#end()
+colorscheme boa
 
 # vim: foldmethod=marker
