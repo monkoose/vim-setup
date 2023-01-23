@@ -2,8 +2,6 @@ vim9script noclear
 
 import autoload '../autoload/custom/on_yank.vim'
 
-filetype plugin indent on
-
 &history = 300
 &display = 'truncate'
 &incsearch = true
@@ -13,6 +11,7 @@ filetype plugin indent on
 &t_ut = ''
 if !has('gui_running')
   # set termguicolors
+  colorscheme boa
   &t_cl = ''
   &t_AU = "\e[58:5:%dm"
   &t_SI = "\e[6 q"
