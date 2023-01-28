@@ -116,7 +116,7 @@ enddef
 augroup MyAutocmds
   autocmd!
   autocmd FocusGained * silent! checktime
-  autocmd TerminalWinOpen * setlocal nonumber norelativenumber signcolumn=no nolist
+  autocmd TerminalWinOpen * setlocal nonu nornu nolist signcolumn=no
   autocmd TextYankPost * on_yank.Highlight(250)
   autocmd BufReadPost * JumpToLastPosition()
 augroup END
