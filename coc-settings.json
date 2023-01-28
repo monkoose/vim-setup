@@ -32,11 +32,11 @@
     },
     "notification.timeout": 5000,
     "list.statusLineSegments": [
-        "%#CocListMode#  COC %{coc#list#status(\"args\")}%*",
-        "%1(%{coc#list#status(\"loading\")}%)",
-        "%L/%{coc#list#status(\"total\")} - %l ",
+        "%#CocListMode#  COC %{coc#list#status('args')}%*",
+        "%1(%{coc#list#status('loading')}%)",
+        "%L/%{coc#list#status('total')} - %l ",
         "%=",
-        "%#CocListPath# %{coc#list#status(\"cwd\")} %*"
+        "%#CocListPath# %{coc#list#status('cwd')} %*"
     ],
     "list.alignColumns": true,
     "list.height": 12,

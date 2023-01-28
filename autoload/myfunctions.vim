@@ -48,7 +48,7 @@ export def OpenPath()
 enddef
 
 def JumpToPreviousWindow()
-  execute ':' .. winnr('#') .. 'wincmd w'
+  exe ':' .. winnr('#') .. 'wincmd w'
 enddef
 
 export def ToggleLoclistWindow()

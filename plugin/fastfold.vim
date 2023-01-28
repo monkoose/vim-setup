@@ -62,8 +62,8 @@ enddef
 # WinEnter then TabEnter then BufEnter then BufWinEnter
 def UpdateWin()
   const curwin: number = winnr()
-  WinDo('if winnr() == ' .. curwin .. ' | LeaveWin() | endif')
-  WinDo('if winnr() == ' .. curwin .. ' | EnterWin() | endif')
+  WinDo($'if winnr() == {curwin} | LeaveWin() | endif')
+  WinDo($'if winnr() == {curwin} | EnterWin() | endif')
 enddef
 
 def g:UpdateBuf(feedback: bool)
@@ -71,15 +71,15 @@ def g:UpdateBuf(feedback: bool)
   if exists('g:SessionLoad') | return | endif
 
   const curbuf: number = bufnr()
-  WinDo('if bufnr() == ' .. curbuf .. ' | LeaveWin() | endif')
-  WinDo('if bufnr() == ' .. curbuf .. ' | EnterWin() | endif')
+  WinDo($'if bufnr() == {curbuf} | LeaveWin() | endif')
+  WinDo($'if bufnr() == {curbuf} | EnterWin() | endif')
 
   if !feedback | return | endif
 
   if !exists('w:lastfdm')
-    echomsg "'" .. &l:foldmethod .. "' folds already continuously updated"
+    echomsg $"'{&l:foldmethod}' folds already continuously updated"
   else
-    echomsg "updated '" .. w:lastfdm .. "' folds"
+    echomsg $"updated '{w:lastfdm}' folds"
   endif
 enddef
 
@@ -133,14 +133,13 @@ if !hasmapto('<Plug>(FastFoldUpdate)', 'n') && empty(mapcheck('zuz', 'n'))
 endif
 
 for suffix in g:fastfold_fold_command_suffixes
-  exe 'nnoremap <silent> z' .. suffix .. ' <ScriptCmd>UpdateWin()<CR>z' .. suffix
+  exe $'nnoremap <silent> z{suffix} <ScriptCmd>UpdateWin()<CR>z{suffix}'
 endfor
 
 for cmd in g:fastfold_fold_movement_commands
-  exe "nnoremap <silent><expr> " .. cmd .. " '<ScriptCmd>UpdateWin()<CR>' .. v:count .. " .. "'" .. cmd .. "'"
-  exe "xnoremap <silent><expr> " .. cmd .. " '<ScriptCmd>UpdateWin()<CR>gv' .. v:count .. " .. "'" .. cmd .. "'"
-  exe "onoremap <silent><expr> " .. cmd ..
-    " '<ScriptCmd>UpdateWin()<CR>' .. '\"' .. v:register .. v:operator .. v:count1 .. " .. "'" .. cmd .. "'"
+  exe $"nnoremap <silent><expr> {cmd} '<ScriptCmd>UpdateWin()<CR>' .. v:count .. '{cmd}'"
+  exe $"xnoremap <silent><expr> {cmd} '<ScriptCmd>UpdateWin()<CR>gv' .. v:count .. '{cmd}'"
+  exe $"onoremap <silent><expr> {cmd} '<ScriptCmd>UpdateWin()<CR>' .. '\"' .. v:register .. v:operator .. v:count1 .. '{cmd}'"
 endfor
 
 augroup FastFold
