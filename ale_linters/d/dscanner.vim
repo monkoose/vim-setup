@@ -11,7 +11,7 @@ def Handle(bufnr: number, lines: list<string>): list<dict<any>>
   # source/app.d(10:8)[warn]: Public declaration 'Simple' is undocumented.
   const pattern = '\v^(\f+)\((\d+)%(:(\d+))?\)\[(\w+)\]: (.+)$'
   var output = []
-  const dir = expand('#' .. bufnr .. ':p:h')
+  const dir = expand($'#{bufnr}:p:h')
 
   for match in ale#util#GetMatches(lines, pattern)
     add(output, {

@@ -6,10 +6,6 @@ final term = {
   size: 0,
 }
 
-augroup MyTermToggle
-  autocmd!
-augroup END
-
 def JumpToPrevWindow()
   exe ':' .. winnr('#') .. 'wincmd w'
 enddef
@@ -34,18 +30,23 @@ export def Toggle()
   if term.bufnr == 0 || !bufexists(term.bufnr)
     term.size = &lines * 2 / 5
     term.position = 'botright'
-    exe term.position .. ' terminal ++kill=kill ++norestore ++rows=' .. term.size
+    exe $'{term.position} terminal ++kill=kill ++norestore ++rows={term.size}'
     set nobuflisted filetype=myterm
     term.bufnr = bufnr()
-    exe 'autocmd! MyTermToggle WinLeave <buffer=' ..
-        term.bufnr .. '> vim9 AdjustTermProperties()'
+    autocmd_add([{
+      bufnr: term.bufnr,
+      event: 'WinLeave',
+      group: 'MyTermToggle',
+      cmd: 'AdjustTermProperties()',
+      replate: true,
+    }])
     return
   endif
 
   const term_winnr = bufwinnr(term.bufnr)
   if term_winnr == -1 # if term window isn't present
-    exe term.position .. ' :' .. term.size .. 'split'
-    exe ':' .. term.bufnr .. 'buffer'
+    exe $'{term.position} :{term.size}split'
+    exe $':{term.bufnr}buffer'
   else
     if term_winnr == winnr()
       JumpToPrevWindow()

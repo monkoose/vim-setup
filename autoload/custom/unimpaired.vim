@@ -13,11 +13,11 @@ export def PasteBlanklineBelow()
 enddef
 
 def PrintOptionValue(option: string)
-  execute 'set ' .. option .. '?'
+  exe $'set {option}?'
 enddef
 
 export def ToggleOption(option: string)
-  execute('setlocal ' .. option .. '!')
+  execute($'setlocal {option}!')
   PrintOptionValue(option)
 enddef
 

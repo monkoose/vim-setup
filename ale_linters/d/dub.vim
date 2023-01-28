@@ -107,7 +107,7 @@ def Handle(bufnr: number, lines: list<string>): list<dict<any>>
   # /tmp/tmp.G1L5xIizvB.d(8,8): Error: module weak_reference is in file...
   const pattern = '\v^(\f+)\((\d+)%(,(\d+))?\): (\w+): (.+)$'
   var output = []
-  const dir = expand('#' .. bufnr .. ':p:h')
+  const dir = expand($'#{bufnr}:p:h')
 
   for match in ale#util#GetMatches(lines, pattern)
     add(output, {
