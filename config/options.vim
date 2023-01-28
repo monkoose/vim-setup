@@ -8,9 +8,9 @@ import autoload '../autoload/custom/on_yank.vim'
 &langremap = false
 &nrformats = 'bin,hex'
 
-&t_ut = ''
 if !has('gui_running')
   # set termguicolors
+  &t_ut = ''
   colorscheme boa
   &t_cl = ''
   &t_AU = "\e[58:5:%dm"
@@ -25,7 +25,6 @@ endif
 &showmode = false
 &ttimeout = true
 &ttimeoutlen = 30
-# &belloff = ''
 &signcolumn = 'yes'
 &encoding = 'utf-8'
 &formatoptions = 'jtcroql'
@@ -65,7 +64,7 @@ endif
 &showbreak = '└'
 &list = true
 &listchars = 'tab:→-,trail:·,extends:⌇,precedes:⌇,nbsp:~'
-&fillchars = 'vert:┃'
+&fillchars = 'eob: ,vert:┃'
 
 &splitbelow = true
 &splitright = true

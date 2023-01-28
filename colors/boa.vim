@@ -82,6 +82,7 @@ HlLinks('Normal', [
   'haskellDelimiter',
   'jsonBraces',
   'jsonString',
+  'EndOfBuffer',
   ]
 )
 
@@ -357,7 +358,6 @@ HlLinks('DiffAdd', ['DiffText'])
 
 HlSet('NonText', '238')
 HlLinks('NonText', [
-  'EndOfBuffer',
   'SpecialKey',
   'LineNrAbove',
   'LineNrBelow',
