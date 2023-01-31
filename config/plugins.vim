@@ -60,6 +60,8 @@ MinpacAdd('lacygoill/vim9-syntax', { Config: () => {
 # dense-analysis/ale {{{1
 MinpacAdd('dense-analysis/ale', { delay: 20, Config: () => {
   g:ale_completion_enabled = 0
+  g:ale_history_enabled = 0
+  g:ale_set_highlights = 0
   g:ale_floating_preview = 1
   g:ale_echo_cursor = 0
   g:ale_hover_cursor = 0
@@ -169,8 +171,10 @@ MinpacAdd('junegunn/fzf.vim', { delay: 10, Config: () => {
   ]
 
   const fzf_defaults = [
-    '--margin=0,0',
+    '--margin=0',
     # '--exact',
+    '--scrollbar=▐',
+    '--no-separator',
     '--header=',
     '--preview-window=down,50%,border-top',
     '--color=16,' .. join(fzf_colors, ','),

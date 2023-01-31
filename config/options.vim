@@ -21,10 +21,11 @@ if !has('gui_running')
   &t_fd = "\e[?1004l"
 endif
 
-&showcmd = false
 &showmode = false
+&showcmd = true
 &ttimeout = true
-&ttimeoutlen = 30
+&timeoutlen = 3000
+&ttimeoutlen = 0
 &signcolumn = 'yes'
 &encoding = 'utf-8'
 &formatoptions = 'jtcroql'

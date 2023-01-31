@@ -15,6 +15,7 @@
         "border": false,
         "highlight": "CocFloating"
     },
+    "inlayHint.enable": false,
     "diagnostic.displayByAle": true,
     "signature.enable": false,
     "signature.hideOnTextChange": true,
