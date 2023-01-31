@@ -1,21 +1,20 @@
 vim9script
 
 import autoload '../autoload/custom/minpac.vim'
-const MinpacAdd = minpac.Add
 
 #################### STARTUP PLUGINS ####################
-MinpacAdd('tpope/vim-repeat')
-MinpacAdd('tpope/vim-characterize')
-MinpacAdd('tpope/vim-commentary')
-MinpacAdd('hail2u/vim-css3-syntax')
-MinpacAdd('othree/html5.vim')
-MinpacAdd('pangloss/vim-javascript')
-MinpacAdd('honza/vim-snippets')
-MinpacAdd('lacygoill/vim9asm')
-MinpacAdd('thinca/vim-themis')
+minpac.Add('tpope/vim-repeat')
+minpac.Add('tpope/vim-characterize')
+minpac.Add('tpope/vim-commentary')
+minpac.Add('hail2u/vim-css3-syntax')
+minpac.Add('othree/html5.vim')
+minpac.Add('pangloss/vim-javascript')
+minpac.Add('honza/vim-snippets')
+minpac.Add('lacygoill/vim9asm')
+minpac.Add('thinca/vim-themis')
 
 # mbbill/undotree {{{1
-MinpacAdd('mbbill/undotree', { Config: () => {
+minpac.Add('mbbill/undotree', { Config: () => {
   g:undotree_SetFocusWhenToggle = 1
   g:undotree_WindowLayout       = 2
   g:undotree_ShortIndicators    = 1
@@ -27,7 +26,7 @@ MinpacAdd('mbbill/undotree', { Config: () => {
 }})
 
 # monkoose/vim9-stargate {{{1
-MinpacAdd('monkoose/vim9-stargate', { Config: () => {
+minpac.Add('monkoose/vim9-stargate', { Config: () => {
   noremap <space><space> <Cmd>call stargate#OKvim(1)<CR>
   nnoremap <space>w <Cmd>call stargate#Galaxy()<CR>
   g:stargate_keymaps = {
@@ -44,7 +43,7 @@ MinpacAdd('monkoose/vim9-stargate', { Config: () => {
 }})
 
 # lacygoill/vim9-syntax {{{1
-MinpacAdd('lacygoill/vim9-syntax', { Config: () => {
+minpac.Add('lacygoill/vim9-syntax', { Config: () => {
   g:vim9_syntax = {
     errors: {
       event_wrong_case: false,
@@ -58,7 +57,7 @@ MinpacAdd('lacygoill/vim9-syntax', { Config: () => {
 
 #################### DEFERED PLUGINS ####################
 # dense-analysis/ale {{{1
-MinpacAdd('dense-analysis/ale', { delay: 20, Config: () => {
+minpac.Add('dense-analysis/ale', { delay: 20, Config: () => {
   g:ale_completion_enabled = 0
   g:ale_history_enabled = 0
   g:ale_set_highlights = 0
@@ -96,7 +95,7 @@ MinpacAdd('dense-analysis/ale', { delay: 20, Config: () => {
 }})
 
 # neoclide/coc.nvim {{{1
-MinpacAdd('neoclide/coc.nvim', {
+minpac.Add('neoclide/coc.nvim', {
   do: (_, _) => system('yarn install --frozen-lockfile'),
   delay: 20,
   Config: () => {
@@ -149,7 +148,7 @@ MinpacAdd('neoclide/coc.nvim', {
 
 # junegunn/fzf.vim {{{1
 g:loaded_fzf = 1
-MinpacAdd('junegunn/fzf.vim', { delay: 10, Config: () => {
+minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {
   g:fzf_command_prefix = 'Fzf'
 
   const fzf_colors = [
@@ -203,18 +202,18 @@ MinpacAdd('junegunn/fzf.vim', { delay: 10, Config: () => {
 }})
 
 # junegunn/vim-easy-align {{{1
-MinpacAdd('junegunn/vim-easy-align', { delay: 50, Config: () => {
+minpac.Add('junegunn/vim-easy-align', { delay: 50, Config: () => {
   packadd vim-easy-aling
   vmap  <Enter>  <Plug>(EasyAlign)
 }})
 
 # tpope/vim-surround {{{1
-MinpacAdd('tpope/vim-surround', { delay: 30, Config: () => {
+minpac.Add('tpope/vim-surround', { delay: 30, Config: () => {
   packadd vim-surround
 }})
 
 # tpope/vim-fugitive {{{1
-MinpacAdd('tpope/vim-fugitive', {
+minpac.Add('tpope/vim-fugitive', {
   dependencies: ['tpope/vim-rhubarb'],
   delay: 5,
   Config: () => {
@@ -231,7 +230,7 @@ MinpacAdd('tpope/vim-fugitive', {
 })
 
 # lambdalisue/fern.vim {{{1
-MinpacAdd('lambdalisue/fern.vim', {
+minpac.Add('lambdalisue/fern.vim', {
   dependencies: ['lambdalisue/fern-hijack.vim'],
   Config: () => {
     g:fern#drawer_width = 35
@@ -245,7 +244,7 @@ MinpacAdd('lambdalisue/fern.vim', {
 })
 
 # airblade/vim-gitgutter {{{1
-MinpacAdd('airblade/vim-gitgutter', { delay: 5, Config: () => {
+minpac.Add('airblade/vim-gitgutter', { delay: 5, Config: () => {
   g:gitgutter_sign_modified_removed  = '≃'
 
   packadd vim-gitgutter
@@ -261,7 +260,7 @@ MinpacAdd('airblade/vim-gitgutter', { delay: 5, Config: () => {
 }})
 
 # # skanehira/gh.vim {{{1
-# MinpacAdd('skanehira/gh.vim')
+# minpac.Add('skanehira/gh.vim')
 
 # packadd! gh.vim
 # nnoremap <space>gl <Cmd>split gh://monkoose/gists<CR>
