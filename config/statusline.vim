@@ -14,7 +14,7 @@ const fname = '  %3*%f%* %7*%m%* '
 const fname_nc = '  %f %6*%M%*   '
 const ro = "%6*%{&ro ? '' : ''}%*  "
 const iminsert = "%6*%{get(b:, 'status_iminsert', '')}%*"
-const mode = "  %2(%{%StatusLineMode()%}%) "
+const mode = " %2(%{%StatusLineMode()%}%)"
 # const lncol = "%< %-9(%3*%l%*·%4*%c%V%*%) "
 # const session = "%{fnamemodify(v:this_session, ':t')}"
 
@@ -100,8 +100,8 @@ def StatusDiagnostic()
 enddef
 
 final modes = {
-  n: 'N',
-  i: '%2*I%*',
+  n: '',
+  i: '',
   R: 'R',
   v: 'V',
   V: 'VL',
