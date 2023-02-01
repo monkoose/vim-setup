@@ -22,7 +22,6 @@ if !has('gui_running')
 endif
 
 &showmode = false
-&showcmd = true
 &ttimeout = true
 &timeoutlen = 3000
 &ttimeoutlen = 0

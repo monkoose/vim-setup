@@ -1,6 +1,7 @@
 vim9script
 
 import autoload '../autoload/custom/minpac.vim'
+import autoload '../autoload/myfunctions.vim' as mf
 
 #################### STARTUP PLUGINS ####################
 minpac.Add('tpope/vim-repeat')
@@ -57,8 +58,11 @@ minpac.Add('lacygoill/vim9-syntax', { Config: () => {
 
 #################### DEFERED PLUGINS ####################
 # dense-analysis/ale {{{1
+var AleWithDetail: func(string)
+
 minpac.Add('dense-analysis/ale', { delay: 20, Config: () => {
   g:ale_completion_enabled = 0
+  g:ale_disable_lsp = 1
   g:ale_history_enabled = 0
   g:ale_set_highlights = 0
   g:ale_floating_preview = 1
@@ -70,11 +74,14 @@ minpac.Add('dense-analysis/ale', { delay: 20, Config: () => {
   g:ale_sign_warning = 'W'
   g:ale_sign_info = 'I'
   g:ale_shell = '/bin/bash'
-  g:ale_virtualtext_cursor = 'current'
-  g:ale_virtualtext_delay = 100
-  g:ale_virtualtext_prefix = '   [%linter%] '
+  g:ale_set_quickfix = 0
+  g:ale_set_loclist = 0
+  g:ale_lint_on_insert_leave = 1
+  g:ale_lint_on_text_changed = 'normal'
+  g:ale_lint_delay = 200
+  g:ale_virtualtext_cursor = 0
+  g:ale_virtualtext_prefix = '  %type%: '
   g:ale_warn_about_trailing_whitespace = 0
-  g:ale_completion_max_suggestions = 30
   g:ale_floating_preview_popup_opts = {
     close: 'none',
     highlight: 'Normal',
@@ -87,11 +94,26 @@ minpac.Add('dense-analysis/ale', { delay: 20, Config: () => {
 
   packadd ale
 
-  nmap  <space>kd  3
+  # direction could be 'before' or 'after'
+  AleWithDetail = (direction: string) => {
+    const pos = screenpos(0, line('.'), col('.'))
+    var winid: number = popup_locate(pos.row + 1, pos.col)
+    if winid == 0
+      winid = popup_locate(pos.row - 1, pos.col)
+    endif
+    if winid > 0
+      popup_close(winid)
+    endif
+
+    ale#loclist_jumping#Jump(direction, 1)
+    ale#cursor#ShowCursorDetail()
+  }
+
+  nnoremap  <space>kd     <ScriptCmd>mf.ToggleLoclistWindow('ALEPopulateLocList')<CR>
   nnoremap  <space>ki     <Cmd>ALEDetail<CR>
-  nnoremap  <space>l      <Cmd>ALENextWrap<CR>
-  nnoremap  <space><C-l>  <Cmd>ALEPreviousWrap<CR>
-  nnoremap  <C-@><C-l>    <Cmd>ALEPreviousWrap<CR>
+  nnoremap  <space>l      <ScriptCmd>AleWithDetail('after')<CR>
+  nnoremap  <space><C-l>  <ScriptCmd>AleWithDetail('before')<CR>
+  nnoremap  <C-@><C-l>    <ScriptCmd>AleWithDetail('before')<CR>
 }})
 
 # neoclide/coc.nvim {{{1

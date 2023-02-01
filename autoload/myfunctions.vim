@@ -51,7 +51,7 @@ def JumpToPreviousWindow()
   exe ':' .. winnr('#') .. 'wincmd w'
 enddef
 
-export def ToggleLoclistWindow()
+export def ToggleLoclistWindow(cmd = '')
   if win_gettype() == 'loclist'
     const main_winid = getloclist(0, { filewinid: 0 }).filewinid
     if main_winid != 0
@@ -64,6 +64,9 @@ export def ToggleLoclistWindow()
       lclose
     else
       try
+        if !empty(cmd)
+          exe cmd
+        endif
         lopen
       catch /E776/
         echohl WarningMsg

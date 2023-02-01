@@ -7,7 +7,7 @@ const git = $'%1*{gitbranch}%*%4*{gitcommit}%*{gitgutter}'
 const git_nc = gitbranch .. gitcommit
 const spell = "%5*%{&spell ? '  SPELL ' : ''}%*"
 const right = ' %='
-const coc = "%{get(g:, 'coc_status', '')} %7*%{get(b:, 'status_diagnostics', '')}%*"
+const ale_diagn = "%7*%{get(b:, 'status_diagnostics', '')}%*"
 const tail = '  %{&filetype}  %4*%P%* '
 const tail_nc = ' %=%{&filetype}  %P '
 const fname = '  %3*%f%* %7*%m%* '
@@ -18,7 +18,7 @@ const mode = "  %2(%{%StatusLineMode()%}%) "
 # const lncol = "%< %-9(%3*%l%*·%4*%c%V%*%) "
 # const session = "%{fnamemodify(v:this_session, ':t')}"
 
-const statusline = mode .. iminsert .. fname .. ro .. git .. spell .. right .. coc .. tail
+const statusline = mode .. iminsert .. fname .. ro .. git .. spell .. right .. ale_diagn .. tail
 const statusline_nc = fname_nc .. git_nc .. tail_nc
 &statusline = statusline
 
@@ -91,10 +91,10 @@ def StatusDiagnostic()
     result ..= 'E:' .. errors
   endif
   if warnings > 0
-    result ..= 'W:' .. warnings
+    result ..= ' W:' .. warnings
   endif
   if diagn.info > 0
-    result ..= 'I:' .. diagn.info
+    result ..= ' I:' .. diagn.info
   endif
   b:status_diagnostics = result
 enddef
