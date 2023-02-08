@@ -90,7 +90,7 @@ minpac.Add('dense-analysis/ale', { delay: 20, Config: () => {
 
   g:ale_linters = {
     vim: [],
-    d: ['dub'], }
+    d: [], }
 
   packadd ale
 

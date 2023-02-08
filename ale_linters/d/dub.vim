@@ -2,12 +2,12 @@ vim9script noclear
 
 const on_windows = has('win32')
 
-def FindDubConfig(bufnr: number): string
+export def FindDubConfig(bufnr: number): string
   # Find a dub configuration file in ancestor paths.
   # The most dub-specific names will be tried first.
+  var dub_file: string
   for possible_filename in ['dub.sdl', 'dub.json', 'package.json']
-    const dub_file: string = ale#path#FindNearestFile(bufnr, possible_filename)
-
+    dub_file = ale#path#FindNearestFile(bufnr, possible_filename)
     if !empty(dub_file)
       return dub_file
     endif

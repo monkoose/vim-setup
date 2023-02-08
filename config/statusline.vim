@@ -80,7 +80,13 @@ enddef
 def StatusDiagnostic()
   const diagn = ale#statusline#Count(bufnr())
   if diagn.total == 0
-    b:status_diagnostics = ''
+    # fix flickering
+    timer_start(200, (_) => {
+      if ale#statusline#Count(bufnr()).total == 0
+        b:status_diagnostics = ''
+        redrawstatus
+      endif
+    })
     return
   endif
 
@@ -97,6 +103,9 @@ def StatusDiagnostic()
     result ..= ' I:' .. diagn.info
   endif
   b:status_diagnostics = result
+  timer_start(50, (_) => {
+    redrawstatus
+  })
 enddef
 
 final modes = {
