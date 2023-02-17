@@ -13,6 +13,7 @@ minpac.Add('pangloss/vim-javascript')
 minpac.Add('honza/vim-snippets')
 minpac.Add('lacygoill/vim9asm')
 minpac.Add('thinca/vim-themis')
+minpac.Add('tweekmonster/helpful.vim')
 
 # mbbill/undotree {{{1
 minpac.Add('mbbill/undotree', { Config: () => {
@@ -90,6 +91,7 @@ minpac.Add('dense-analysis/ale', { delay: 20, Config: () => {
 
   g:ale_linters = {
     vim: [],
+    python: ['pyright'],
     d: [], }
 
   packadd ale
