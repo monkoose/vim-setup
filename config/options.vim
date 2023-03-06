@@ -7,6 +7,7 @@ import autoload '../autoload/custom/on_yank.vim'
 &incsearch = true
 &langremap = false
 &nrformats = 'bin,hex'
+&mouse = 'a'
 
 if !has('gui_running')
   # set termguicolors
