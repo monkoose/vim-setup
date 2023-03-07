@@ -98,6 +98,11 @@ minpac.Add('dense-analysis/ale', { delay: 20, Config: () => {
 
   # direction could be 'before' or 'after'
   AleWithDetail = (direction: string) => {
+    # b:status_diagnostics defined in statusline.vim
+    if empty(get(b:, 'status_diagnostics', ''))
+      return
+    endif
+
     const pos = screenpos(0, line('.'), col('.'))
     var winid: number = popup_locate(pos.row + 1, pos.col)
     if winid == 0
@@ -108,6 +113,9 @@ minpac.Add('dense-analysis/ale', { delay: 20, Config: () => {
     endif
 
     ale#loclist_jumping#Jump(direction, 1)
+    if foldclosed(line('.')) != -1
+      foldopen
+    endif
     ale#cursor#ShowCursorDetail()
   }
 
