@@ -15,6 +15,15 @@ minpac.Add('lacygoill/vim9asm')
 minpac.Add('thinca/vim-themis')
 minpac.Add('tweekmonster/helpful.vim')
 
+# evanleck/vim-svelte {{{1
+minpac.Add('evanleck/vim-svelte', { Config: () => {
+  g:svelte_preprocessor_tags = [
+    { name: 'ts', tag: 'script', as: 'typescript' }
+  ]
+  g:svelte_preprocessors = ['typescript', 'ts']
+  packadd! vim-svelte
+}})
+
 # mbbill/undotree {{{1
 minpac.Add('mbbill/undotree', { Config: () => {
   g:undotree_SetFocusWhenToggle = 1
@@ -261,20 +270,6 @@ minpac.Add('tpope/vim-fugitive', {
   }
 })
 
-# lambdalisue/fern.vim {{{1
-minpac.Add('lambdalisue/fern.vim', {
-  dependencies: ['lambdalisue/fern-hijack.vim'],
-  Config: () => {
-    g:fern#drawer_width = 35
-
-    packadd! fern.vim
-    packadd! fern-hijack.vim
-
-    exe "set <M-1>=\e1"
-    nnoremap <M-1>  <Cmd>Fern . -drawer -toggle<CR>
-  }
-})
-
 # airblade/vim-gitgutter {{{1
 minpac.Add('airblade/vim-gitgutter', { delay: 5, Config: () => {
   g:gitgutter_sign_modified_removed  = '≃'
@@ -303,8 +298,5 @@ minpac.Add('airblade/vim-gitgutter', { delay: 5, Config: () => {
 # g:termdebug_wide = 1
 # g:termdebug_disasm_window = 15
 # # }}}1
-
-filetype plugin indent on
-syntax on
 
 # vim: foldmethod=marker

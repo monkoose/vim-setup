@@ -6,6 +6,10 @@ import autoload '../autoload/custom/endofline.vim'
 import autoload '../autoload/mypopup.vim'
 import autoload '../autoload/myterm.vim'
 
+if !!exists(':LF')
+  nnoremap 1 <Cmd>LF<CR>
+endif
+
 noremap  ;  :
 map  Q  gq
 sunmap Q

@@ -65,5 +65,6 @@
         "<C-v>": "action:vsplit",
         "<C-x>": "action:split",
         "<C-t>": "action:tabe"
-    }
+    },
+    "svelte.enable-ts-plugin": true
 }

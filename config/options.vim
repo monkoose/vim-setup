@@ -2,6 +2,9 @@ vim9script noclear
 
 import autoload '../autoload/custom/on_yank.vim'
 
+syntax enable
+filetype plugin indent on
+
 &history = 300
 &display = 'truncate'
 &incsearch = true
@@ -75,6 +78,7 @@ endif
 &expandtab = true
 &smartindent = true
 &shiftround = true
+&tabstop = 4
 &shiftwidth = 4
 &softtabstop = -1
 &joinspaces = false
@@ -99,7 +103,7 @@ endif
 &keymap = 'russian-jcuken'
 &iminsert = 0
 
-&grepprg = 'rg\ --vimgrep'
+&grepprg = 'rg --vimgrep'
 &grepformat = '%f:%l:%c:%m'
 &errorformat ..= ',%f\|%\s%#%l col%\s%#%c%\s%#\| %m'
 
