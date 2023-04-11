@@ -63,11 +63,11 @@ inoremap  f  <Del>
 
 cnoremap  <C-n>  <Down>
 cnoremap  <C-p>  <Up>
-cnoremap  <C-j>  <C-n>
-cnoremap  <C-k>  <C-p>
 cnoremap  h  <Left>
 cnoremap  l  <Right>
 cnoremap <expr>  <C-l>  pumvisible() ? "\<C-y>" : "\<CR>"
+cnoremap <expr>  <C-j>  pumvisible() ? "\<C-n>" : "\<C-i>"
+cnoremap <expr>  <C-k>  pumvisible() ? "\<C-p>" : "\<C-i>"
 
 set termwinkey=<C-q>
 tnoremap  w  <C-q>w

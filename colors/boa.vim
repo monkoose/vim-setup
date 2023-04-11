@@ -324,6 +324,10 @@ HlLinks('Special', [
   'haskellBacktick',
   'haskellStatement',
   'haskellConditional',
+  'typescriptAssign',
+  'typescriptUnaryOp',
+  'typescriptBinaryOp',
+  'typescriptTernaryOp',
   ]
 )
 

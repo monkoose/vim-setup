@@ -1,6 +1,4 @@
 {
-    "Lua.diagnostics.disable": [],
-    "suggest.autoTrigger": "none",
     "suggest.noselect": true,
     "suggest.enablePreselect": false,
     "suggest.labelMaxLength": 60,
@@ -17,8 +15,9 @@
         "border": false,
         "highlight": "CocFloating"
     },
+    "diagnostic.autoRefresh": false,
+    "diagnostic.enableMessage": "never",
     "inlayHint.enable": false,
-    "diagnostic.displayByAle": true,
     "signature.enable": false,
     "signature.hideOnTextChange": true,
     "signature.floatConfig": {

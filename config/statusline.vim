@@ -31,7 +31,7 @@ augroup SetStatusLine
 augroup END
 
 def SetStatusLine(cmd: string): void
-  if index(['fugitiveblame', 'fern'], &filetype) != -1
+  if index(['fugitiveblame'], &filetype) != -1
     return
   endif
 
@@ -76,33 +76,28 @@ def StatusIminsert()
   b:status_iminsert = &iminsert ? '   RU ' : ''
 enddef
 
+var ale_timer: number = 0
+
 def StatusDiagnostic()
-  const diagn = ale#statusline#Count(bufnr())
-  if diagn.total == 0
-    # fix flickering
-    timer_start(200, (_) => {
-      if ale#statusline#Count(bufnr()).total == 0
-        b:status_diagnostics = ''
-        redrawstatus
-      endif
-    })
-    return
+  if !empty(timer_info(ale_timer))
+    timer_stop(ale_timer)
   endif
 
-  var result = ''
-  const errors = diagn.error + diagn.style_error
-  const warnings = diagn.warning + diagn.style_warning
-  if errors > 0
-    result ..= 'E:' .. errors
-  endif
-  if warnings > 0
-    result ..= ' W:' .. warnings
-  endif
-  if diagn.info > 0
-    result ..= ' I:' .. diagn.info
-  endif
-  b:status_diagnostics = result
-  timer_start(50, (_) => {
+  ale_timer = timer_start(150, (_) => {
+    const diagn = ale#statusline#Count(bufnr())
+    var result = ''
+    const errors = diagn.error + diagn.style_error
+    const warnings = diagn.warning + diagn.style_warning
+    if errors > 0
+      result ..= 'E:' .. errors
+    endif
+    if warnings > 0
+      result ..= ' W:' .. warnings
+    endif
+    if diagn.info > 0
+      result ..= ' I:' .. diagn.info
+    endif
+    b:status_diagnostics = result
     redrawstatus
   })
 enddef

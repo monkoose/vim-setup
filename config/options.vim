@@ -46,7 +46,7 @@ endif
 &updatetime = 250
 &path = '.,,'
 
-&pumheight = 10
+&pumheight = 5
 &pumwidth = 20
 
 &wrap = false
@@ -83,7 +83,7 @@ endif
 &softtabstop = -1
 &joinspaces = false
 
-&completeopt = 'menuone,noinsert,noselect,popup'
+&completeopt = 'menuone,noinsert,noselect,preview,popup'
 &completepopup = 'align:menu,border:off'
 # &previewpopup = 'height:12,width:80'
 &wildmenu = true

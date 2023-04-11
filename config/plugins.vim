@@ -10,6 +10,8 @@ minpac.Add('tpope/vim-commentary')
 minpac.Add('hail2u/vim-css3-syntax')
 minpac.Add('othree/html5.vim')
 minpac.Add('pangloss/vim-javascript')
+minpac.Add('HerringtonDarkholme/yats.vim')
+g:yats_host_keyword = 0
 minpac.Add('honza/vim-snippets')
 minpac.Add('lacygoill/vim9asm')
 minpac.Add('thinca/vim-themis')
@@ -67,73 +69,121 @@ minpac.Add('lacygoill/vim9-syntax', { Config: () => {
 }}) #}}}
 
 #################### DEFERED PLUGINS ####################
-# dense-analysis/ale {{{1
-var AleWithDetail: func(string)
+# # Shougo/ddc.vim {{{1
+# minpac.Add('Shougo/ddc.vim', {
+#   dependencies: [
+#     'vim-denops/denops.vim',
+#     'Shougo/ddc-ui-native',
+#     'Shougo/ddc-source-around',
+#     'Shougo/ddc-matcher_head',
+#     'Shougo/ddc-sorter_rank',
+#     'statiolake/ddc-ale',
+#     'matsui54/ddc-buffer',
+#   ],
+#   delay: 10,
+#   Config: () => {
+#     packadd denops.vim
+#     packadd ddc.vim
+#     packadd ddc-ui-native
+#     packadd ddc-source-around
+#     packadd ddc-matcher_head
+#     packadd ddc-sorter_rank
+#     packadd ddc-ale
+#     packadd ddc-buffer
 
-minpac.Add('dense-analysis/ale', { delay: 20, Config: () => {
-  g:ale_completion_enabled = 0
-  g:ale_disable_lsp = 1
-  g:ale_history_enabled = 0
-  g:ale_set_highlights = 0
-  g:ale_floating_preview = 1
-  g:ale_echo_cursor = 0
-  g:ale_hover_cursor = 0
-  g:ale_echo_msg_format = '[%linter%] %code: %%s'
-  g:ale_pattern_options_enabled = 0
-  g:ale_sign_error = 'E'
-  g:ale_sign_warning = 'W'
-  g:ale_sign_info = 'I'
-  g:ale_shell = '/bin/bash'
-  g:ale_set_quickfix = 0
-  g:ale_set_loclist = 0
-  g:ale_lint_on_insert_leave = 1
-  g:ale_lint_on_text_changed = 'normal'
-  g:ale_lint_delay = 200
-  g:ale_virtualtext_cursor = 0
-  g:ale_virtualtext_prefix = '  %type%: '
-  g:ale_warn_about_trailing_whitespace = 0
-  g:ale_floating_preview_popup_opts = {
-    close: 'none',
-    highlight: 'Normal',
-    borderhighlight: ['PopupBorder'],
-    borderchars: ['━', '┃', '━', '┃', '┏', '┓', '┛', '┗'], }
+#     ddc#custom#patch_global({
+#       sources: ['ale', 'buffer'],
+#       ui: 'native',
+#       sourceOptions: {
+#         _: {
+#           matchers: ['matcher_head'],
+#           sorters: ['sorter_rank'], },
+#         ale: { mark: 'lsp' },
+#         around: { mark: 'A' },
+#         buffer: { mark: 'B' }, },
+#       sourceParams: {
+#         around: { maxSize: 500 }, }, }
+#     )
 
-  g:ale_linters = {
-    vim: [],
-    python: ['pyright'],
-    d: [], }
+#     inoremap <silent><expr> <C-j>  pumvisible() ? '<C-n>' : ddc#map#manual_complete()
+#     inoremap <silent><expr> <C-k>  pumvisible() ? '<C-p>' : ddc#map#manual_complete()
 
-  packadd ale
+#     ddc#enable()
+#   }
+# })
 
-  # direction could be 'before' or 'after'
-  AleWithDetail = (direction: string) => {
-    # b:status_diagnostics defined in statusline.vim
-    if empty(get(b:, 'status_diagnostics', ''))
-      return
-    endif
+# # dense-analysis/ale {{{1
+# var AleWithDetail: func(string)
 
-    const pos = screenpos(0, line('.'), col('.'))
-    var winid: number = popup_locate(pos.row + 1, pos.col)
-    if winid == 0
-      winid = popup_locate(pos.row - 1, pos.col)
-    endif
-    if winid > 0
-      popup_close(winid)
-    endif
+# minpac.Add('dense-analysis/ale', { delay: 20, Config: () => {
+#   g:ale_completion_enabled = 0
+#   g:ale_disable_lsp = 0
+#   g:ale_history_enabled = 0
+#   g:ale_set_highlights = 0
+#   g:ale_floating_preview = 1
+#   g:ale_echo_cursor = 0
+#   g:ale_hover_cursor = 0
+#   g:ale_echo_msg_format = '[%linter%] %code: %%s'
+#   g:ale_pattern_options_enabled = 0
+#   g:ale_sign_error = 'E'
+#   g:ale_sign_warning = 'W'
+#   g:ale_sign_info = 'I'
+#   g:ale_shell = '/bin/bash'
+#   g:ale_set_quickfix = 0
+#   g:ale_set_loclist = 0
+#   g:ale_lint_on_insert_leave = 1
+#   g:ale_lint_on_text_changed = 'normal'
+#   g:ale_lint_delay = 200
+#   g:ale_virtualtext_cursor = 0
+#   g:ale_virtualtext_prefix = '  %type%: '
+#   g:ale_warn_about_trailing_whitespace = 0
+#   g:ale_floating_preview_popup_opts = {
+#     close: 'none',
+#     highlight: 'Normal',
+#     borderhighlight: ['PopupBorder'],
+#     borderchars: ['━', '┃', '━', '┃', '┏', '┓', '┛', '┗'], }
 
-    ale#loclist_jumping#Jump(direction, 1)
-    if foldclosed(line('.')) != -1
-      foldopen
-    endif
-    ale#cursor#ShowCursorDetail()
-  }
+#   g:ale_linters = {
+#     vim: [],
+#     python: ['pyright'],
+#     typescript: ['tsserver'],
+#     d: [], }
 
-  nnoremap  <space>kd     <ScriptCmd>mf.ToggleLoclistWindow('ALEPopulateLocList')<CR>
-  nnoremap  <space>ki     <Cmd>ALEDetail<CR>
-  nnoremap  <space>l      <ScriptCmd>AleWithDetail('after')<CR>
-  nnoremap  <space><C-l>  <ScriptCmd>AleWithDetail('before')<CR>
-  nnoremap  <C-@><C-l>    <ScriptCmd>AleWithDetail('before')<CR>
-}})
+#   g:ale_fixers = {
+#     svelte: ['prettier'],
+#     typescript: ['prettier'], }
+
+#   packadd ale
+
+#   # direction could be 'before' or 'after'
+#   AleWithDetail = (direction: string) => {
+#     # b:status_diagnostics defined in statusline.vim
+#     if empty(get(b:, 'status_diagnostics', ''))
+#       return
+#     endif
+
+#     const pos = screenpos(0, line('.'), col('.'))
+#     var winid: number = popup_locate(pos.row + 1, pos.col)
+#     if winid == 0
+#       winid = popup_locate(pos.row - 1, pos.col)
+#     endif
+#     if winid > 0
+#       popup_close(winid)
+#     endif
+
+#     ale#loclist_jumping#Jump(direction, 1)
+#     if foldclosed(line('.')) != -1
+#       foldopen
+#     endif
+#     ale#cursor#ShowCursorDetail()
+#   }
+
+#   nnoremap  <space>kd     <ScriptCmd>mf.ToggleLoclistWindow('ALEPopulateLocList')<CR>
+#   nnoremap  <space>ki     <Cmd>ALEDetail<CR>
+#   nnoremap  <space>l      <ScriptCmd>AleWithDetail('after')<CR>
+#   nnoremap  <space><C-l>  <ScriptCmd>AleWithDetail('before')<CR>
+#   nnoremap  <C-@><C-l>    <ScriptCmd>AleWithDetail('before')<CR>
+# }})
 
 # neoclide/coc.nvim {{{1
 minpac.Add('neoclide/coc.nvim', {
@@ -253,6 +303,11 @@ minpac.Add('tpope/vim-surround', { delay: 30, Config: () => {
   packadd vim-surround
 }})
 
+# tpope/vim-eunuch {{{1
+minpac.Add('tpope/vim-eunuch', { delay: 40, Config: () => {
+  packadd vim-eunuch
+}})
+
 # tpope/vim-fugitive {{{1
 minpac.Add('tpope/vim-fugitive', {
   dependencies: ['tpope/vim-rhubarb'],
@@ -267,6 +322,20 @@ minpac.Add('tpope/vim-fugitive', {
     nnoremap    <space>gb    <Cmd>Git blame<CR>
     nnoremap    <space>gd    <Cmd>Git diff<CR>
     nnoremap    <space>ge    <Cmd>Gedit<CR>
+  }
+})
+
+# tpope/vim-dadbod {{{1
+minpac.Add('tpope/vim-dadbod', {
+  dependencies: [
+    "kristijanhusak/vim-dadbod-completion",
+    "kristijanhusak/vim-dadbod-ui",
+  ],
+  delay: 50,
+  Config: () => {
+    packadd vim-dadbod
+    packadd vim-dadbod-completion
+    packadd vim-dadbod-ui
   }
 })
 
