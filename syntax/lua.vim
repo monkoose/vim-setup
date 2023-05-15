@@ -36,7 +36,7 @@ syntax match luaComment "\%^#!.*"
 syntax keyword luaCommentTodo contained TODO FIXME XXX
 syntax match   luaComment "--.*$" contains=luaCommentTodo,luaDocTag,@Spell
 syntax region luaCommentLong matchgroup=luaCommentLongTag start="--\[\z(=*\)\[" end="\]\z1\]" contains=luaCommentTodo,luaDocTag,@Spell
-syntax match   luaDocTag contained "\s@\k\+"
+syntax match   luaDocTag contained "\s\zs@\k\+"
 
 " Function calls
 syntax match luaFuncCall /\k\+\%(\s*[{('"]\)\@=/

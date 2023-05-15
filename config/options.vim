@@ -110,6 +110,9 @@ endif
 &clipboard = 'exclude:cons\|linux'
 &shell = '/bin/fish'
 
+# &cscopeverbose = true
+# &cscopetag = true
+
 def JumpToLastPosition()
   const last_pos = getpos("'\"")
   if last_pos[1] >= 1 && last_pos[1] <= line('$')

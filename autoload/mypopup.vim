@@ -1,5 +1,7 @@
 vim9script noclear
 
+const step = 3
+
 def PreviewWinId(): number
   for nr in range(1, winnr('$'))
     if win_gettype(nr) == 'preview'
@@ -14,7 +16,7 @@ def PopupWindowId(): number
   return empty(popups) ? 0 : popups[0]
 enddef
 
-def ScrollPopup(winid: number, step: number)
+def ScrollPopup(winid: number, amount: number)
   const pinfo = popup_getpos(winid)
   const bufinfo = getbufinfo(winbufnr(winid))[0]
   # If all lines are visible don't do anything
@@ -22,7 +24,7 @@ def ScrollPopup(winid: number, step: number)
     return
   endif
 
-  const new_firstline = pinfo.firstline + step
+  const new_firstline = pinfo.firstline + amount
   if new_firstline < 1
     popup_setoptions(winid, {'firstline': 1})
   elseif bufinfo.linecount - new_firstline < pinfo.core_height
@@ -68,9 +70,9 @@ enddef
 
 export def ScrollDownOrJumpNextHunk()
   ExePopupOrPvwOrCur(
-    (winid) => ScrollPopup(winid, 5),
+    (winid) => ScrollPopup(winid, step),
     (winid) => {
-      const bufnr = winbufnr(winid)
+      win_execute(winid, $"normal! {step}\<C-e>", 'silent')
     },
     () => {
       feedkeys(']c', 't')
@@ -80,9 +82,9 @@ enddef
 
 export def ScrollUpOrJumpPrevHunk()
   ExePopupOrPvwOrCur(
-    (winid) => ScrollPopup(winid, -5),
+    (winid) => ScrollPopup(winid, -step),
     (winid) => {
-      const bufnr = winbufnr(winid)
+      win_execute(winid, $"normal! {step}\<C-y>", 'silent')
     },
     () => {
       feedkeys('[c', 't')

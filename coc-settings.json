@@ -1,38 +1,51 @@
 {
+    "suggest.autoTrigger": "trigger",
     "suggest.noselect": true,
     "suggest.enablePreselect": false,
     "suggest.labelMaxLength": 60,
     "suggest.minTriggerInputLength": 2,
-    "suggest.maxCompleteItemCount": 30,
+    "suggest.maxCompleteItemCount": 50,
     "suggest.timeout": 3000,
     "suggest.highPrioritySourceLimit": 30,
     "suggest.lowPrioritySourceLimit": 20,
     "suggest.removeDuplicateItems": true,
     "suggest.defaultSortMethod": "alphabetical",
-    "suggest.triggerCompletionWait": 20,
+    "suggest.triggerCompletionWait": 0,
     "suggest.filterGraceful": false,
     "suggest.floatConfig": {
         "border": false,
         "highlight": "CocFloating"
     },
+    "outline.splitCommand": "botright 40vs",
+    "diagnostic.enableMessage": "jump",
     "diagnostic.autoRefresh": false,
-    "diagnostic.enableMessage": "never",
+    "diagnostic.checkCurrentLine": true,
+    "diagnostic.errorSign": "E",
+    "diagnostic.enableSign": false,
+    "diagnostic.hintSign": "H",
+    "diagnostic.infoSign": "I",
+    "diagnostic.warningSign": "W",
+    "diagnostic.format": "%message",
+    "diagnostic.virtualText": true,
+    "diagnostic.virtualTextCurrentLineOnly": false,
+    "diagnostic.virtualTextFormat": "",
+    "diagnostic.virtualTextPrefix": " ●",
     "inlayHint.enable": false,
     "signature.enable": false,
     "signature.hideOnTextChange": true,
-    "signature.floatConfig": {
-        "border": false,
+    "floatFactory.floatConfig": {
+        "border": true,
         "highlight": "CocFloating",
-        "close": false,
+        "close": false
+    },
+    "signature.floatConfig": {
         "maxHeight": 6
     },
     "hover.floatConfig": {
-        "border": false,
-        "highlight": "CocFloating",
-        "close": false,
         "maxWidth": 100
     },
     "notification.timeout": 5000,
+    "notification.disabledProgressSources": ["*"],
     "list.statusLineSegments": [
         "%#CocListMode#  COC %{coc#list#status('args')}%*",
         "%1(%{coc#list#status('loading')}%)",
@@ -40,17 +53,23 @@
         "%=",
         "%#CocListPath# %{coc#list#status('cwd')} %*"
     ],
-    "list.alignColumns": true,
-    "list.height": 12,
+    "list.alignColumns": false,
+    "list.floatPreview": true,
+    "list.height": 10,
     "list.limitLines": 20000,
-    "list.maxPreviewHeight": 10,
-    "list.previewSplitRight": true,
+    "list.maxPreviewHeight": 8,
     "list.previewHighlightGroup": "Visual",
     "list.source.diagnostics.pathFormat": "short",
-    "coc.preferences.enableMessageDialog": true,
+    "list.previewToplineOffset": 2,
+    "pullDiagnostic.onChange": false,
+    "pullDiagnostic.onSave": true,
+    "coc.preferences.enableMessageDialog": false,
     "coc.preferences.extensionUpdateCheck": "never",
+    "coc.preferences.promptInput": false,
     "coc.preferences.formatOnSave": false,
-    "workspace.rootPatterns": [".git"],
+    "workspace.rootPatterns": [
+        ".git"
+    ],
     "coc.preferences.willSaveHandlerTimeout": 1000,
     "list.insertMappings": {
         "<C-l>": "do:defaultaction",
@@ -65,5 +84,7 @@
         "<C-x>": "action:split",
         "<C-t>": "action:tabe"
     },
-    "svelte.enable-ts-plugin": true
+    "svelte.enable-ts-plugin": true,
+    "Lua.runtime.version": "LuaJIT",
+    "Lua.completion.callSnippet": "Replace"
 }
