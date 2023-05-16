@@ -10,14 +10,18 @@ minpac.Add('tpope/vim-commentary')
 minpac.Add('hail2u/vim-css3-syntax')
 minpac.Add('othree/html5.vim')
 minpac.Add('pangloss/vim-javascript')
-minpac.Add('HerringtonDarkholme/yats.vim')
-g:yats_host_keyword = 0
 minpac.Add('honza/vim-snippets')
 # minpac.Add('lacygoill/vim9asm')
 # minpac.Add('thinca/vim-themis')
 # minpac.Add('tweekmonster/helpful.vim')
 
-# evanleck/vim-svelte {{{1
+# yats.vim {{{1
+minpac.Add('HerringtonDarkholme/yats.vim', { Config: () => {
+  g:yats_host_keyword = 0
+  packadd! yats.vim
+}})
+
+# vim-svelte {{{1
 minpac.Add('evanleck/vim-svelte', { Config: () => {
   g:svelte_preprocessor_tags = [
     { name: 'ts', tag: 'script', as: 'typescript' }
@@ -26,7 +30,7 @@ minpac.Add('evanleck/vim-svelte', { Config: () => {
   packadd! vim-svelte
 }})
 
-# mbbill/undotree {{{1
+# undotree {{{1
 minpac.Add('mbbill/undotree', { Config: () => {
   g:undotree_SetFocusWhenToggle = 1
   g:undotree_WindowLayout       = 2
@@ -38,7 +42,7 @@ minpac.Add('mbbill/undotree', { Config: () => {
   nnoremap <silent>  <M-4>  <Cmd>UndotreeToggle<CR>
 }})
 
-# monkoose/vim9-stargate {{{1
+# vim9-stargate {{{1
 minpac.Add('monkoose/vim9-stargate', { Config: () => {
   noremap <space><space> <Cmd>call stargate#OKvim(1)<CR>
   nnoremap <space>w <Cmd>call stargate#Galaxy()<CR>
@@ -55,7 +59,7 @@ minpac.Add('monkoose/vim9-stargate', { Config: () => {
   packadd! vim9-stargate
 }})
 
-# lacygoill/vim9-syntax {{{1
+# vim9-syntax {{{1
 minpac.Add('lacygoill/vim9-syntax', { Config: () => {
   g:vim9_syntax = {
     errors: {
@@ -69,19 +73,16 @@ minpac.Add('lacygoill/vim9-syntax', { Config: () => {
 }}) #}}}
 
 #################### DEFERED PLUGINS ####################
-# # ludovicchabant/vim-gutentags {{{1
-# minpac.Add('ludovicchabant/vim-gutentags', { Config: () => {
-#   g:gutentags_project_root = ['.git', 'vscripts']
-#   g:gutentags_add_default_project_roots = 0
-#   g:gutentags_modules = ['cscope', 'ctags']
-#   g:gutentags_cscope_build_inverted_index = 1
-#   g:gutentags_file_list_command = 'fd . --type=f'
+# vim-gutentags {{{1
+minpac.Add('ludovicchabant/vim-gutentags', { Config: () => {
+  g:gutentags_project_root = ['.git', 'vscripts']
+  g:gutentags_add_default_project_roots = 0
+  g:gutentags_file_list_command = 'fd --type=f'
+  # g:gutentags_modules = ['cscope', 'ctags']
+  # g:gutentags_cscope_build_inverted_index = 1
+}})
 
-#   packadd! vim-gutentags
-#   nnoremap <space>d <C-]>
-# }})
-
-# neoclide/coc.nvim {{{1
+# coc.nvim {{{1
 minpac.Add('neoclide/coc.nvim', {
   do: (_, _) => system('yarn install --frozen-lockfile'),
   delay: 20,
@@ -168,7 +169,7 @@ minpac.Add('neoclide/coc.nvim', {
   }
 })
 
-# junegunn/fzf.vim {{{1
+# fzf.vim {{{1
 g:loaded_fzf = 1
 minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {
   g:fzf_command_prefix = 'Fzf'
@@ -218,28 +219,28 @@ minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {
   nnoremap <silent>  <space>;   <Cmd>FzfBuffers<CR>
   nnoremap <silent>  <space>ss  <Cmd>FzfRg<CR>
   nnoremap <silent>  <space>sb  <Cmd>FzfBLines<CR>
-  nnoremap <silent>  <space>sw  :<C-u>FzfRg <C-r><C-w><CR>
+  nnoremap <silent>  <space>sw  <Cmd>exe "FzfRg " .. expand('<cword>')<CR>
   nnoremap <silent>  <space>gc  <Cmd>FzfCommits<CR>
   nnoremap <silent>  <space>gC  <Cmd>FzfBCommits<CR>
 }})
 
-# junegunn/vim-easy-align {{{1
+# vim-easy-align {{{1
 minpac.Add('junegunn/vim-easy-align', { delay: 50, Config: () => {
   packadd vim-easy-align
   vmap  <Enter>  <Plug>(EasyAlign)
 }})
 
-# tpope/vim-surround {{{1
+# vim-surround {{{1
 minpac.Add('tpope/vim-surround', { delay: 30, Config: () => {
   packadd vim-surround
 }})
 
-# tpope/vim-eunuch {{{1
+# vim-eunuch {{{1
 minpac.Add('tpope/vim-eunuch', { delay: 40, Config: () => {
   packadd vim-eunuch
 }})
 
-# tpope/vim-fugitive {{{1
+# vim-fugitive {{{1
 minpac.Add('tpope/vim-fugitive', {
   dependencies: ['tpope/vim-rhubarb'],
   delay: 5,
@@ -256,7 +257,7 @@ minpac.Add('tpope/vim-fugitive', {
   }
 })
 
-# tpope/vim-dadbod {{{1
+# vim-dadbod {{{1
 minpac.Add('tpope/vim-dadbod', {
   dependencies: [
     "kristijanhusak/vim-dadbod-completion",
@@ -270,7 +271,7 @@ minpac.Add('tpope/vim-dadbod', {
   }
 })
 
-# airblade/vim-gitgutter {{{1
+# vim-gitgutter {{{1
 minpac.Add('airblade/vim-gitgutter', { delay: 5, Config: () => {
   g:gitgutter_sign_modified_removed  = '≃'
 
@@ -286,7 +287,7 @@ minpac.Add('airblade/vim-gitgutter', { delay: 5, Config: () => {
   augroup END
 }})
 
-# # skanehira/gh.vim {{{1
+# # gh.vim {{{1
 # minpac.Add('skanehira/gh.vim')
 
 # packadd! gh.vim
