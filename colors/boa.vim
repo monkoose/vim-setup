@@ -66,6 +66,7 @@ HlLinks('Normal', [
   'jsGlobalObjects',
   'jsFuncParens',
   'jsParens',
+  'CocFloating',
   'typeScriptBraces',
   'typeScriptEndColons',
   'typeScriptDOMObjects',
@@ -81,7 +82,6 @@ HlLinks('Normal', [
   'haskellSeparator',
   'haskellDelimiter',
   'jsonBraces',
-  'jsonString',
   'EndOfBuffer',
   ]
 )
@@ -146,7 +146,6 @@ HlLinks('String', [
   'markdownUrlTitleDelimiter',
   'haskellString',
   'haskellChar',
-  'jsonKeyword',
   'jsonQuote',
   ]
 )
@@ -306,6 +305,7 @@ HlLinks('Special', [
   'qfLineNr',
   'diffFile',
   # ---
+  'jsonKeyword',
   'htmlSpecialChar',
   'xmlEntity',
   'xmlEntityPunct',
@@ -421,16 +421,9 @@ HlSet('qfError')
 HlSet('qfFileName')
 HlSet('PopupBorder', '71')
 
-HlSet('ALEError', v:none, v:none, underline, '167')
-HlSet('ALEWarning', v:none, v:none, underline, '178')
-HlSet('ALEInfo', v:none, v:none, underline, '112')
-HlSet('AleErrorSign', colors.red, v:none, bold)
-HlSet('AleWarningSign', colors.orange, v:none, bold)
-HlSet('AleInfoSign', colors.green, v:none, bold)
-
 HlSet('CocHoverRange', v:none, '237')
 HlLinks('CocHoverRange', ['CocCursorRange'])
-HlLinks('Pmenu', ['CocFloating', 'CocNotification'])
+HlLinks('Pmenu', ['CocNotification'])
 HlLinks('PmenuSel', ['CocMenuSel'])
 HlSet('CocListMode', '100', colors.black, bold)
 HlSet('CocErrorHighlight', v:none, v:none, underline, '167')

@@ -101,6 +101,9 @@ minpac.Add('neoclide/coc.nvim', {
       'coc-dlang',
       'coc-svelte',
     ]
+    g:coc_borderchars = ['━', '┃', '━', '┃', '┏', '┓', '┛', '┗']
+
+    g:coc_border_joinchars = ['┳', '┫', '┻', '┣']
 
     packadd coc.nvim
 

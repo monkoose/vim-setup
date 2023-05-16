@@ -14,10 +14,11 @@
     "suggest.filterGraceful": false,
     "suggest.floatConfig": {
         "border": false,
-        "highlight": "CocFloating"
+        "highlight": "Pmenu"
     },
     "outline.splitCommand": "botright 40vs",
     "outline.togglePreviewKey": "<C-o>",
+    "outline.previewBorderHighlightGroup": "PopupBorder",
     "diagnostic.enableMessage": "jump",
     "diagnostic.autoRefresh": true,
     "diagnostic.checkCurrentLine": true,
@@ -37,6 +38,7 @@
     "floatFactory.floatConfig": {
         "border": true,
         "highlight": "CocFloating",
+        "borderhighlight": "PopupBorder",
         "close": false
     },
     "signature.floatConfig": {
@@ -62,8 +64,9 @@
     "list.previewHighlightGroup": "Visual",
     "list.source.diagnostics.pathFormat": "short",
     "list.previewToplineOffset": 2,
-    "pullDiagnostic.onChange": false,
+    "pullDiagnostic.onChange": true,
     "pullDiagnostic.onSave": true,
+    "dialog.floatBorderHighlight": "PopupBorder",
     "coc.preferences.enableMessageDialog": false,
     "coc.preferences.extensionUpdateCheck": "never",
     "coc.preferences.promptInput": false,
