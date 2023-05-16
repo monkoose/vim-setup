@@ -147,6 +147,7 @@ minpac.Add('neoclide/coc.nvim', {
     nnoremap  <space>kl  <Cmd>CocList<CR>
     nnoremap  <space>kF  <Plug>(coc-format)
     nnoremap  <space>ko  <Cmd>CocList outline<CR>
+    nnoremap  <space>ks  <Cmd>CocList symbols<CR>
     nnoremap  <space>kc  <Plug>(coc-codelens-action)
     nmap <expr> K g:CocHasProvider('hover') ? g:CocActionAsync('doHover') : "K"
     nmap <expr> <space>d
