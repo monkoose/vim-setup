@@ -98,15 +98,30 @@ minpac.Add('neoclide/coc.nvim', {
       'coc-lua',
       'coc-fish',
       'coc-dlang',
+      'coc-svelte',
     ]
 
     packadd coc.nvim
+
+    exe "set <A-a>=\ea"
+    inoremap <expr><A-a> ''
+    exe "set <A-e>=\ee"
+    inoremap <expr><A-e> ''
+    exe "set <A-p>=\ep"
+    inoremap <expr><A-p> ''
+    exe "set <A-n>=\en"
+    inoremap <expr><A-n> ''
+    exe "set <A-r>=\er"
+    inoremap <expr><A-r> ''
+    exe "set <A-f>=\ef"
+    exe "set <A-h>=\eh"
+    exe "set <A-l>=\el"
 
     g:coc_snippet_next = '<C-i>'
     # workaround to make '<M-i>' work
     exe "set <M-i>=\ei"
     g:coc_snippet_prev = '<M-i>'
-    inoremap <silent><expr>  <M-i>  coc#jumpable() ? "\<M-i" : ""
+    inoremap <silent><expr>  <M-i>  coc#jumpable() ? "\<M-i>" : ""
     inoremap  <C-n>  <Cmd>call coc#float#scroll(1, 4)<CR>
     inoremap  <C-p>  <Cmd>call coc#float#scroll(0, 4)<CR>
     inoremap <silent><expr>  <C-l>  coc#pum#visible() ? coc#pum#confirm() : pumvisible() ? "\<C-y>" : coc#refresh()
@@ -118,23 +133,36 @@ minpac.Add('neoclide/coc.nvim', {
     inoremap  <M-s>  <Cmd>call CocActionAsync('showSignatureHelp')<CR>
     nnoremap  <space>kk  <Cmd>CocRestart<CR>
     nnoremap  <space>D   <Plug>(coc-declaration)
-    nnoremap  <space>kr  <Plug>(coc-references)
-    nnoremap  <space>kR  <Plug>(coc-rename)
-    nnoremap  <space>ke  <Plug>(coc-refactor)
-    nnoremap  <space>ka  <Cmd>CocList actions<CR>
-    nnoremap  <space>kl  <Cmd>CocList<CR>
+    nnoremap  <space>kt   <Plug>(coc-type-definition)
     nnoremap  <space>kd  <Cmd>CocList diagnostics<CR>
     nnoremap  <space>ki  <Plug>(coc-diagnostic-info)
     nnoremap  <space>l   <Plug>(coc-diagnostic-next)
     nnoremap  <space><C-l>   <Plug>(coc-diagnostic-prev)
     nnoremap  <C-@><C-l>   <Plug>(coc-diagnostic-prev)
-    nnoremap  <space>kf  <Plug>(coc-format)
+    nnoremap  <space>kr  <Plug>(coc-references)
+    nnoremap  <space>kR  <Plug>(coc-rename)
+    nnoremap  <space>ke  <Plug>(coc-refactor)
+    nnoremap <silent>  <space>kA  <Plug>(coc-codeaction)
+    nnoremap <silent>  <space>ka  <Plug>(coc-codeaction-line)
+    nnoremap  <space>kl  <Cmd>CocList<CR>
+    nnoremap  <space>kF  <Plug>(coc-format)
     nnoremap  <space>ko  <Cmd>CocList outline<CR>
+    nnoremap  <space>kc  <Plug>(coc-codelens-action)
     nmap <expr> K g:CocHasProvider('hover') ? g:CocActionAsync('doHover') : "K"
     nmap <expr> <space>d
           \ g:CocHasProvider('definition') ? g:CocActionAsync('jumpDefinition') : "\<C-]>"
-    vnoremap  <space>ka  <Plug>(coc-codeaction-selected)
-    vnoremap  <space>kf  <Plug>(coc-format-selected)
+    xnoremap  <space>ka  <Plug>(coc-codeaction-selected)
+    xnoremap  <space>kf  <Plug>(coc-format-selected)
+    nnoremap  <space>kf  <Plug>(coc-format-selected)
+
+    xnoremap if <Plug>(coc-funcobj-i)
+    onoremap if <Plug>(coc-funcobj-i)
+    xnoremap af <Plug>(coc-funcobj-a)
+    onoremap af <Plug>(coc-funcobj-a)
+    xnoremap ic <Plug>(coc-classobj-i)
+    onoremap ic <Plug>(coc-classobj-i)
+    xnoremap ac <Plug>(coc-classobj-a)
+    onoremap ac <Plug>(coc-classobj-a)
   }
 })
 

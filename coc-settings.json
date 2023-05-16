@@ -17,6 +17,7 @@
         "highlight": "CocFloating"
     },
     "outline.splitCommand": "botright 40vs",
+    "outline.togglePreviewKey": "<C-o>",
     "diagnostic.enableMessage": "jump",
     "diagnostic.autoRefresh": false,
     "diagnostic.checkCurrentLine": true,
@@ -73,18 +74,31 @@
     "coc.preferences.willSaveHandlerTimeout": 1000,
     "list.insertMappings": {
         "<C-l>": "do:defaultaction",
-        "<C-a>": "do:selectall",
+        "<Tab>": "do:toggle",
+        "<A-a>": "do:selectall",
         "<C-p>": "do:previewup",
         "<C-n>": "do:previewdown",
         "<C-o>": "do:previewtoggle",
-        "<C-r>": "do:refresh",
-        "<C-e>": "do:toggle",
-        "<C-q>": "action:quickfix",
+        "<A-r>": "do:refresh",
+        "<A-e>": "do:chooseaction",
+        "<A-f>": "action:quickfix",
         "<C-v>": "action:vsplit",
         "<C-x>": "action:split",
-        "<C-t>": "action:tabe"
+        "<C-t>": "action:tabe",
+        "<C-r>": "prompt:insertregister",
+        "<A-p>": "prompt:previous",
+        "<A-n>": "prompt:next",
+        "<A-h>": "prompt:left",
+        "<A-l>": "prompt:right"
     },
-    "svelte.enable-ts-plugin": true,
+    "list.normalMappings": {
+        "<C-o>": "do:previewtoggle"
+    },
     "Lua.runtime.version": "LuaJIT",
-    "Lua.completion.callSnippet": "Replace"
+    "Lua.completion.callSnippet": "Replace",
+    "Lua.diagnostics.workspaceRate": 90,
+    "Lua.hover.expandAlias": false,
+    "Lua.hover.viewStringMax": 100,
+    "Lua.hover.previewFields": 30,
+    "svelte.enable-ts-plugin": true
 }
