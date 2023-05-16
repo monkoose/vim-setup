@@ -135,6 +135,7 @@ minpac.Add('neoclide/coc.nvim', {
     nnoremap  <space>D   <Plug>(coc-declaration)
     nnoremap  <space>kt   <Plug>(coc-type-definition)
     nnoremap  <space>kd  <Cmd>CocList diagnostics<CR>
+    nnoremap  <space>kD  <Cmd>call CocAction('diagnosticToggleBuffer')<CR>
     nnoremap  <space>ki  <Plug>(coc-diagnostic-info)
     nnoremap  <space>l   <Plug>(coc-diagnostic-next)
     nnoremap  <space><C-l>   <Plug>(coc-diagnostic-prev)

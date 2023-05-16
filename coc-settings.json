@@ -19,7 +19,7 @@
     "outline.splitCommand": "botright 40vs",
     "outline.togglePreviewKey": "<C-o>",
     "diagnostic.enableMessage": "jump",
-    "diagnostic.autoRefresh": false,
+    "diagnostic.autoRefresh": true,
     "diagnostic.checkCurrentLine": true,
     "diagnostic.errorSign": "E",
     "diagnostic.enableSign": false,
