@@ -49,6 +49,7 @@
     },
     "notification.timeout": 5000,
     "notification.disabledProgressSources": ["*"],
+    "dialog.rounded": false,
     "list.statusLineSegments": [
         "%#CocListMode#  COC %{coc#list#status('args')}%*",
         "%1(%{coc#list#status('loading')}%)",
