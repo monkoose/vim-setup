@@ -178,7 +178,6 @@ HlLinks('Identifier', [
 HlSet('Function', colors.darkblue)
 HlLinks('Function', [
   'pythonDottedName',
-  'luaFuncCall',
   'haskellIdentifier',
   'lispFunc',
   'vim9FuncCallUser',
@@ -206,7 +205,6 @@ HlLinks('Statement', [
   'pythonRepeat',
   'javaScriptIdentifier',
   'goDeclaration',
-  'luaIn',
   'haskellOperators',
   'tomlTable',
   ]
@@ -257,8 +255,6 @@ HlLinks('PreProc', [
   'typeScriptFuncKeyword',
   'typeScriptInterpolationDelimiter',
   'goDirective',
-  'luaFunction',
-  'luaFunction',
   'markdownCode',
   'markdownCodeBlock',
   'markdownCodeDelimiter',
@@ -319,7 +315,6 @@ HlLinks('Special', [
   'cssIdentifier',
   'typeScriptIdentifier',
   'goBuiltins',
-  'luaTable',
   'markdownHeadingDelimiter',
   'haskellBacktick',
   'haskellStatement',

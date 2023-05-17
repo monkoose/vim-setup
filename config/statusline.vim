@@ -7,7 +7,7 @@ const git = $'%1*{gitbranch}%*%4*{gitcommit}%*{gitgutter}'
 const git_nc = gitbranch .. gitcommit
 const spell = "%5*%{&spell ? '  SPELL ' : ''}%*"
 const right = ' %='
-const ale_diagn = "%7*%{get(b:, 'status_diagnostics', '')}%*"
+# const ale_diagn = "%7*%{get(b:, 'status_diagnostics', '')}%*"
 const tail = '  %{&filetype}  %4*%P%* '
 const tail_nc = ' %=%{&filetype}  %P '
 const fname = '  %3*%f%* %7*%m%* '
@@ -18,19 +18,19 @@ const mode = " %2(%{%StatusLineMode()%}%)"
 # const lncol = "%< %-9(%3*%l%*·%4*%c%V%*%) "
 # const session = "%{fnamemodify(v:this_session, ':t')}"
 
-const statusline = mode .. iminsert .. fname .. ro .. git .. spell .. right .. ale_diagn .. tail
+const statusline = mode .. iminsert .. fname .. ro .. git .. spell .. right .. tail
 const statusline_nc = fname_nc .. git_nc .. tail_nc
 &statusline = statusline
 
 augroup SetStatusLine
   autocmd!
-  autocmd WinEnter * SetStatusLine('&l:statusline = statusline')
-  autocmd WinLeave,WinNew * SetStatusLine('&l:statusline = statusline_nc')
+  autocmd WinEnter * SetStatusLine(statusline)
+  autocmd WinLeave,WinNew * SetStatusLine(statusline_nc)
   autocmd FileType fugitiveblame &l:statusline = '%< %(%l/%L%) %=%P '
   autocmd TerminalWinOpen * &l:statusline = '  %Y  %4*%{term_gettitle(bufnr())}%* %= %4*%{term_getstatus(bufnr())}%* '
 augroup END
 
-def SetStatusLine(cmd: string): void
+def SetStatusLine(sl_opt: string): void
   if index(['fugitiveblame'], &filetype) != -1
     return
   endif
@@ -40,7 +40,7 @@ def SetStatusLine(cmd: string): void
     return
   endif
 
-  execute cmd
+  &l:statusline = sl_opt
 enddef
 
 def StatusGitCommit()
@@ -76,32 +76,6 @@ def StatusIminsert()
   b:status_iminsert = &iminsert ? '   RU ' : ''
 enddef
 
-var ale_timer: number = 0
-
-def StatusDiagnostic()
-  if !empty(timer_info(ale_timer))
-    timer_stop(ale_timer)
-  endif
-
-  ale_timer = timer_start(150, (_) => {
-    const diagn = ale#statusline#Count(bufnr())
-    var result = ''
-    const errors = diagn.error + diagn.style_error
-    const warnings = diagn.warning + diagn.style_warning
-    if errors > 0
-      result ..= 'E:' .. errors
-    endif
-    if warnings > 0
-      result ..= ' W:' .. warnings
-    endif
-    if diagn.info > 0
-      result ..= ' I:' .. diagn.info
-    endif
-    b:status_diagnostics = result
-    redrawstatus
-  })
-enddef
-
 final modes = {
   R: 'R',
   v: 'V',
@@ -121,12 +95,12 @@ enddef
 augroup StatusLine
   autocmd!
   autocmd User FugitiveChanged,FugitiveObject StatusGitBranch() | StatusGitCommit()
-  autocmd WinEnter,BufWinEnter,FocusGained *
-        \ if exists('*g:FugitiveGitDir') |
-          \ StatusGitBranch() |
-        \ endif
+  autocmd WinEnter,BufWinEnter,FocusGained * {
+    if exists('*g:FugitiveGitDir')
+      StatusGitBranch()
+    endif
+  }
   autocmd BufWinEnter * StatusIminsert()
   autocmd OptionSet iminsert StatusIminsert()
   autocmd User GitGutter StatusGitGutter()
-  autocmd User ALELintPost StatusDiagnostic()
 augroup END
