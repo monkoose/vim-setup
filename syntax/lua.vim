@@ -20,18 +20,18 @@ syntax match  luaEllipsis "\.\.\."
 syntax match   luaComment "\%^#!.*"
 
 syntax keyword luaCommentTodo contained TODO FIXME XXX
-syntax match   luaComment "--.*$" contains=luaCommentTodo,luaDocTag,@Spell
+syntax match   luaComment "--.*$" contains=luaCommentTodo,luaDocTag,@Spell display
 syntax region  luaCommentLong matchgroup=luaCommentLongTag start="--\[\z(=*\)\[" end="\]\z1\]" contains=luaCommentTodo,luaDocTag,@Spell
 syntax match   luaDocTag contained "\s\zs@\k\+"
 
 " goto and labels
 syntax keyword luaGoto goto nextgroup=luaGotoLabel skipwhite
-syntax match luaGotoLabel "\k\+" contained
-syntax match luaLabel "::\k\+::"
+syntax match luaGotoLabel "\k\+" contained display
+syntax match luaLabel "::\k\+::" display
 
 syntax keyword luaFunction function nextgroup=luaFuncFullName skipwhite
-syntax match luaFuncFullName "\(\k\+[:.]\)\?\k\+\s\?(" contained contains=luaFuncName
 syntax match luaFuncName "\k\+\ze\s\?(" contained
+syntax match luaFuncFullName "\(\k\+[:.]\)\?\k\+\s\?(" display contained contains=luaFuncName
 
 " Keywords
 syntax keyword luaBlock do end
@@ -50,9 +50,9 @@ syntax region luaString  start=+'+ end=+'+ skip=+\\\\\|\\'+ contains=luaStringSp
 syntax region luaString  start=+"+ end=+"+ skip=+\\\\\|\\"+ contains=luaStringSpecial,@Spell
 
 " hexadecimal constant
-syntax match luaNumber "\c\<0x\%([0-9a-f]\+\%(\.[0-9a-f]*\)\?\|[0-9a-f]*\.[0-9a-f]\+\)\%(p[-+]\?\d\+\)\?\>"
+syntax match luaNumber "\c\<0x\%([0-9a-f]\+\%(\.[0-9a-f]*\)\?\|[0-9a-f]*\.[0-9a-f]\+\)\%(p[-+]\?\d\+\)\?\>" display
 " decimal constants
-syntax match luaNumber "\<\%(\d\+\%(\.\d*\)\?\|\d*\.\d\+\)\%([eE][-+]\?\d\+\)\?\>"
+syntax match luaNumber "\<\%(\d\+\%(\.\d*\)\?\|\d*\.\d\+\)\%([eE][-+]\?\d\+\)\?\>" display
 
 syntax keyword luaRequire
       \ module
