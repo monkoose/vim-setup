@@ -214,8 +214,7 @@ minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {
     height: 0.9,
     border: 'sharp' }}
 
-  unlet! g:loaded_fzf
-  exe $'source {$VIM}/vimfiles/plugin/fzf.vim'
+  exe $'source {fnamemodify($MYVIMRC, ":h") .. "/plugin/fzf.vim"}'
   packadd fzf.vim
 
   nnoremap <silent>  <space>ff  <Cmd>FzfFiles<CR>

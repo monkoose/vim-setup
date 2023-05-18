@@ -1,6 +1,5 @@
 vim9script noclear
 
-g:loaded_fastfold = 1
 if exists('g:loaded_fastfold')
   finish
 endif
@@ -92,36 +91,35 @@ def UpdateTab()
 enddef
 
 def Skip(): bool
-  if IsSmall() || !IsReasonable() || InSkipList() ||
-      !empty(&l:buftype) || !&l:modifiable
+  if IsSmall() || !IsReasonable() || InSkipList() || !empty(&l:buftype) || !&l:modifiable
     return true
-  else
-    return false
   endif
+
+  return false
 enddef
 
 def IsReasonable(): bool
   if (&l:foldmethod == 'syntax' || &l:foldmethod == 'expr') || g:fastfold_force == 1
     return true
-  else
-    return false
   endif
+
+  return false
 enddef
 
 def InSkipList(): bool
   if index(g:fastfold_skip_filetypes, &l:filetype) >= 0
     return true
-  else
-    return false
   endif
+
+  return false
 enddef
 
 def IsSmall(): bool
   if line('$') <= g:fastfold_minlines
     return true
-  else
-    return false
   endif
+
+  return false
 enddef
 
 command! -bar -bang FastFoldUpdate g:UpdateBuf(<bang>0)
@@ -166,8 +164,7 @@ def OnBufEnter()
   if !exists('b:lastchangedtick')
     b:lastchangedtick = b:changedtick
   endif
-  if b:changedtick != b:lastchangedtick &&
-      (&l:foldmethod != 'diff' && exists('b:predifffdm'))
+  if b:changedtick != b:lastchangedtick && (&l:foldmethod != 'diff' && exists('b:predifffdm'))
     g:UpdateBuf(false)
   endif
 enddef
