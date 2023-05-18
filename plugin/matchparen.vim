@@ -19,7 +19,8 @@ var config: dict<any> = {
   syntax_ignored: false,
   syntax_groups: ['string', 'comment', 'character', 'singlequote'],
   timeout: 200,
-  timeout_insert: 50,
+  timeout_insert: 100,
+  debounce_time: 100,
 }
 
 extend(config, get(g:, 'matchparen_config', {}))
@@ -46,10 +47,8 @@ def Autocmds(enable: bool)
       autocmd WinEnter,BufWinEnter,FileType,VimEnter * ParseMatchpairs()
       autocmd OptionSet matchpairs ParseMatchpairs()
 
-      autocmd CursorMoved,WinEnter,WinScrolled * UpdateHighlight()
-      autocmd InsertEnter,CursorMovedI * UpdateHighlight(true)
-      autocmd TextChanged * UpdateHighlightOnChange()
-      autocmd TextChangedI * UpdateHighlightOnChange(true)
+      autocmd CursorMoved,WinEnter,WinScrolled,TextChanged * UpdateHighlight()
+      autocmd InsertEnter,CursorMovedI,TextChangedI * UpdateHighlight(true)
       # In case we reload the buffer while the cursor is on a paren.
       # Need to delay with SafeState because when reloading, the cursor is
       # temporarily on line 1 col 1, no matter its position before the reload.
@@ -78,7 +77,7 @@ var m_lnum: number
 var m_col: number
 var matchpairs: string
 var pairs: dict<list<string>>
-var change_tick: number = -1
+var timer: number
 
 # Functions {{{1
 def Complete(_, _, _): string  # {{{2
@@ -103,12 +102,13 @@ enddef
 def UpdateHighlight(in_insert: bool = false)  #{{{2
 # The function that is invoked (very often) to define a highlighting for any
 # matching paren.
-
-  change_tick = b:changedtick
-  RemoveHighlight()
+  if !!b:matchparen_config.debounce_time
+    timer_stop(timer)
+  endif
 
   # Nothing to highlight if we're in a closed fold
   if foldclosed('.') != -1
+    RemoveHighlight()
     return
   endif
 
@@ -131,62 +131,63 @@ def UpdateHighlight(in_insert: bool = false)  #{{{2
     else
       # Still not on matching bracket
       if !has_key(pairs, c)
+        RemoveHighlight()
         return
       endif
     endif
   else
     if !has_key(pairs, c)
+      RemoveHighlight()
       return
     endif
   endif
 
-  # Figure out the arguments for searchpairpos()
-  # Use a stopline to limit the search to lines visible in the window
-  var c2: string
-  var s_flags: string
-  var stopline: string
-  [c, c2, s_flags, stopline] = pairs[c]
+  def ProcessHighlight(x = 0)
+    # Find the match.
+    # When it was just before the cursor, move the latter there for a moment.
+    if before > 0
+      cursor(c_lnum, c_col - before)
+    endif
 
-  # Find the match.
-  # When it was just before the cursor, move the latter there for a moment.
-  if before > 0
-    cursor(c_lnum, c_col - before)
-  endif
+    var Skip: func: bool
+    try
+      Skip = GetSkip()
+    # synstack() inside InStringOrComment() might throw:
+    # E363: pattern uses more memory than 'maxmempattern'.
+    catch /^Vim\%((\a\+)\)\=:E363:/
+      # We won't find anything, so skip searching to keep Vim responsive.
+      RemoveHighlight()
+      return
+    endtry
 
-  var Skip: func: bool
-  try
-    Skip = GetSkip()
-  # synstack() inside InStringOrComment() might throw:
-  # E363: pattern uses more memory than 'maxmempattern'.
-  catch /^Vim\%((\a\+)\)\=:E363:/
-    # We won't find anything, so skip searching to keep Vim responsive.
-    return
-  endtry
+    # Figure out the arguments for searchpairpos()
+    # Use a stopline to limit the search to lines visible in the window
+    var c2: string
+    var s_flags: string
+    var stopline: string
+    [c, c2, s_flags, stopline] = pairs[c]
 
-  # Limit the search time to avoid a hang on very long lines.
-  var timeout: number
-  if in_insert
-    timeout = b:matchparen_config.timeout_insert
+    # Limit the search time to avoid a hang on very long lines.
+    const timeout = in_insert ? b:matchparen_config.timeout_insert : b:matchparen_config.timeout
+    try
+      [m_lnum, m_col] = searchpairpos(c, '', c2, s_flags, 'Skip()', line(stopline), timeout)
+    catch /^Vim\%((\a\+)\)\=:E363:/
+    endtry
+
+    if before > 0
+      setpos('.', saved_cursor)
+    endif
+
+    RemoveHighlight()
+    if m_lnum > 0
+      Highlight()
+    endif
+  enddef
+
+  if !!b:matchparen_config.debounce_time
+    timer = timer_start(b:matchparen_config.debounce_time, ProcessHighlight)
   else
-    timeout = b:matchparen_config.timeout
-  endif
-  try
-    [m_lnum, m_col] = searchpairpos(c, '', c2, s_flags, Skip, line(stopline), timeout)
-  catch /^Vim\%((\a\+)\)\=:E363:/
-  endtry
-
-  if before > 0
-    setpos('.', saved_cursor)
-  endif
-
-  if m_lnum > 0
-    Highlight()
-  endif
-enddef
-
-def UpdateHighlightOnChange(in_insert: bool = false)  #{{{2
-  if change_tick != b:changedtick
-    UpdateHighlight(in_insert)
+    ProcessHighlight()
   endif
 enddef
 

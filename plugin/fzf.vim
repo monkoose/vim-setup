@@ -21,6 +21,12 @@
 " OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 " WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+if exists('g:loaded_fzf')
+  finish
+endif
+
+let g:loaded_fzf = 1
+
 if has('win32') || has('win64') || (!has('gui_running') && exists('$TMUX'))
   unlet! g:loaded_fzf
   exe $'source {$VIM}/vimfiles/plugin/fzf.vim'

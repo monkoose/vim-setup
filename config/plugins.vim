@@ -175,7 +175,6 @@ minpac.Add('neoclide/coc.nvim', {
 })
 
 # fzf.vim {{{1
-g:loaded_fzf = 1
 minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {
   g:fzf_command_prefix = 'Fzf'
 
@@ -214,7 +213,6 @@ minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {
     height: 0.9,
     border: 'sharp' }}
 
-  exe $'source {fnamemodify($MYVIMRC, ":h") .. "/plugin/fzf.vim"}'
   packadd fzf.vim
 
   nnoremap <silent>  <space>ff  <Cmd>FzfFiles<CR>
