@@ -3,7 +3,6 @@ vim9script noclear
 if exists('g:loaded_fastfold')
   finish
 endif
-
 g:loaded_fastfold = 1
 
 # Options {{{
@@ -25,12 +24,11 @@ def EnterWin()
     endif
   else
     w:lastfdm = &l:foldmethod
-    setlocal foldmethod=manual
+    &l:foldmethod = 'manual'
   endif
 enddef
 
 def LeaveWin()
-  echom 'hello'
   if exists('w:predifffdm')
     if empty(&l:foldmethod) || &l:foldmethod == 'manual'
       &l:foldmethod = w:predifffdm
@@ -51,10 +49,8 @@ def LeaveWin()
 enddef
 
 def WinDo(command: string)
-  const winids: list<number> = gettabinfo(0)[0].windows
-  execute(command)
-  for winid in winids
-    win_execute(winid, 'keepjumps noautocmd ' .. command)
+  for winid in gettabinfo(0)[0].windows
+    win_execute(winid, 'keepjumps noautocmd ' .. command, 'silent!')
   endfor
 enddef
 
@@ -65,7 +61,7 @@ def UpdateWin()
   WinDo($'if winnr() == {curwin} | EnterWin() | endif')
 enddef
 
-def g:UpdateBuf(feedback: bool)
+def UpdateBuf(feedback: bool)
   # skip if another session still loading
   if exists('g:SessionLoad') | return | endif
 
@@ -122,7 +118,7 @@ def IsSmall(): bool
   return false
 enddef
 
-command! -bar -bang FastFoldUpdate g:UpdateBuf(<bang>0)
+command! -bar -bang FastFoldUpdate UpdateBuf(<bang>0)
 
 nnoremap <silent> <Plug>(FastFoldUpdate) <ScriptCmd>FastFoldUpdate!<CR>
 
@@ -165,7 +161,7 @@ def OnBufEnter()
     b:lastchangedtick = b:changedtick
   endif
   if b:changedtick != b:lastchangedtick && (&l:foldmethod != 'diff' && exists('b:predifffdm'))
-    g:UpdateBuf(false)
+    UpdateBuf(false)
   endif
 enddef
 
@@ -185,7 +181,7 @@ enddef
 
 def OnBufWinEnter()
   if !exists('b:fastfold')
-    g:UpdateBuf(false)
+    UpdateBuf(false)
     b:fastfold = 1
   endif
 enddef
@@ -200,13 +196,13 @@ def Init()
     autocmd BufEnter * OnBufEnter()
     autocmd WinLeave * OnWinLeave()
     # Update folds after foldmethod set by filetype autocmd
-    autocmd FileType * g:UpdateBuf(false)
+    autocmd FileType * UpdateBuf(false)
     # Update folds after foldmethod set by :loadview or :source Session.vim
-    autocmd SessionLoadPost * g:UpdateBuf(false)
+    autocmd SessionLoadPost * UpdateBuf(false)
     # Update folds after foldmethod set by modeline
     if g:fastfold_fdmhook
-      autocmd OptionSet foldmethod g:UpdateBuf(false)
-      autocmd BufRead * g:UpdateBuf(false)
+      autocmd OptionSet foldmethod UpdateBuf(false)
+      autocmd BufRead * UpdateBuf(false)
     else
       autocmd BufWinEnter * OnBufWinEnter()
     endif
@@ -214,9 +210,9 @@ def Init()
     autocmd BufLeave * b:lastchangedtick = b:changedtick
     # Update folds after saving
     if g:fastfold_savehook
-      autocmd BufWritePost * g:UpdateBuf(false)
+      autocmd BufWritePost * UpdateBuf(false)
     endif
-  augroup end
+  augroup END
 enddef
 
 # vim: fdm=marker
