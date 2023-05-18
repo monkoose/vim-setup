@@ -13,7 +13,12 @@ enddef
 
 def PopupWindowId(): number
   const popups = popup_list()
-  return empty(popups) ? 0 : popups[0]
+  for id in popups
+    if popup_getpos(id).visible
+      return id
+    endif
+  endfor
+  return 0
 enddef
 
 def ScrollPopup(winid: number, amount: number)
@@ -75,7 +80,7 @@ export def ScrollDownOrJumpNextHunk()
       win_execute(winid, $"normal! {step}\<C-e>", 'silent')
     },
     () => {
-      feedkeys(']c', 't')
+      :GitGutterNextHunk
     }
   )
 enddef
@@ -87,7 +92,7 @@ export def ScrollUpOrJumpPrevHunk()
       win_execute(winid, $"normal! {step}\<C-y>", 'silent')
     },
     () => {
-      feedkeys('[c', 't')
+      :GitGutterPrevHunk
     }
   )
 enddef
