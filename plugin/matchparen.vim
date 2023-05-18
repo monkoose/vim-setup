@@ -81,11 +81,11 @@ var pairs: dict<list<string>>
 var change_tick: number = -1
 
 # Functions {{{1
-def Complete(_, _, _): string  #{{{2
+def Complete(_, _, _): string  # {{{2
   return join(['on', 'off', 'toggle'], "\n")
 enddef
 
-def ParseMatchpairs()  #{{{2
+def ParseMatchpairs()  # {{{2
   if matchpairs != &matchpairs
     matchpairs = &matchpairs
     const splitted_matchpairs: list<list<string>> =

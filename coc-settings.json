@@ -28,7 +28,7 @@
     "diagnostic.infoSign": "I",
     "diagnostic.warningSign": "W",
     "diagnostic.format": "%message",
-    "diagnostic.highlightLimit": 0,
+    "diagnostic.highlightLimit": 30,
     "diagnostic.virtualText": false,
     "diagnostic.virtualTextCurrentLineOnly": true,
     "diagnostic.virtualTextFormat": "%message",

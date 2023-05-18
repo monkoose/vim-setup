@@ -7,19 +7,21 @@ import autoload '../autoload/myfunctions.vim' as mf
 minpac.Add('tpope/vim-repeat')
 minpac.Add('tpope/vim-characterize')
 minpac.Add('tpope/vim-commentary')
-minpac.Add('hail2u/vim-css3-syntax')
-minpac.Add('othree/html5.vim')
-minpac.Add('pangloss/vim-javascript')
 minpac.Add('honza/vim-snippets')
+
+# minpac.Add('hail2u/vim-css3-syntax')
+# minpac.Add('othree/html5.vim')
+# minpac.Add('pangloss/vim-javascript')
+
 # minpac.Add('lacygoill/vim9asm')
 # minpac.Add('thinca/vim-themis')
 # minpac.Add('tweekmonster/helpful.vim')
 
-# yats.vim {{{1
-minpac.Add('HerringtonDarkholme/yats.vim', { Config: () => {
-  g:yats_host_keyword = 0
-  packadd! yats.vim
-}})
+# # yats.vim {{{1
+# minpac.Add('HerringtonDarkholme/yats.vim', { Config: () => {
+#   g:yats_host_keyword = 0
+#   packadd! yats.vim
+# }})
 
 # vim-svelte {{{1
 minpac.Add('evanleck/vim-svelte', { Config: () => {
@@ -141,9 +143,9 @@ minpac.Add('neoclide/coc.nvim', {
     nnoremap  <space>kd  <Cmd>CocList diagnostics<CR>
     nnoremap  <space>kD  <Cmd>call CocAction('diagnosticToggleBuffer')<CR>
     nnoremap  <space>ki  <Plug>(coc-diagnostic-info)
-    nnoremap  <space>l   <Plug>(coc-diagnostic-next)
-    nnoremap  <space><C-l>   <Plug>(coc-diagnostic-prev)
-    nnoremap  <C-@><C-l>   <Plug>(coc-diagnostic-prev)
+    nnoremap  <space>l   <Cmd>call CocActionAsync('diagnosticNext') \| normal lh<CR>
+    nnoremap  <space><C-l>   <Cmd>call CocActionAsync('diagnosticPrevious')<CR>
+    nnoremap  <C-@><C-l>   <Cmd>call CocActionAsync('diagnosticPrevious')<CR>
     nnoremap  <space>kr  <Plug>(coc-references)
     nnoremap  <space>kR  <Plug>(coc-rename)
     nnoremap  <space>ke  <Plug>(coc-refactor)

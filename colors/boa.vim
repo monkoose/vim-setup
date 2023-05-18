@@ -410,6 +410,7 @@ HlSet('User4', '60', colors.black)
 HlSet('User5', '96', colors.black)
 HlSet('User6', '95', colors.black)
 HlSet('User7', '167', colors.black, bold)
+HlSet('User8', '137', colors.black, bold)
 
 HlSet('SignColumn')
 HlSet('qfError')

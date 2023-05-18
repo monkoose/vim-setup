@@ -7,7 +7,7 @@ const git = $'%1*{gitbranch}%*%4*{gitcommit}%*{gitgutter}'
 const git_nc = gitbranch .. gitcommit
 const spell = "%5*%{&spell ? '  SPELL ' : ''}%*"
 const right = ' %='
-# const ale_diagn = "%7*%{get(b:, 'status_diagnostics', '')}%*"
+const diagnostic = "%{%get(b:, 'status_diagnostics', '')%}"
 const tail = '  %{&filetype}  %4*%P%* '
 const tail_nc = ' %=%{&filetype}  %P '
 const fname = '  %3*%f%* %7*%m%* '
@@ -18,7 +18,7 @@ const mode = " %2(%{%StatusLineMode()%}%)"
 # const lncol = "%< %-9(%3*%l%*·%4*%c%V%*%) "
 # const session = "%{fnamemodify(v:this_session, ':t')}"
 
-const statusline = mode .. iminsert .. fname .. ro .. git .. spell .. right .. tail
+const statusline = mode .. iminsert .. fname .. ro .. git .. spell .. right .. diagnostic .. tail
 const statusline_nc = fname_nc .. git_nc .. tail_nc
 &statusline = statusline
 
@@ -92,6 +92,16 @@ def g:StatusLineMode(): string
   return get(modes, mode(), '')
 enddef
 
+def StatusDiagnostics()
+  const diagnostics = get(b:, 'coc_diagnostic_info')
+  var diagn_str = ''
+  if !empty(diagnostics)
+    diagn_str ..= !!diagnostics.error ? '%7*E·' .. diagnostics.error .. '%*' : ''
+    diagn_str ..= !!diagnostics.warning ? ' %8*W·' .. diagnostics.warning .. '%*' : ''
+  endif
+  b:status_diagnostics = diagn_str
+enddef
+
 augroup StatusLine
   autocmd!
   autocmd User FugitiveChanged,FugitiveObject StatusGitBranch() | StatusGitCommit()
@@ -100,6 +110,7 @@ augroup StatusLine
       StatusGitBranch()
     endif
   }
+  autocmd User CocDiagnosticChange StatusDiagnostics()
   autocmd BufWinEnter * StatusIminsert()
   autocmd OptionSet iminsert StatusIminsert()
   autocmd User GitGutter StatusGitGutter()
