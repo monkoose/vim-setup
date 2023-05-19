@@ -138,7 +138,11 @@ endfor
 
 augroup FastFold
   autocmd!
-  autocmd VimEnter * Init()
+  if !v:vim_did_enter
+    autocmd VimEnter * Init()
+  else
+    Init()
+  endif
 augroup end
 
 def OnWinEnter()

@@ -24,6 +24,10 @@ syntax match   luaComment "--.*$" contains=luaCommentTodo,luaDocTag,@Spell
 syntax region  luaCommentLong matchgroup=luaCommentLongTag start="--\[\z(=*\)\[" end="\]\z1\]" contains=luaCommentTodo,luaDocTag,@Spell
 syntax match   luaDocTag contained "\s\zs@\k\+"
 
+syntax match   luaParen  "(\|)" display
+syntax match   luaCurlyBracket  "{\|}" display
+syntax match   luaBracket  "\[\|\]" display
+
 " goto and labels
 syntax keyword luaGoto goto nextgroup=luaGotoLabel skipwhite
 syntax match luaGotoLabel "\k\+" contained display
@@ -31,7 +35,7 @@ syntax match luaLabel "::\k\+::" display
 
 syntax keyword luaFunction function nextgroup=luaFuncFullName skipwhite
 syntax match luaFuncName "\k\+\ze\s\?(" contained
-syntax match luaFuncFullName "\(\k\+[:.]\)\?\k\+\s\?(" display contained contains=luaFuncName
+syntax match luaFuncFullName "\(\k\+[:.]\)\?\k\+\s\?(" contained transparent contains=luaFuncName,luaParen
 
 " Keywords
 syntax keyword luaBlock do end
@@ -66,35 +70,38 @@ syntax keyword luaErrHand
 
 syntax keyword luaGlobalTable _G
 
-hi def link luaBuiltIn          Special
-hi def link luaComment          Comment
-hi def link luaCommentLongTag   luaCommentLong
-hi def link luaCommentLong      luaComment
-hi def link luaCommentTodo      Todo
-hi def link luaConstant         Constant
-hi def link luaDocTag           Underlined
-hi def link luaEllipsis         Special
-hi def link luaGotoLabel        Identifier
-hi def link luaLabel            uaGotoLabel
-hi def link luaLocal            Type
-hi def link luaNumber           Number
-hi def link luaSymbolOperator   luaOperator
-hi def link luaOperator         Operator
-hi def link luaCond             Conditional
-hi def link luaRepeat           Repeat
-hi def link luaBlock            luaRepeat
-hi def link luaFunction         Statement
-hi def link luaFuncName         Function
-hi def link luaRequire          Include
-hi def link luaComma            Delimiter
-hi def link luaSemiColon        luaComma
-hi def link luaGlobalTable      Identifier
-hi def link luaStatement        Statement
-hi def link luaGoto             Statement
-hi def link luaString           String
-hi def link luaStringLong       luaString
-hi def link luaStringSpecial    SpecialChar
-hi def link luaErrHand          Exception
+hi def link luaBuiltIn        Identifier
+hi def link luaComment        Comment
+hi def link luaCommentLongTag luaCommentLong
+hi def link luaCommentLong    luaComment
+hi def link luaCommentTodo    Todo
+hi def link luaConstant       Constant
+hi def link luaDocTag         Underlined
+hi def link luaEllipsis       Special
+hi def link luaGotoLabel      Identifier
+hi def link luaLabel          uaGotoLabel
+hi def link luaLocal          Type
+hi def link luaNumber         Number
+hi def link luaSymbolOperator luaOperator
+hi def link luaOperator       Operator
+hi def link luaCond           Conditional
+hi def link luaRepeat         Repeat
+hi def link luaBlock          luaRepeat
+hi def link luaFunction       Statement
+hi def link luaFuncName       Function
+hi def link luaRequire        Include
+hi def link luaComma          Delimiter
+hi def link luaSemiColon      luaComma
+hi def link luaParen          Delimiter
+hi def link luaBracket        luaParen
+hi def link luaCurlyBracket   luaParen
+hi def link luaGlobalTable    Identifier
+hi def link luaStatement      Statement
+hi def link luaGoto           Statement
+hi def link luaString         String
+hi def link luaStringLong     luaString
+hi def link luaStringSpecial  SpecialChar
+hi def link luaErrHand        Exception
 
 let b:current_syntax = "lua"
 if main_syntax == 'lua'

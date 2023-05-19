@@ -156,7 +156,7 @@ function! s:common_sink(action, lines) abort
   if len(a:lines) > 1
     augroup fzf_swap
       autocmd SwapExists * let v:swapchoice='o'
-            \| call s:warn('fzf: E325: swap file exists: '.s:fzf_expand('<afile>'))
+            \| call s:warn('fzf: E325: swap file exists: ' .. s:fzf_expand('<afile>'))
     augroup END
   endif
   try

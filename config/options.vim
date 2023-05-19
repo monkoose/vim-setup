@@ -59,6 +59,7 @@ endif
 &sidescrolloff = 5
 &sidescroll = 1
 
+&updatecount = 0
 &swapfile = false
 &undofile = true
 &undodir = $'{$HOME}/.cache/vim/undo'

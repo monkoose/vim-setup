@@ -22,6 +22,7 @@ const colors = {
   blue: '65',
   gray: '95',
   brown: '101',
+  lightblue: '109',
   cursorlinebg: '235',
   black: '16',
   visual: '236',
@@ -416,6 +417,15 @@ HlSet('SignColumn')
 HlSet('qfError')
 HlSet('qfFileName')
 HlSet('PopupBorder', '71')
+
+HlSet('delimitersColor', colors.lightblue)
+HlLinks('delimitersColor', [
+  'luaParen',
+  'luaBracket',
+  'luaCurlyBracket',
+  'luaComma',
+  ]
+)
 
 HlSet('CocHoverRange', v:none, '237')
 HlLinks('CocHoverRange', ['CocCursorRange'])
