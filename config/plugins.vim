@@ -82,6 +82,7 @@ minpac.Add('ludovicchabant/vim-gutentags', { Config: () => {
   g:gutentags_file_list_command = 'fd --type=f'
   # g:gutentags_modules = ['cscope', 'ctags']
   # g:gutentags_cscope_build_inverted_index = 1
+  com! GutentagsEnable :packadd vim-gutentags | gutentags#setup_gutentags() | delc GutentagsEnable
 }})
 
 # coc.nvim {{{1
@@ -103,9 +104,14 @@ minpac.Add('neoclide/coc.nvim', {
       'coc-dlang',
       'coc-svelte',
     ]
-    g:coc_borderchars = ['━', '┃', '━', '┃', '┏', '┓', '┛', '┗']
 
+    g:coc_borderchars = ['━', '┃', '━', '┃', '┏', '┓', '┛', '┗']
     g:coc_border_joinchars = ['┳', '┫', '┻', '┣']
+
+    g:coc_snippet_next = '<C-i>'
+    # workaround to make '<M-i>' work
+    exe "set <M-i>=\ei"
+    g:coc_snippet_prev = '<M-i>'
 
     packadd coc.nvim
 
@@ -123,10 +129,6 @@ minpac.Add('neoclide/coc.nvim', {
     exe "set <A-h>=\eh"
     exe "set <A-l>=\el"
 
-    g:coc_snippet_next = '<C-i>'
-    # workaround to make '<M-i>' work
-    exe "set <M-i>=\ei"
-    g:coc_snippet_prev = '<M-i>'
     inoremap <silent><expr>  <M-i>  coc#jumpable() ? "\<M-i>" : ""
     inoremap  <C-n>  <Cmd>call coc#float#scroll(1, 4)<CR>
     inoremap  <C-p>  <Cmd>call coc#float#scroll(0, 4)<CR>
@@ -238,8 +240,9 @@ minpac.Add('tpope/vim-surround', { delay: 30, Config: () => {
 }})
 
 # vim-eunuch {{{1
-minpac.Add('tpope/vim-eunuch', { delay: 40, Config: () => {
+minpac.Add('tpope/vim-eunuch', { delay: 30, Config: () => {
   packadd vim-eunuch
+  doautocmd eunuch VimEnter
 }})
 
 # vim-fugitive {{{1
@@ -278,6 +281,7 @@ minpac.Add('airblade/vim-gitgutter', { delay: 5, Config: () => {
   g:gitgutter_sign_modified_removed  = '≃'
 
   packadd vim-gitgutter
+  doautocmd gitgutter VimEnter
 
   nmap  <silent>   <space>gi <Plug>(GitGutterPreviewHunk)
   nmap  <silent>   <space>guu <Plug>(GitGutterUndoHunk)

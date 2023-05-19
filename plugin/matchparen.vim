@@ -20,6 +20,8 @@ var config: dict<any> = {
   syntax_groups: ['string', 'comment', 'character', 'singlequote'],
   timeout: 200,
   timeout_insert: 100,
+  # debounce_time should be <= timeout_insert and timeout, otherwise
+  # there would be missing brackets highlight in some situations in insert mode
   debounce_time: 100,
 }
 
@@ -36,15 +38,44 @@ command -bar -complete=custom,Complete -nargs=? MatchParen Toggle(<q-args>)
 
 # Autocommands {{{1
 
+def SetBufConfig()  #{{{2
+  b:matchparen_config = get(b:, 'matchparen_config', {})
+  extend(b:matchparen_config, config, 'keep')
+enddef
+
+var matchpairs: string
+var pairs: dict<list<string>>
+
+def ParseMatchpairs()  # {{{2
+  if matchpairs != &matchpairs
+    matchpairs = &matchpairs
+    const splitted_matchpairs: list<list<string>> =
+      matchpairs
+        ->split(',')
+        ->map((_, v) => split(v, ':'))
+    pairs = {}
+    for [opening, closing] in splitted_matchpairs
+      pairs[opening] = [escape(opening, '[]'), escape(closing, '[]'),  'nW', 'w$']
+      pairs[closing] = [escape(opening, '[]'), escape(closing, '[]'), 'bnW', 'w0']
+    endfor
+  endif
+enddef
+
 # Wrap the autocommands inside a function so that they can be easily installed
 # or removed on-demand later.
 def Autocmds(enable: bool)
   if enable && !exists('#matchparen')
     augroup matchparen
       autocmd!
-      autocmd BufWinEnter,VimEnter,Filetype * SetBufConfig()
+      if !v:vim_did_enter
+        autocmd VimEnter * SetBufConfig() | ParseMatchpairs()
+      else
+        SetBufConfig()
+        ParseMatchpairs()
+      endif
+      autocmd BufWinEnter,Filetype * SetBufConfig()
       # FileType because 'matchpairs' could be (re)set by a filetype plugin
-      autocmd WinEnter,BufWinEnter,FileType,VimEnter * ParseMatchpairs()
+      autocmd WinEnter,BufWinEnter,FileType * ParseMatchpairs()
       autocmd OptionSet matchpairs ParseMatchpairs()
 
       autocmd CursorMoved,WinEnter,WinScrolled,TextChanged * UpdateHighlight()
@@ -75,28 +106,11 @@ var c_lnum: number
 var c_col: number
 var m_lnum: number
 var m_col: number
-var matchpairs: string
-var pairs: dict<list<string>>
 var timer: number
 
 # Functions {{{1
 def Complete(_, _, _): string  # {{{2
   return join(['on', 'off', 'toggle'], "\n")
-enddef
-
-def ParseMatchpairs()  # {{{2
-  if matchpairs != &matchpairs
-    matchpairs = &matchpairs
-    const splitted_matchpairs: list<list<string>> =
-      matchpairs
-        ->split(',')
-        ->map((_, v) => split(v, ':'))
-    pairs = {}
-    for [opening, closing] in splitted_matchpairs
-      pairs[opening] = [escape(opening, '[]'), escape(closing, '[]'),  'nW', 'w$']
-      pairs[closing] = [escape(opening, '[]'), escape(closing, '[]'), 'bnW', 'w0']
-    endfor
-  endif
 enddef
 
 def UpdateHighlight(in_insert: bool = false)  #{{{2
@@ -302,11 +316,6 @@ def GetSkip(): func(): bool  #{{{2
       return (): bool => InStringOrComment()
     endif
   endif
-enddef
-
-def SetBufConfig()  #{{{2
-  b:matchparen_config = get(b:, 'matchparen_config', {})
-  extend(b:matchparen_config, config, 'keep')
 enddef
 
 # vim: fdm=marker
