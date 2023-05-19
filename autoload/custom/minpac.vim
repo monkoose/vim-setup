@@ -50,7 +50,9 @@ export def Add(url: string, opts: dict<any> = {})
       remove(opts, 'Config')
     endif
   else
-    echom $'Missing {repo} plugin. Run :PackUpdate to install it.'
+    timer_start(1, (_) => {
+      echow $'Missing {repo} plugin. Run :PackUpdate to install it.'
+    })
     if !!get(opts, 'Config')
       remove(opts, 'Config')
     endif

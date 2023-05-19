@@ -75,15 +75,10 @@ minpac.Add('lacygoill/vim9-syntax', { Config: () => {
 }}) #}}}
 
 #################### DEFERED PLUGINS ####################
-# vim-gutentags {{{1
-minpac.Add('ludovicchabant/vim-gutentags', { Config: () => {
-  g:gutentags_project_root = ['.git', 'vscripts']
-  g:gutentags_add_default_project_roots = 0
-  g:gutentags_file_list_command = 'fd --type=f'
-  # g:gutentags_modules = ['cscope', 'ctags']
-  # g:gutentags_cscope_build_inverted_index = 1
-  com! GutentagsEnable :packadd vim-gutentags | gutentags#setup_gutentags() | delc GutentagsEnable
-}})
+# # indentLine {{{1
+# minpac.Add('Yggdroot/indentLine', { Config: () => {
+#   packadd! indentLine
+# }})
 
 # coc.nvim {{{1
 minpac.Add('neoclide/coc.nvim', {
@@ -226,6 +221,16 @@ minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {
   nnoremap <silent>  <space>sw  <Cmd>exe "FzfRg " .. expand('<cword>')<CR>
   nnoremap <silent>  <space>gc  <Cmd>FzfCommits<CR>
   nnoremap <silent>  <space>gC  <Cmd>FzfBCommits<CR>
+}})
+
+# vim-gutentags {{{1
+minpac.Add('ludovicchabant/vim-gutentags', { Config: () => {
+  g:gutentags_project_root = ['.git', 'vscripts']
+  g:gutentags_add_default_project_roots = 0
+  g:gutentags_file_list_command = 'fd --type=f'
+  # g:gutentags_modules = ['cscope', 'ctags']
+  # g:gutentags_cscope_build_inverted_index = 1
+  com! GutentagsEnable :packadd vim-gutentags | gutentags#setup_gutentags() | delc GutentagsEnable
 }})
 
 # vim-easy-align {{{1
