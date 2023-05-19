@@ -31,75 +31,6 @@ if empty(prop_type_get('matchparen'))
   prop_type_add('matchparen', {highlight: 'MatchParen'})
 endif
 
-# Commands {{{1
-
-# Define command that will disable and enable the plugin.
-command -bar -complete=custom,Complete -nargs=? MatchParen Toggle(<q-args>)
-
-# Autocommands {{{1
-
-def SetBufConfig()  #{{{2
-  b:matchparen_config = get(b:, 'matchparen_config', {})
-  extend(b:matchparen_config, config, 'keep')
-enddef
-
-var matchpairs: string
-var pairs: dict<list<string>>
-
-def ParseMatchpairs()  # {{{2
-  if matchpairs != &matchpairs
-    matchpairs = &matchpairs
-    const splitted_matchpairs: list<list<string>> =
-      matchpairs
-        ->split(',')
-        ->map((_, v) => split(v, ':'))
-    pairs = {}
-    for [opening, closing] in splitted_matchpairs
-      pairs[opening] = [escape(opening, '[]'), escape(closing, '[]'),  'nW', 'w$']
-      pairs[closing] = [escape(opening, '[]'), escape(closing, '[]'), 'bnW', 'w0']
-    endfor
-  endif
-enddef
-
-# Wrap the autocommands inside a function so that they can be easily installed
-# or removed on-demand later.
-def Autocmds(enable: bool)
-  if enable && !exists('#matchparen')
-    augroup matchparen
-      autocmd!
-      if !v:vim_did_enter
-        autocmd VimEnter * SetBufConfig() | ParseMatchpairs()
-      else
-        SetBufConfig()
-        ParseMatchpairs()
-      endif
-      autocmd BufWinEnter,Filetype * SetBufConfig()
-      # FileType because 'matchpairs' could be (re)set by a filetype plugin
-      autocmd WinEnter,BufWinEnter,FileType * ParseMatchpairs()
-      autocmd OptionSet matchpairs ParseMatchpairs()
-
-      autocmd CursorMoved,WinEnter,WinScrolled,TextChanged * UpdateHighlight()
-      autocmd InsertEnter,CursorMovedI,TextChangedI * UpdateHighlight(true)
-      # In case we reload the buffer while the cursor is on a paren.
-      # Need to delay with SafeState because when reloading, the cursor is
-      # temporarily on line 1 col 1, no matter its position before the reload.
-      autocmd BufReadPost * autocmd SafeState <buffer=abuf> ++once UpdateHighlight()
-
-      # BufLeave is necessary when the cursor is on a parenthesis and we open
-      # the quickfix window.
-      autocmd WinLeave,BufLeave * RemoveHighlight()
-    augroup END
-
-  elseif !enable && exists('#matchparen')
-    autocmd! matchparen
-    augroup! matchparen
-  endif
-enddef
-
-if config.on_startup
-  Autocmds(true)
-endif
-
 # Variables {{{1
 var before: number
 var c_lnum: number
@@ -107,8 +38,11 @@ var c_col: number
 var m_lnum: number
 var m_col: number
 var timer: number
+var matchpairs: string
+var pairs: dict<list<string>>
 
 # Functions {{{1
+
 def Complete(_, _, _): string  # {{{2
   return join(['on', 'off', 'toggle'], "\n")
 enddef
@@ -317,5 +251,74 @@ def GetSkip(): func(): bool  #{{{2
     endif
   endif
 enddef
+
+def SetBufConfig()  #{{{2
+  b:matchparen_config = get(b:, 'matchparen_config', {})
+  extend(b:matchparen_config, config, 'keep')
+enddef
+
+def ParseMatchpairs()  # {{{2
+  if matchpairs != &matchpairs
+    matchpairs = &matchpairs
+    const splitted_matchpairs = matchpairs
+                                  ->split(',')
+                                  ->map((_, v) => split(v, ':'))
+    pairs = {}
+    for [opening, closing] in splitted_matchpairs
+      pairs[opening] = [escape(opening, '[]'), escape(closing, '[]'),  'nW', 'w$']
+      pairs[closing] = [escape(opening, '[]'), escape(closing, '[]'), 'bnW', 'w0']
+    endfor
+  endif
+enddef
+# }}}2
+
+# Autocommands {{{1
+
+# Wrap the autocommands inside a function so that they can be easily installed
+# or removed on-demand later.
+def Autocmds(enable: bool)
+  if enable && !exists('#matchparen')
+    augroup matchparen
+      autocmd!
+      if !v:vim_did_enter
+        autocmd VimEnter * SetBufConfig() | ParseMatchpairs()
+      else
+        SetBufConfig()
+        ParseMatchpairs()
+      endif
+      autocmd BufWinEnter,Filetype * SetBufConfig()
+      # FileType because 'matchpairs' could be (re)set by a filetype plugin
+      autocmd WinEnter,BufWinEnter,FileType * ParseMatchpairs()
+      autocmd OptionSet matchpairs ParseMatchpairs()
+
+      autocmd CursorMoved,WinEnter,WinScrolled,TextChanged * UpdateHighlight()
+      autocmd InsertEnter,CursorMovedI,TextChangedI * UpdateHighlight(true)
+      # In case we reload the buffer while the cursor is on a paren.
+      # Need to delay with SafeState because when reloading, the cursor is
+      # temporarily on line 1 col 1, no matter its position before the reload.
+      autocmd BufReadPost * autocmd SafeState <buffer=abuf> ++once UpdateHighlight()
+
+      # BufLeave is necessary when the cursor is on a parenthesis and we open
+      # the quickfix window.
+      autocmd WinLeave,BufLeave * RemoveHighlight()
+    augroup END
+
+  elseif !enable && exists('#matchparen')
+    autocmd! matchparen
+    augroup! matchparen
+  endif
+enddef
+
+if config.on_startup
+  Autocmds(true)
+endif
+
+# Commands {{{1
+
+# Define command that will disable and enable the plugin.
+command -bar -complete=custom,Complete -nargs=? MatchParen Toggle(<q-args>)
+# }}}1
+
+defcompile
 
 # vim: fdm=marker
