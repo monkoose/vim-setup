@@ -6,15 +6,15 @@ endif
 g:loaded_fastfold = 1
 
 # Options {{{
-g:fastfold_fdmhook = get(g:, 'fastfold_fdmhook', 0)
-g:fastfold_savehook = get(g:, 'fastfold_savehook', 1)
-g:fastfold_force = get(g:, 'fastfold_force', 0)
+g:fastfold_fdmhook = get(g:, 'fastfold_fdmhook', false)
+g:fastfold_savehook = get(g:, 'fastfold_savehook', true)
+g:fastfold_force = get(g:, 'fastfold_force', false)
 g:fastfold_skip_filetypes = get(g:, 'fastfold_skip_filetypes', [])
 g:fastfold_minlines = get(g:, 'fastfold_minlines', 100)
-g:fastfold_fold_command_suffixes = get(g:,
-  'fastfold_fold_command_suffixes', ['x', 'X', 'a', 'A', 'o', 'O', 'c', 'C'])
-g:fastfold_fold_movement_commands = get(g:,
-  'fastfold_fold_movement_commands', [']z', '[z', 'zj', 'zk'])
+g:fastfold_fold_command_suffixes =
+  get(g:, 'fastfold_fold_command_suffixes', ['x', 'X', 'a', 'A', 'o', 'O', 'c', 'C'])
+g:fastfold_fold_movement_commands =
+  get(g:, 'fastfold_fold_movement_commands', [']z', '[z', 'zj', 'zk'])
 # }}}
 
 def EnterWin()
@@ -87,31 +87,14 @@ def UpdateTab()
 enddef
 
 def Skip(): bool
-  if IsSmall() || !IsReasonable() || InSkipList() || !empty(&l:buftype) || !&l:modifiable
-    return true
-  endif
-
-  return false
-enddef
-
-def IsReasonable(): bool
-  if (&l:foldmethod == 'syntax' || &l:foldmethod == 'expr') || g:fastfold_force == 1
-    return true
-  endif
-
-  return false
-enddef
-
-def InSkipList(): bool
-  if index(g:fastfold_skip_filetypes, &l:filetype) >= 0
-    return true
-  endif
-
-  return false
-enddef
-
-def IsSmall(): bool
-  if line('$') <= g:fastfold_minlines
+  if g:fastfold_force ||
+      line('$') <= g:fastfold_minlines ||
+      !&l:modifiable ||
+      !empty(&l:buftype) ||
+      &l:foldmethod == 'syntax' ||
+      &l:foldmethod == 'expr' ||
+      !IsReasonable() ||
+      index(g:fastfold_skip_filetypes, &l:filetype) != -1 ||
     return true
   endif
 

@@ -12,12 +12,14 @@ endif
 g:loaded_matchparen = 1
 
 # Configuration {{{1
-
 var config: dict<any> = {
-  compatible: true,
   on_startup: true,
   syntax_ignored: false,
-  syntax_groups: ['string', 'comment', 'character', 'singlequote'],
+  syntax_groups: ['string', 'comment', 'character'],
+  ft_syntax_groups: {
+    sh: ['string', 'comment', 'singlequote', 'doublequote'],
+    lisp: ['string', 'comment', 'escape', 'symbol'],
+  },
   timeout: 200,
   timeout_insert: 100,
   # debounce_time should be <= timeout_insert and timeout, otherwise
@@ -40,17 +42,29 @@ var m_col: number
 var timer: number
 var matchpairs: string
 var pairs: dict<list<string>>
+var curbuf: string
+
+const props: dict<any> = {length: 1, type: 'matchparen'}
 
 # Functions {{{1
-
-def Complete(_, _, _): string  # {{{2
-  return join(['on', 'off', 'toggle'], "\n")
+def ParseMatchpairs()
+  if matchpairs != &matchpairs
+    matchpairs = &matchpairs
+    const splitted_matchpairs = matchpairs
+                                  ->split(',')
+                                  ->map((_, v) => split(v, ':'))
+    pairs = {}
+    for [opening, closing] in splitted_matchpairs
+      pairs[opening] = [escape(opening, '[]'), escape(closing, '[]'),  'nW', 'w$']
+      pairs[closing] = [escape(opening, '[]'), escape(closing, '[]'), 'bnW', 'w0']
+    endfor
+  endif
 enddef
 
-def UpdateHighlight(in_insert: bool = false)  #{{{2
+def UpdateHighlight(in_insert: bool = false)
 # The function that is invoked (very often) to define a highlighting for any
 # matching paren.
-  if !!b:matchparen_config.debounce_time
+  if !!config.debounce_time
     timer_stop(timer)
   endif
 
@@ -90,7 +104,7 @@ def UpdateHighlight(in_insert: bool = false)  #{{{2
     endif
   endif
 
-  def ProcessHighlight(x = 0)
+  def ProcessHighlight()
     # Find the match.
     # When it was just before the cursor, move the latter there for a moment.
     if before > 0
@@ -116,7 +130,7 @@ def UpdateHighlight(in_insert: bool = false)  #{{{2
     [c, c2, s_flags, stopline] = pairs[c]
 
     # Limit the search time to avoid a hang on very long lines.
-    const timeout = in_insert ? b:matchparen_config.timeout_insert : b:matchparen_config.timeout
+    const timeout = in_insert ? config.timeout_insert : config.timeout
     try
       [m_lnum, m_col] = searchpairpos(c, '', c2, s_flags, 'Skip()', line(stopline), timeout)
     catch /^Vim\%((\a\+)\)\=:E363:/
@@ -128,30 +142,26 @@ def UpdateHighlight(in_insert: bool = false)  #{{{2
 
     RemoveHighlight()
     if m_lnum > 0
-      Highlight()
+      prop_add(c_lnum, c_col - before, props)
+      prop_add(m_lnum, m_col, props)
     endif
   enddef
 
-  if !!b:matchparen_config.debounce_time
-    timer = timer_start(b:matchparen_config.debounce_time, ProcessHighlight)
+  if !!config.debounce_time
+    timer = timer_start(config.debounce_time, (_) => {
+      ProcessHighlight()
+    })
   else
     ProcessHighlight()
   endif
 enddef
 
-def RemoveHighlight()  #{{{2
+def RemoveHighlight()
   # `:silent!` to suppress E16 in case `line('w$')` is 0
   silent! prop_remove({type: 'matchparen', all: true}, line('w0'), line('w$'))
 enddef
 
-
-def Highlight()  #{{{2
-  var props: dict<any> = {length: 1, type: 'matchparen'}
-  prop_add(c_lnum, c_col - before, props)
-  prop_add(m_lnum, m_col, props)
-enddef
-
-def Toggle(args: string)  #{{{2
+def Toggle(args: string)
   if args == ''
     var usage: list<string> =<< trim END
       # to enable the plugin
@@ -177,7 +187,6 @@ def Toggle(args: string)  #{{{2
 
   def Enable()
     Autocmds(true)
-    SetBufConfig()
     ParseMatchpairs()
     UpdateHighlight()
   enddef
@@ -200,7 +209,7 @@ def Toggle(args: string)  #{{{2
   endif
 enddef
 
-def InStringOrComment(): bool  #{{{2
+def InStringOrComment(syn_groups: list<string>): bool
 # Should return true when the current cursor position is in certain syntax types
 # (string, comment,  etc.); evaluated inside  lambda passed as skip  argument to
 # searchpairpos().
@@ -221,10 +230,9 @@ def InStringOrComment(): bool  #{{{2
   endif
 
   var synname: string
-  const syntax_groups: list<string> = b:matchparen_config.syntax_groups
   for synID: number in synstack
     synname = synIDattr(synID, 'name')
-    for group in syntax_groups
+    for group in syn_groups
       if synname =~? group
         return true
       endif
@@ -233,44 +241,25 @@ def InStringOrComment(): bool  #{{{2
   return false
 enddef
 
-def GetSkip(): func(): bool  #{{{2
-  if !exists('b:current_syntax') || b:matchparen_config.syntax_ignored
+def GetSkip(): func(): bool
+  if !exists('b:current_syntax') || config.syntax_ignored
     return (): bool => false
+  endif
+
+  var syn_groups = get(config.ft_syntax_groups, &filetype, config.syntax_groups)
+  # If evaluating the expression determines that the cursor is
+  # currently in a text with some specific syntax type (like a string
+  # or a comment), then we want searchpairpos() to find a pair within
+  # a text of similar type; i.e. we want to ignore a pair of different
+  # syntax type.
+  if InStringOrComment(syn_groups)
+    return (): bool => !InStringOrComment(syn_groups)
+  # Otherwise, the cursor is outside of these specific syntax types,
+  # and we want searchpairpos() to find a pair which is also outside.
   else
-    # If evaluating the expression determines that the cursor is
-    # currently in a text with some specific syntax type (like a string
-    # or a comment), then we want searchpairpos() to find a pair within
-    # a text of similar type; i.e. we want to ignore a pair of different
-    # syntax type.
-    if InStringOrComment()
-      return (): bool => !InStringOrComment()
-    # Otherwise, the cursor is outside of these specific syntax types,
-    # and we want searchpairpos() to find a pair which is also outside.
-    else
-      return (): bool => InStringOrComment()
-    endif
+    return (): bool => InStringOrComment(syn_groups)
   endif
 enddef
-
-def SetBufConfig()  #{{{2
-  b:matchparen_config = get(b:, 'matchparen_config', {})
-  extend(b:matchparen_config, config, 'keep')
-enddef
-
-def ParseMatchpairs()  # {{{2
-  if matchpairs != &matchpairs
-    matchpairs = &matchpairs
-    const splitted_matchpairs = matchpairs
-                                  ->split(',')
-                                  ->map((_, v) => split(v, ':'))
-    pairs = {}
-    for [opening, closing] in splitted_matchpairs
-      pairs[opening] = [escape(opening, '[]'), escape(closing, '[]'),  'nW', 'w$']
-      pairs[closing] = [escape(opening, '[]'), escape(closing, '[]'), 'bnW', 'w0']
-    endfor
-  endif
-enddef
-# }}}2
 
 # Autocommands {{{1
 
@@ -280,18 +269,20 @@ def Autocmds(enable: bool)
   if enable && !exists('#matchparen')
     augroup matchparen
       autocmd!
-      if !v:vim_did_enter
-        autocmd VimEnter * SetBufConfig() | ParseMatchpairs()
-      else
-        SetBufConfig()
-        ParseMatchpairs()
-      endif
-      autocmd BufWinEnter,Filetype * SetBufConfig()
+      autocmd BufEnter * curbuf = expand('<abuf>') | ParseMatchpairs()
       # FileType because 'matchpairs' could be (re)set by a filetype plugin
-      autocmd WinEnter,BufWinEnter,FileType * ParseMatchpairs()
-      autocmd OptionSet matchpairs ParseMatchpairs()
+      autocmd WinScrolled,FileType * {
+        if curbuf == expand('<abuf>')
+          ParseMatchpairs()
+        endif
+      }
+      autocmd OptionSet matchpairs {
+        if v:option_type == 'global' || str2nr(curbuf) == bufnr()
+          ParseMatchpairs()
+        endif
+      }
 
-      autocmd CursorMoved,WinEnter,WinScrolled,TextChanged * UpdateHighlight()
+      autocmd CursorMoved,WinEnter,TextChanged * UpdateHighlight()
       autocmd InsertEnter,CursorMovedI,TextChangedI * UpdateHighlight(true)
       # In case we reload the buffer while the cursor is on a paren.
       # Need to delay with SafeState because when reloading, the cursor is
@@ -314,6 +305,10 @@ if config.on_startup
 endif
 
 # Commands {{{1
+
+def Complete(_, _, _): string
+  return join(['on', 'off', 'toggle'], "\n")
+enddef
 
 # Define command that will disable and enable the plugin.
 command -bar -complete=custom,Complete -nargs=? MatchParen Toggle(<q-args>)
