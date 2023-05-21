@@ -3,7 +3,6 @@ vim9script noclear
 import autoload '../autoload/custom/on_yank.vim'
 
 syntax enable
-filetype plugin indent on
 
 &history = 300
 &display = 'truncate'

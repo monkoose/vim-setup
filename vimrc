@@ -8,5 +8,6 @@ enddef
 
 Source('options.vim')
 Source('plugins.vim')
+filetype plugin indent on
 Source('statusline.vim')
 Source('maps.vim')

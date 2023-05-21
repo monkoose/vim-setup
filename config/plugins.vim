@@ -82,7 +82,7 @@ minpac.Add('lacygoill/vim9-syntax', { Config: () => {
 
 # coc.nvim {{{1
 minpac.Add('neoclide/coc.nvim', {
-  do: (_, _) => system('yarn install --frozen-lockfile'),
+  do: (_, name) => minpac.Do(name, ['yarn', 'install', '--frozen-lockfile']),
   delay: 20,
   Config: () => {
     g:coc_global_extensions = [
@@ -256,12 +256,12 @@ minpac.Add('tpope/vim-eunuch', { delay: 30, Config: () => {
 }})
 
 # vim-fugitive {{{1
+minpac.Add('tpope/vim-rhubarb', {})
 minpac.Add('tpope/vim-fugitive', {
-  dependencies: ['tpope/vim-rhubarb'],
   delay: 5,
   Config: () => {
-    packadd vim-fugitive
     packadd vim-rhubarb
+    packadd vim-fugitive
     # update statusline
     doautocmd User FugitiveChanged
 
@@ -273,11 +273,9 @@ minpac.Add('tpope/vim-fugitive', {
 })
 
 # vim-dadbod {{{1
+minpac.Add('kristijanhusak/vim-dadbod-completion', {})
+minpac.Add('kristijanhusak/vim-dadbod-ui', {})
 minpac.Add('tpope/vim-dadbod', {
-  dependencies: [
-    "kristijanhusak/vim-dadbod-completion",
-    "kristijanhusak/vim-dadbod-ui",
-  ],
   delay: 50,
   Config: () => {
     packadd vim-dadbod
