@@ -183,6 +183,7 @@ minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {
     'hl+:205',
     'bg+:235',
     'border:71',
+    # 'label:71',
     'preview-fg:-1',
     'preview-bg:-1',
     'gutter:-1',
@@ -199,6 +200,10 @@ minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {
     '--scrollbar=▐',
     '--no-separator',
     '--header=',
+    # '--info="inline:  * "',
+    # '--border-label=hello',
+    # '--border-label-pos=10',
+    # '--preview-label=hello',
     '--preview-window=down,50%,border-top',
     '--color=16,' .. join(fzf_colors, ','),
   ]
@@ -208,7 +213,7 @@ minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {
   g:fzf_layout = { window: {
     width: 0.9,
     height: 0.9,
-    border: 'sharp' }}
+    border: 'bold' }}
 
   packadd fzf.vim
 

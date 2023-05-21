@@ -277,6 +277,8 @@ def Autocmds(enable: bool)
         endif
       }
       autocmd OptionSet matchpairs {
+        # <abuf> is always '', so we use bufnr() here until
+        # https://github.com/vim/vim/issues/12418 fixed
         if v:option_type == 'global' || str2nr(curbuf) == bufnr()
           ParseMatchpairs()
         endif
