@@ -40,8 +40,7 @@ minpac.Add('mbbill/undotree', { Config: () => {
   g:undotree_HelpLine           = 0
 
   packadd! undotree
-  exe "set <M-4>=\e4"
-  nnoremap <silent>  <M-4>  <Cmd>UndotreeToggle<CR>
+  nnoremap <silent>  <A-4>  <Cmd>UndotreeToggle<CR>
 }})
 
 # vim9-stargate {{{1
@@ -104,27 +103,11 @@ minpac.Add('neoclide/coc.nvim', {
     g:coc_border_joinchars = ['┳', '┫', '┻', '┣']
 
     g:coc_snippet_next = '<C-i>'
-    # workaround to make '<M-i>' work
-    exe "set <M-i>=\ei"
-    g:coc_snippet_prev = '<M-i>'
+    g:coc_snippet_prev = '<A-i>'
 
     packadd coc.nvim
 
-    exe "set <A-a>=\ea"
-    inoremap <expr><A-a> ''
-    exe "set <A-e>=\ee"
-    inoremap <expr><A-e> ''
-    exe "set <A-p>=\ep"
-    inoremap <expr><A-p> ''
-    exe "set <A-n>=\en"
-    inoremap <expr><A-n> ''
-    exe "set <A-r>=\er"
-    inoremap <expr><A-r> ''
-    exe "set <A-f>=\ef"
-    exe "set <A-h>=\eh"
-    exe "set <A-l>=\el"
-
-    inoremap <silent><expr>  <M-i>  coc#jumpable() ? "\<M-i>" : ""
+    inoremap <silent><expr>  <A-i>  coc#jumpable() ? "\<A-i>" : ""
     inoremap  <C-n>  <Cmd>call coc#float#scroll(1, 4)<CR>
     inoremap  <C-p>  <Cmd>call coc#float#scroll(0, 4)<CR>
     inoremap <silent><expr>  <C-l>  coc#pum#visible() ? coc#pum#confirm() : pumvisible() ? "\<C-y>" : coc#refresh()
@@ -132,8 +115,7 @@ minpac.Add('neoclide/coc.nvim', {
     inoremap <silent><expr>  <C-k>  coc#pum#visible() ? coc#pum#prev(1) : pumvisible() ? "\<C-p>" : coc#refresh()
     inoremap <silent><expr>  <C-e> coc#pum#visible() ? coc#pum#cancel() : "\<C-e>"
     inoremap <silent> <CR>  <C-g>u<CR><C-r>=coc#on_enter()<CR>
-    exe "set <M-s>=\es"
-    inoremap  <M-s>  <Cmd>call CocActionAsync('showSignatureHelp')<CR>
+    inoremap  <A-s>  <Cmd>call CocActionAsync('showSignatureHelp')<CR>
     nnoremap  <space>kk  <Cmd>CocRestart<CR>
     nnoremap  <space>D   <Plug>(coc-declaration)
     nnoremap  <space>kt   <Plug>(coc-type-definition)

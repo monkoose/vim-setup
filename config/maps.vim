@@ -6,16 +6,16 @@ import autoload '../autoload/custom/endofline.vim'
 import autoload '../autoload/mypopup.vim'
 import autoload '../autoload/myterm.vim'
 
-if !!exists(':LF')
-  nnoremap 1 <Cmd>LF<CR>
-endif
-
 noremap  ;  :
 map  Q  gq
 sunmap Q
 noremap  Y  y$
 noremap <expr>  <C-h>  getcharsearch().forward ? ',' : ';'
 noremap <expr>  <C-l>  getcharsearch().forward ? ';' : ','
+
+if !!exists(':LF')
+  nnoremap <A-1> <Cmd>LF<CR>
+endif
 
 nnoremap  <space>/  <Cmd>nohlsearch<CR>
 nnoremap  gx  <ScriptCmd>mf.OpenPath()<CR>
@@ -31,12 +31,12 @@ nnoremap  <C-j>  <C-d>
 nnoremap  <C-k>  <C-u>
 nnoremap  <C-n>  <ScriptCmd>mypopup.ScrollDownOrJumpNextHunk()<CR>
 nnoremap  <C-p>  <ScriptCmd>mypopup.ScrollUpOrJumpPrevHunk()<CR>
-nnoremap  w  <C-w>w
-nnoremap  q  <C-w>c
-nnoremap  o  <C-w>o
-nnoremap  f  <ScriptCmd>endofline.Toggle(';')<CR>
-nnoremap  2  <ScriptCmd>mf.ToggleQfWindow()<CR>
-nnoremap  3  <ScriptCmd>mf.ToggleLoclistWindow()<CR>
+nnoremap  <A-w>  <C-w>w
+nnoremap  <A-q>  <C-w>c
+nnoremap  <A-o>  <C-w>o
+nnoremap  <A-f>  <ScriptCmd>endofline.Toggle(';')<CR>
+nnoremap  <A-2>  <ScriptCmd>mf.ToggleQfWindow()<CR>
+nnoremap  <A-3>  <ScriptCmd>mf.ToggleLoclistWindow()<CR>
 nnoremap  yow  <ScriptCmd>unimpaired.ToggleOption('wrap')<CR>
 nnoremap  yoc  <ScriptCmd>unimpaired.ToggleOption('cursorline')<CR>
 nnoremap  yox  <ScriptCmd>unimpaired.ToggleOption('cursorcolumn')<CR>
@@ -48,42 +48,56 @@ nnoremap  yoy  <ScriptCmd>unimpaired.SwitchOption('colorcolumn', '', 100)<CR>
 nnoremap  [<space>  <ScriptCmd>unimpaired.PasteBlanklineAbove()<CR>
 nnoremap  ]<space>  <ScriptCmd>unimpaired.PasteBlanklineBelow()<CR>
 nnoremap  <C-@><C-@>  <Cmd>let &iminsert = !&iminsert<CR>
-nnoremap  `  <ScriptCmd>myterm.Toggle()<CR>
+nnoremap  <A-`>  <ScriptCmd>myterm.Toggle()<CR>
+nnoremap <nowait>  <Esc>  <ScriptCmd>mypopup.ClosePopupOrPvwOrPressEsc()<CR>
 
 vnoremap  <C-j>  <C-d>
 vnoremap  <C-k>  <C-u>
 vnoremap  <space>y  "+y
 
 noremap!  <C-@>  <Cmd>let &iminsert = !&iminsert<CR><C-^>
-inoremap  k  <C-k>
+inoremap  <A-k>  <C-k>
 inoremap  <C-u>  <C-g>u<C-u>
-inoremap  h  <Left>
-inoremap  l  <Right>
-inoremap  f  <Del>
+inoremap  <A-h>  <Left>
+inoremap  <A-l>  <Right>
+inoremap  <A-f>  <Del>
 
 cnoremap  <C-n>  <Down>
 cnoremap  <C-p>  <Up>
-cnoremap  h  <Left>
-cnoremap  l  <Right>
+cnoremap  <A-h>  <Left>
+cnoremap  <A-l>  <Right>
 cnoremap <expr>  <C-l>  pumvisible() ? "\<C-y>" : "\<CR>"
 cnoremap <expr>  <C-j>  pumvisible() ? "\<C-n>" : "\<C-i>"
 cnoremap <expr>  <C-k>  pumvisible() ? "\<C-p>" : "\<C-i>"
 
 set termwinkey=<C-q>
-tnoremap  w  <C-q>w
-tnoremap  q  <Cmd>close!<CR>
-tnoremap  `  <ScriptCmd>myterm.Toggle()<CR>
+tnoremap  <A-w>  <C-q>w
+tnoremap  <A-q>  <Cmd>close!<CR>
+tnoremap  <A-`>  <ScriptCmd>myterm.Toggle()<CR>
 tnoremap  <C-q><C-n>  <C-q>N
 tnoremap  <C-q>;  <C-q>:
 tnoremap  <C-]>  <C-q>N
 
-# Fix slow esc, should be after all Alt remaps
-nnoremap <nowait>  <Esc>  <ScriptCmd>mypopup.ClosePopupOrPvwOrPressEsc()<CR>
-inoremap <nowait>  <Esc>  <Esc>
-vnoremap <nowait>  <Esc>  <Esc>
-snoremap <nowait>  <Esc>  <C-c>
-cnoremap <nowait>  <Esc>  <C-c>
-tnoremap <nowait>  <Esc>  <Esc>
+
+# Fix Alt maps
+def InitAltMaps(keys: list<string>)
+  def ImitateUnmap(alt_key: string, mode: string)
+    if !hasmapto(alt_key, mode)
+      exe $'{mode}map <expr> {alt_key} ""'
+    endif
+  enddef
+
+  var alt_key: string
+  for key in keys
+    alt_key = $'<A-{key}>'
+    exe $"set {alt_key}=\e{key}"
+    ImitateUnmap(alt_key, 'i')
+    ImitateUnmap(alt_key, 'c')
+  endfor
+enddef
+
+const alt_keys = ['`', '1', '2', '3', '4', 'q', 'w', 'f', 'k', 'h', 'l', 'o', 'a', 'e', 'p', 'n', 'r', 's', 'i']
+InitAltMaps(alt_keys)
 
 # example ':Time 50 call str2nr(102)'
 command! -nargs=1 -complete=command Time mf.PrintTime(<q-args>)
