@@ -1,5 +1,5 @@
 {
-    "suggest.autoTrigger": "trigger",
+    "suggest.autoTrigger": "always",
     "suggest.noselect": true,
     "suggest.enablePreselect": false,
     "suggest.labelMaxLength": 60,
@@ -58,7 +58,7 @@
         "%#CocListPath# %{coc#list#status('cwd')} %*"
     ],
     "list.alignColumns": false,
-    "list.floatPreview": true,
+    "list.floatPreview": false,
     "list.height": 10,
     "list.limitLines": 20000,
     "list.maxPreviewHeight": 8,
@@ -96,7 +96,9 @@
         "<A-l>": "prompt:right"
     },
     "list.normalMappings": {
-        "<C-o>": "do:previewtoggle"
+        "<C-o>": "do:previewtoggle",
+        "<C-p>": "do:previewup",
+        "<C-n>": "do:previewdown"
     },
     "Lua.runtime.version": "LuaJIT",
     "Lua.completion.callSnippet": "Replace",

@@ -121,6 +121,22 @@ def JumpToLastPosition()
   endif
 enddef
 
+def AdjustPath()
+  job_start(['git', 'rev-parse', '--is-inside-work-tree'], {
+    out_cb: (_, mes) => {
+      if mes == 'true'
+        var dirs: list<string>
+        job_start(['fd', '--type=d', '--max-depth=1'], {
+          out_cb: (_, m) => {
+            add(dirs, m .. '**')
+          },
+          exit_cb: (_, _) => {
+            &path ..= join(dirs, ',')
+          } })
+      endif
+    } })
+enddef
+
 # autocmds
 augroup MyAutocmds
   autocmd!
@@ -128,6 +144,7 @@ augroup MyAutocmds
   autocmd TerminalWinOpen * setlocal nonu nornu nolist signcolumn=no
   autocmd TextYankPost * on_yank.Highlight(250)
   autocmd BufReadPost * JumpToLastPosition()
+  autocmd VimEnter,DirChanged * AdjustPath()
 augroup END
 
 g:python_highlight_all = 1
