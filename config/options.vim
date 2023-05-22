@@ -9,6 +9,7 @@ syntax enable
 &incsearch = true
 &langremap = false
 &nrformats = 'bin,hex'
+# &showcmd = true
 &mouse = 'a'
 
 if !has('gui_running')
