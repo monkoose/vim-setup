@@ -78,26 +78,30 @@ tnoremap  <C-q><C-n>  <C-q>N
 tnoremap  <C-q>;  <C-q>:
 tnoremap  <C-]>  <C-q>N
 
+if !has('gui_running')
+  # Fix Alt maps
+  def InitAltMaps(keys: list<string>)
+    def ImitateUnmap(alt_key: string, mode: string)
+      if !hasmapto(alt_key, mode)
+        exe $'{mode}map <expr> {alt_key} ""'
+      endif
+    enddef
 
-# Fix Alt maps
-def InitAltMaps(keys: list<string>)
-  def ImitateUnmap(alt_key: string, mode: string)
-    if !hasmapto(alt_key, mode)
-      exe $'{mode}map <expr> {alt_key} ""'
-    endif
+    var alt_key: string
+    for key in keys
+      alt_key = $'<A-{key}>'
+      exe $"set {alt_key}=\e{key}"
+      ImitateUnmap(alt_key, 'i')
+      ImitateUnmap(alt_key, 'c')
+      if empty(maparg(alt_key, 't'))
+        exe $'tnoremap {alt_key} <esc>{key}'
+      endif
+    endfor
   enddef
 
-  var alt_key: string
-  for key in keys
-    alt_key = $'<A-{key}>'
-    exe $"set {alt_key}=\e{key}"
-    ImitateUnmap(alt_key, 'i')
-    ImitateUnmap(alt_key, 'c')
-  endfor
-enddef
-
-const alt_keys = ['`', '1', '2', '3', '4', 'q', 'w', 'f', 'k', 'h', 'l', 'o', 'a', 'e', 'p', 'n', 'r', 's', 'i']
-InitAltMaps(alt_keys)
+  const alt_keys = ['`', '1', '2', '3', '4', 'q', 'w', 'f', 'k', 'h', 'l', 'o', 'a', 'e', 'p', 'n', 'r', 's', 'i']
+  InitAltMaps(alt_keys)
+endif
 
 # example ':Time 50 call str2nr(102)'
 command! -nargs=1 -complete=command Time mf.PrintTime(<q-args>)
