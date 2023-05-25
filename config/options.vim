@@ -92,8 +92,8 @@ endif
 &wildoptions = 'fuzzy,pum'
 &wildignorecase = true
 &wildignore = '*/.git/*,*/__pycache__/*,*.pyc,*/node_modules/*' ..
-              ',*.jpg,*.jpeg,*.bmp,*.gif,*.png,*.mp3,*.mp4' ..
-              ',*.bak,*.sw[a-p],*~,*.lock,tags'
+              ',*.jpg,*.jpeg,*.bmp,*.gif,*.png,*.mp3,*.mp4,*.mpv' ..
+              ',*.bak,*.swap,*.swp,*~,*.lock,tags'
 &wildcharm = &wildchar
 
 &shortmess = 'filnrxtToOFIcs'
@@ -121,17 +121,43 @@ def JumpToLastPosition()
   endif
 enddef
 
+def GitignoreToWildignore(path: string): string
+  const gitignore = path .. '/.gitignore'
+  if filereadable(gitignore)
+    var wignore: list<string> = []
+    for oline in readfile(gitignore)
+      var line = substitute(oline, '\s|\n|\r', '', 'g')
+      line = substitute(line, ',', '\\\\,', 'g')
+      if line =~ '^#' | continue | endif
+      if line == ''   | continue | endif
+      if line =~ '^!' | continue | endif
+      if line =~ '/$'
+        add(wignore, line .. "*")
+        continue
+      endif
+      add(wignore, substitute(line, ' ', '\\ ', 'g'))
+    endfor
+    return ',' .. join(wignore, ',')
+  endif
+  return ''
+enddef
+
 def AdjustPath()
-  job_start(['git', 'rev-parse', '--is-inside-work-tree'], {
+  job_start(['git', 'rev-parse', '--show-toplevel'], {
     out_cb: (_, mes) => {
-      if mes == 'true'
+      if !empty(mes)
+        const path = getcwd() == mes ? '.' : fnameescape(mes)
         var dirs: list<string>
-        job_start(['fd', '--type=d', '--max-depth=1'], {
+        job_start(['fd', '.', path, '--type=d', '--max-depth=1'], {
           out_cb: (_, m) => {
             add(dirs, m .. '**')
           },
           exit_cb: (_, _) => {
+            set path<
+            echow dirs
             &path ..= join(dirs, ',')
+            set wildignore<
+            &wildignore ..= GitignoreToWildignore(path)
           } })
       endif
     } })
