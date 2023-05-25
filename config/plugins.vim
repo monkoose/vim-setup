@@ -84,20 +84,20 @@ minpac.Add('neoclide/coc.nvim', {
   do: (_, name) => minpac.Do(name, ['yarn', 'install', '--frozen-lockfile']),
   delay: 20,
   Config: () => {
-    g:coc_global_extensions = [
-      'coc-json',
-      'coc-sh',
-      'coc-snippets',
-      'coc-pyright',
-      'coc-tsserver',
-      'coc-html',
-      'coc-css',
-      'coc-clangd',
-      'coc-lua',
-      'coc-fish',
-      'coc-dlang',
-      'coc-svelte',
-    ]
+    g:coc_global_extensions =<< trim END
+      coc-json
+      coc-sh
+      coc-snippets
+      coc-pyright
+      coc-tsserver
+      coc-html
+      coc-css
+      coc-clangd
+      coc-lua
+      coc-fish
+      coc-dlang
+      coc-svelte
+    END
 
     g:coc_borderchars = ['━', '┃', '━', '┃', '┏', '┓', '┛', '┗']
     g:coc_border_joinchars = ['┳', '┫', '┻', '┣']
@@ -157,38 +157,38 @@ minpac.Add('neoclide/coc.nvim', {
 minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {
   g:fzf_command_prefix = 'Fzf'
 
-  const fzf_colors = [
-    'fg:-1',
-    'bg:-1',
-    'hl:205',
-    'fg+:248',
-    'hl+:205',
-    'bg+:235',
-    'border:71',
-    # 'label:71',
-    'preview-fg:-1',
-    'preview-bg:-1',
-    'gutter:-1',
-    'query:3',
-    'spinner:160:italic',
-    'prompt:4',
-    'marker:32',
-    'info:6',
-  ]
+  # 'label:71',
+  const fzf_colors =<< trim END
+    fg:-1
+    bg:-1
+    hl:205
+    fg+:248
+    hl+:205
+    bg+:235
+    border:71
+    preview-fg:-1
+    preview-bg:-1
+    gutter:-1
+    query:3
+    spinner:160:italic
+    prompt:4
+    marker:32
+    info:6
+  END
 
-  const fzf_defaults = [
-    '--margin=0',
-    # '--exact',
-    '--scrollbar=▐',
-    '--no-separator',
-    '--header=',
-    # '--info="inline:  * "',
-    # '--border-label=hello',
-    # '--border-label-pos=10',
-    # '--preview-label=hello',
-    '--preview-window=down,50%,border-top',
-    '--color=16,' .. join(fzf_colors, ','),
-  ]
+  # '--exact',
+  # '--info="inline:  * "',
+  # '--border-label=hello',
+  # '--border-label-pos=10',
+  # '--preview-label=hello',
+  const fzf_defaults =<< trim eval END
+    --margin=0
+    --scrollbar=▐
+    --no-separator
+    --header=
+    --preview-window=down,50%,border-top
+    --color=16,{join(fzf_colors, ',')}
+  END
 
   setenv('FZF_DEFAULT_OPTS', getenv('FZF_DEFAULT_OPTS') .. ' ' .. join(fzf_defaults, " "))
   g:fzf_history_dir = '~/.cache/vim/fzf_history'

@@ -17,12 +17,10 @@ export def Highlight(timeout: number)
     const shift = start_line == end_line ? start_col - 1 : 0
     const length = len(v:event.regcontents[-1]) + 1 + shift
 
-    timer_start(1, (_) => prop_add(
-      start_line, start_col,
-      { end_lnum: end_line, end_col: length, type: 'yank_prop' }
-    ))
+    prop_add(start_line, start_col, {
+      end_lnum: end_line, end_col: length, type: 'yank_prop'
+    })
 
-    timer_start(timeout,
-      (_) => prop_remove( {type: 'yank_prop'}, start_line, end_line))
+    timer_start(timeout, (_) => prop_remove({type: 'yank_prop'}, start_line, end_line))
   endif
 enddef
