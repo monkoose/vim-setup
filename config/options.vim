@@ -154,7 +154,6 @@ def AdjustPath()
           },
           exit_cb: (_, _) => {
             set path<
-            echow dirs
             &path ..= join(dirs, ',')
             set wildignore<
             &wildignore ..= GitignoreToWildignore(path)
