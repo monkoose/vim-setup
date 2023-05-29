@@ -209,11 +209,10 @@ def Toggle(args: string)
   endif
 enddef
 
-def InStringOrComment(syn_groups: list<string>): bool
 # Should return true when the current cursor position is in certain syntax types
 # (string, comment,  etc.); evaluated inside  lambda passed as skip  argument to
 # searchpairpos().
-
+def InStringOrComment(syn_groups: list<string>): bool
   # can improve the performance when inserting characters in front of a paren
   # while there are closed folds in the buffer
   if foldclosed('.') != -1
@@ -243,7 +242,7 @@ enddef
 
 def GetSkip(): func(): bool
   if !exists('b:current_syntax') || config.syntax_ignored
-    return (): bool => false
+    return () => false
   endif
 
   var syn_groups = get(config.ft_syntax_groups, &filetype, config.syntax_groups)
@@ -253,11 +252,11 @@ def GetSkip(): func(): bool
   # a text of similar type; i.e. we want to ignore a pair of different
   # syntax type.
   if InStringOrComment(syn_groups)
-    return (): bool => !InStringOrComment(syn_groups)
+    return () => !InStringOrComment(syn_groups)
   # Otherwise, the cursor is outside of these specific syntax types,
   # and we want searchpairpos() to find a pair which is also outside.
   else
-    return (): bool => InStringOrComment(syn_groups)
+    return () => InStringOrComment(syn_groups)
   endif
 enddef
 
@@ -308,12 +307,12 @@ endif
 
 # Commands {{{1
 
-def Complete(_, _, _): string
-  return join(['on', 'off', 'toggle'], "\n")
+def Complete(_, _, _): list<string>
+  return ['on', 'off', 'toggle']
 enddef
 
 # Define command that will disable and enable the plugin.
-command -bar -complete=custom,Complete -nargs=? MatchParen Toggle(<q-args>)
+command -bar -complete=customlist,Complete -nargs=? MatchParen Toggle(<q-args>)
 # }}}1
 
 defcompile

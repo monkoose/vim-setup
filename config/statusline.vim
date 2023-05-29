@@ -8,8 +8,9 @@ const git_nc = gitbranch .. gitcommit
 const spell = "%5*%{&spell ? '  SPELL ' : ''}%*"
 const right = ' %='
 const diagnostic = "%{%get(b:, 'status_diagnostics', '')%}"
-const tail = '  %{&filetype}  %4*%P%* '
-const tail_nc = ' %=%{&filetype}  %P '
+const encoding = '  %{&fileencoding =~ "\^\$\\|utf-8" ? "" : &fileencoding .. " | "}'
+const tail = '%{&filetype}  %4*%P%* '
+const tail_nc = '%=%{&filetype}  %P '
 const fname = '  %3*%f%* %7*%m%* '
 const fname_nc = '  %f %6*%M%*   '
 const ro = "%6*%{&ro ? '' : ''}%*  "
@@ -18,8 +19,8 @@ const mode = " %2(%{%StatusLineMode()%}%)"
 # const lncol = "%< %-9(%3*%l%*·%4*%c%V%*%) "
 # const session = "%{fnamemodify(v:this_session, ':t')}"
 
-const statusline = mode .. iminsert .. fname .. ro .. git .. spell .. right .. diagnostic .. tail
-const statusline_nc = fname_nc .. git_nc .. tail_nc
+const statusline = mode .. iminsert .. fname .. ro .. git .. spell .. right .. diagnostic .. encoding .. tail
+const statusline_nc = fname_nc .. git_nc .. encoding .. tail_nc
 &statusline = statusline
 
 augroup SetStatusLine
