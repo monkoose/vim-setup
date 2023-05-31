@@ -34,8 +34,8 @@ syntax match luaGotoLabel "\k\+" contained display
 syntax match luaLabel "::\k\+::" display
 
 syntax keyword luaFunction function nextgroup=luaFuncFullName skipwhite
-syntax match luaFuncName "\k\+\ze\s\?(" contained
-syntax match luaFuncFullName "\(\k\+[:.]\)\?\k\+\s\?(" contained transparent contains=luaFuncName,luaParen
+syntax match luaFuncName "\k\+\ze\s\?(" contained display
+syntax match luaFuncFullName "\(\k\+[:.]\)\?\k\+\ze\s\?(" contained contains=luaFuncName,luaParen transparent display
 
 " Keywords
 syntax keyword luaBlock do end

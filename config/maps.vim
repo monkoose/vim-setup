@@ -82,7 +82,7 @@ if !has('gui_running')
   # Fix Alt maps
   def InitAltMaps(keys: list<string>)
     def ImitateUnmap(alt_key: string, mode: string)
-      if !hasmapto(alt_key, mode)
+      if empty(maparg(alt_key, mode, false, true))
         exe $'{mode}map <expr> {alt_key} ""'
       endif
     enddef
@@ -93,13 +93,13 @@ if !has('gui_running')
       exe $"set {alt_key}=\e{key}"
       ImitateUnmap(alt_key, 'i')
       ImitateUnmap(alt_key, 'c')
-      if empty(maparg(alt_key, 't'))
+      if empty(maparg(alt_key, 't', false, true))
         exe $'tnoremap {alt_key} <esc>{key}'
       endif
     endfor
   enddef
 
-  const alt_keys = ['`', '1', '2', '3', '4', 'q', 'w', 'f', 'k', 'h', 'l', 'o', 'a', 'e', 'p', 'n', 'r', 's', 'i']
+  const alt_keys = ['`', '1', '2', '3', '4', 'q', 'w', 'f', 'k', 'h', 'l', 'o', 'a', 'e', 'p', 'b', 'n', 'r', 's', 'i', "'", '"']
   InitAltMaps(alt_keys)
 endif
 
