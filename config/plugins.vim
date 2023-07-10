@@ -130,7 +130,6 @@ minpac.Add('neoclide/coc.nvim', {
     nnoremap <silent>  <space>kA  <Plug>(coc-codeaction)
     nnoremap <silent>  <space>ka  <Plug>(coc-codeaction-line)
     nnoremap  <space>kl  <Cmd>CocList<CR>
-    nnoremap  <space>kF  <Plug>(coc-format)
     nnoremap  <space>ko  <Cmd>CocList outline<CR>
     nnoremap  <space>ks  <Cmd>CocList symbols<CR>
     nnoremap  <space>kc  <Plug>(coc-codelens-action)
@@ -138,8 +137,9 @@ minpac.Add('neoclide/coc.nvim', {
     nmap <expr> <space>d
           \ g:CocHasProvider('definition') ? g:CocActionAsync('jumpDefinition') : "\<C-]>"
     xnoremap  <space>ka  <Plug>(coc-codeaction-selected)
+    nnoremap  <space>kf  <Plug>(coc-format)
     xnoremap  <space>kf  <Plug>(coc-format-selected)
-    nnoremap  <space>kf  <Plug>(coc-format-selected)
+    nnoremap  <space>kF  <Plug>(coc-format-selected)
 
     xnoremap if <Plug>(coc-funcobj-i)
     onoremap if <Plug>(coc-funcobj-i)
