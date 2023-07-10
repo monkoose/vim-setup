@@ -23,14 +23,14 @@ minpac.Add('honza/vim-snippets')
 #   packadd! yats.vim
 # }})
 
-# vim-svelte {{{1
-minpac.Add('evanleck/vim-svelte', { Config: () => {
-  g:svelte_preprocessor_tags = [
-    { name: 'ts', tag: 'script', as: 'typescript' }
-  ]
-  g:svelte_preprocessors = ['typescript', 'ts']
-  packadd! vim-svelte
-}})
+# # vim-svelte {{{1
+# minpac.Add('evanleck/vim-svelte', { Config: () => {
+#   g:svelte_preprocessor_tags = [
+#     { name: 'ts', tag: 'script', as: 'typescript' }
+#   ]
+#   g:svelte_preprocessors = ['typescript', 'ts']
+#   packadd! vim-svelte
+# }})
 
 # undotree {{{1
 minpac.Add('mbbill/undotree', { Config: () => {
@@ -95,8 +95,7 @@ minpac.Add('neoclide/coc.nvim', {
       coc-clangd
       coc-lua
       coc-fish
-      coc-dlang
-      coc-svelte
+      coc-go
     END
 
     g:coc_borderchars = ['━', '┃', '━', '┃', '┏', '┓', '┛', '┗']
@@ -152,6 +151,26 @@ minpac.Add('neoclide/coc.nvim', {
     onoremap ac <Plug>(coc-classobj-a)
   }
 })
+
+# vim-go {{{1
+minpac.Add('fatih/vim-go', { Config: () => {
+  g:go_gopls_enabled = 0
+  g:go_def_mapping_enabled = 0
+  g:go_doc_keywordprg_enabled = 0
+  g:go_term_enabled = 1
+  g:go_fmt_autosave = 0
+  g:go_imports_autosave = 0
+
+  # highlights
+  g:go_highlight_operators = 1
+  g:go_highlight_functions = 1
+  g:go_highlight_function_calls = 1
+  g:go_highlight_types = 1
+  g:go_highlight_fields = 1
+  g:go_highlight_build_constraints = 1
+
+  packadd! vim-go
+}})
 
 # fzf.vim {{{1
 minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {

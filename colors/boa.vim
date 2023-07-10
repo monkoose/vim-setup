@@ -182,6 +182,7 @@ HlLinks('Function', [
   'haskellIdentifier',
   'lispFunc',
   'vim9FuncCallUser',
+  'goFunctionCall',
   ]
 )
 
@@ -361,6 +362,7 @@ HlLinks('NonText', [
   'SpecialKey',
   'LineNrAbove',
   'LineNrBelow',
+  'CocUnusedHighlight',
   ]
 )
 
@@ -379,7 +381,7 @@ HlLinks('MoreMsg', [
   'markdownH3',
   'markdownH4',
   'svelteRepeat',
-  'svelteConditional'
+  'svelteConditional',
   ]
 )
 
@@ -467,6 +469,8 @@ HlSet('typeScriptDocTags', colors.bright, v:none, bold)
 HlSet('markdownItalic', colors.normal, v:none, italic)
 HlSet('markdownLinkText', colors.gray, v:none, underline)
 HlLinks('markdownLinkText', ['markdownIdDeclaration'])
+
+HlSet('goFunction', colors.darkblue, v:none, bold)
 
 HlSet('StargateFocus', '101')
 HlSet('StargateDesaturate', '238')
