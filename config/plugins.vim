@@ -79,10 +79,18 @@ minpac.Add('lacygoill/vim9-syntax', { Config: () => {
 #   packadd! indentLine
 # }})
 
+# wiki.vim {{{1
+minpac.Add('lervag/wiki.vim', { delay: 30, Config: () => {
+  g:wiki_root = '~/Documents/wiki'
+  g:wiki_fzf_pages_opts = '--preview "bat --color=always {1}"'
+
+  packadd wiki.vim
+}})
+
 # coc.nvim {{{1
 minpac.Add('neoclide/coc.nvim', {
-  do: (_, name) => minpac.Do(name, ['yarn', 'install', '--frozen-lockfile']),
   delay: 20,
+  do: (_, name) => minpac.Do(name, ['yarn', 'install', '--frozen-lockfile']),
   Config: () => {
     g:coc_global_extensions =<< trim END
       coc-json
