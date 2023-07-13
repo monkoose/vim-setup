@@ -4,7 +4,6 @@ IFS=$'\n\t'
 
 # Helper functions
 msg() {
-    sdfsdf
     printf "\033[1m%b\033[0m\n" "$1" >&2
 }
 
