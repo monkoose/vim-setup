@@ -4,6 +4,7 @@ IFS=$'\n\t'
 
 # Helper functions
 msg() {
+    sdfsdf
     printf "\033[1m%b\033[0m\n" "$1" >&2
 }
 
@@ -13,11 +14,11 @@ error() {
 }
 
 program_exists() {
-    command -v "$1" &>/dev/null || error "You must have '$1' installed to continue."
+    command -v "$1" &>/dev/null || error "$1 mast be installed to continue."
 }
 
 variable_set() {
-    [[ -n "$1" ]] || error "You must have your HOME environmental variable set to continue."
+    [[ -n "$(printenv "$1")" ]] || error "$1 environment variable must be set to continue."
 }
 
 # Setup
