@@ -39,12 +39,17 @@ enddef
 
 export def OpenPath()
   const path = expand('<cfile>')
-  job_start(['xdg-open', path])
-  echohl String
-  echo 'Open '
-  echohl Identifier
-  echon path
-  echohl None
+  job_start(['xdg-open', path], {
+    exit_cb: (_, s) => {
+      if s == 0
+        echohl String | echon ' ' .. path
+        echohl Function | echon ' has been opened' | echohl None
+      else
+        echohl WarningMsg | echo " Can't open "
+        echohl String | echon path | echohl None
+      endif
+    }
+  })
 enddef
 
 def JumpToPreviousWindow()
