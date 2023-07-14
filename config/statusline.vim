@@ -11,7 +11,7 @@ const diagnostic = "%{%get(b:, 'status_diagnostics', '')%}"
 const encoding = '  %{&fileencoding =~ "\^\$\\|utf-8" ? "" : &fileencoding .. " | "}'
 const tail = '%{&filetype}  %4*%P%* '
 const tail_nc = '%=%{&filetype}  %P '
-const fname = '  %3*%f%* %7*%m%* '
+const fname = '  %3*%f%* %3(%7*%m%*%) '
 const fname_nc = '  %f %6*%M%*   '
 const ro = "%6*%{&ro ? '' : ''}%*  "
 const iminsert = "%6*%{get(b:, 'status_iminsert', '')}%*"
