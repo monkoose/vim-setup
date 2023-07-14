@@ -8,6 +8,7 @@ minpac.Add('tpope/vim-repeat')
 minpac.Add('tpope/vim-characterize')
 minpac.Add('tpope/vim-commentary')
 minpac.Add('honza/vim-snippets')
+minpac.Add('lambdalisue/vim-manpager')
 
 # minpac.Add('hail2u/vim-css3-syntax')
 # minpac.Add('othree/html5.vim')
@@ -74,19 +75,6 @@ minpac.Add('lacygoill/vim9-syntax', { Config: () => {
 }}) #}}}
 
 #################### DEFERED PLUGINS ####################
-# # indentLine {{{1
-# minpac.Add('Yggdroot/indentLine', { Config: () => {
-#   packadd! indentLine
-# }})
-
-# wiki.vim {{{1
-minpac.Add('lervag/wiki.vim', { delay: 30, Config: () => {
-  g:wiki_root = '~/Documents/wiki'
-  g:wiki_fzf_pages_opts = '--preview "bat --color=always {1}"'
-
-  packadd wiki.vim
-}})
-
 # coc.nvim {{{1
 minpac.Add('neoclide/coc.nvim', {
   delay: 20,
@@ -160,26 +148,6 @@ minpac.Add('neoclide/coc.nvim', {
   }
 })
 
-# vim-go {{{1
-minpac.Add('fatih/vim-go', { Config: () => {
-  g:go_gopls_enabled = 0
-  g:go_def_mapping_enabled = 0
-  g:go_doc_keywordprg_enabled = 0
-  g:go_term_enabled = 1
-  g:go_fmt_autosave = 0
-  g:go_imports_autosave = 0
-
-  # highlights
-  g:go_highlight_operators = 1
-  g:go_highlight_functions = 1
-  g:go_highlight_function_calls = 1
-  g:go_highlight_types = 1
-  g:go_highlight_fields = 1
-  g:go_highlight_build_constraints = 1
-
-  packadd! vim-go
-}})
-
 # fzf.vim {{{1
 minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {
   g:fzf_command_prefix = 'Fzf'
@@ -235,6 +203,34 @@ minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {
   nnoremap <silent>  <space>sw  <Cmd>exe "FzfRg " .. expand('<cword>')<CR>
   nnoremap <silent>  <space>gc  <Cmd>FzfCommits<CR>
   nnoremap <silent>  <space>gC  <Cmd>FzfBCommits<CR>
+}})
+
+# wiki.vim {{{1
+minpac.Add('lervag/wiki.vim', { delay: 30, Config: () => {
+  g:wiki_root = '~/Documents/wiki'
+  g:wiki_fzf_pages_opts = '--preview "bat --color=always {1}"'
+
+  packadd wiki.vim
+}})
+
+# vim-go {{{1
+minpac.Add('fatih/vim-go', { Config: () => {
+  g:go_gopls_enabled = 0
+  g:go_def_mapping_enabled = 0
+  g:go_doc_keywordprg_enabled = 0
+  g:go_term_enabled = 1
+  g:go_fmt_autosave = 0
+  g:go_imports_autosave = 0
+
+  # highlights
+  g:go_highlight_operators = 1
+  g:go_highlight_functions = 1
+  g:go_highlight_function_calls = 1
+  g:go_highlight_types = 1
+  g:go_highlight_fields = 1
+  g:go_highlight_build_constraints = 1
+
+  packadd! vim-go
 }})
 
 # vim-gutentags {{{1
@@ -309,6 +305,11 @@ minpac.Add('airblade/vim-gitgutter', { delay: 5, Config: () => {
     autocmd BufWritePost * GitGutter
   augroup END
 }})
+
+# # indentLine {{{1
+# minpac.Add('Yggdroot/indentLine', { Config: () => {
+#   packadd! indentLine
+# }})
 
 # # gh.vim {{{1
 # minpac.Add('skanehira/gh.vim')

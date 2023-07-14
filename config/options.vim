@@ -121,46 +121,47 @@ def JumpToLastPosition()
   endif
 enddef
 
-def GitignoreToWildignore(path: string): string
-  const gitignore = path .. '/.gitignore'
-  if filereadable(gitignore)
-    var wignore: list<string> = []
-    for oline in readfile(gitignore)
-      var line = substitute(oline, '\s|\n|\r', '', 'g')
-      line = substitute(line, ',', '\\\\,', 'g')
-      if line =~ '^#' | continue | endif
-      if line == ''   | continue | endif
-      if line =~ '^!' | continue | endif
-      if line =~ '/$'
-        add(wignore, line .. "*")
-        continue
-      endif
-      add(wignore, substitute(line, ' ', '\\ ', 'g'))
-    endfor
-    return ',' .. join(wignore, ',')
-  endif
-  return ''
-enddef
+# def GitignoreToWildignore(path: string): string
+#   const gitignore = path .. '/.gitignore'
+#   if filereadable(gitignore)
+#     var wignore: list<string> = []
+#     for oline in readfile(gitignore)
+#       var line = substitute(oline, '\s|\n|\r', '', 'g')
+#       line = substitute(line, ',', '\\\\,', 'g')
+#       if line =~ '^#' | continue | endif
+#       if line == ''   | continue | endif
+#       if line =~ '^!' | continue | endif
+#       if line =~ '/$'
+#         add(wignore, line .. "*")
+#         continue
+#       endif
+#       add(wignore, substitute(line, ' ', '\\ ', 'g'))
+#     endfor
+#     return ',' .. join(wignore, ',')
+#   endif
+#   return ''
+# enddef
 
-def AdjustPath()
-  job_start(['git', 'rev-parse', '--show-toplevel'], {
-    out_cb: (_, mes) => {
-      if !empty(mes)
-        const path = getcwd() == mes ? '.' : fnameescape(mes)
-        var dirs: list<string>
-        job_start(['fd', '.', path, '--type=d', '--max-depth=1'], {
-          out_cb: (_, m) => {
-            add(dirs, m .. '**')
-          },
-          exit_cb: (_, _) => {
-            set path<
-            &path ..= join(dirs, ',')
-            set wildignore<
-            &wildignore ..= GitignoreToWildignore(path)
-          } })
-      endif
-    } })
-enddef
+# # TODO: it keeps stacking wildignore on directory change
+# def AdjustPath(_)
+#   job_start(['git', 'rev-parse', '--show-toplevel'], {
+#     out_cb: (_, mes) => {
+#       if !empty(mes)
+#         const path = getcwd() == mes ? '.' : fnameescape(mes)
+#         var dirs: list<string>
+#         job_start(['fd', '.', path, '--type=d', '--max-depth=1'], {
+#           out_cb: (_, m) => {
+#             add(dirs, m .. '**')
+#           },
+#           exit_cb: (_, _) => {
+#             set path<
+#             &path ..= join(dirs, ',')
+#             set wildignore<
+#             &wildignore ..= GitignoreToWildignore(path)
+#           } })
+#       endif
+#     } })
+# enddef
 
 # autocmds
 augroup MyAutocmds
@@ -169,7 +170,7 @@ augroup MyAutocmds
   autocmd TerminalWinOpen * setlocal nonu nornu nolist signcolumn=no
   autocmd TextYankPost * on_yank.Highlight(250)
   autocmd BufReadPost * JumpToLastPosition()
-  autocmd VimEnter,DirChanged * AdjustPath()
+  # autocmd VimEnter,DirChanged * timer_start(20, AdjustPath)
 augroup END
 
 g:python_highlight_all = 1
@@ -179,9 +180,7 @@ g:markdown_folding = 0
 g:loaded_getscriptPlugin = 1
 g:loaded_gzip = 1
 g:loaded_logiPat = 1
-# Do not disable netrw so commands like :GBrowse would work
-# g:loaded_netrw = 1
-# g:loaded_netrwPlugin = 1
+g:loaded_manpager_plugin = 1
 g:loaded_rrhelper = 1
 g:loaded_spellfile_plugin = 1
 g:loaded_tarPlugin = 1
