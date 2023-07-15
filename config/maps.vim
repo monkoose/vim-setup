@@ -5,6 +5,7 @@ import autoload '../autoload/custom/unimpaired.vim'
 import autoload '../autoload/custom/endofline.vim'
 import autoload '../autoload/mypopup.vim'
 import autoload '../autoload/myterm.vim'
+import autoload '../autoload/popupurls.vim'
 
 g:mapleader = ","
 
@@ -47,6 +48,7 @@ nnoremap  yop  <ScriptCmd>unimpaired.ToggleOption('paste')<CR>
 nnoremap  yol  <ScriptCmd>unimpaired.ToggleOption('list')<CR>
 nnoremap  yof  <ScriptCmd>unimpaired.SwitchOption('foldcolumn', 0, 1)<CR>
 nnoremap  yoy  <ScriptCmd>unimpaired.SwitchOption('colorcolumn', '', 100)<CR>
+nnoremap  <space>fu  <ScriptCmd>popupurls.Open()<CR>
 nnoremap  [<space>  <ScriptCmd>unimpaired.PasteBlanklineAbove()<CR>
 nnoremap  ]<space>  <ScriptCmd>unimpaired.PasteBlanklineBelow()<CR>
 nnoremap  <C-@><C-@>  <Cmd>let &iminsert = !&iminsert<CR>
@@ -80,8 +82,17 @@ tnoremap  <C-q><C-n>  <C-q>N
 tnoremap  <C-q>;  <C-q>:
 tnoremap  <C-]>  <C-q>N
 
+
 if !has('gui_running')
-  # Fix Alt maps
+  # Fix Alt maps, so it correctly works in vim and it's terminal.
+  # Should include every character for <A-`char`> map.
+  const alt_keys = [
+    '`', '1', '2', '3', '4',
+    'q', 'w', 'e', 'r', 'i', 'o', 'p',
+    'a', 's', 'f', 'h', 'k', 'l', "'", '"',
+    'b', 'n',
+  ]
+
   def InitAltMaps(keys: list<string>)
     def ImitateUnmap(alt_key: string, mode: string)
       if empty(maparg(alt_key, mode, false, true))
@@ -101,7 +112,6 @@ if !has('gui_running')
     endfor
   enddef
 
-  const alt_keys = ['`', '1', '2', '3', '4', 'q', 'w', 'f', 'k', 'h', 'l', 'o', 'a', 'e', 'p', 'b', 'n', 'r', 's', 'i', "'", '"']
   InitAltMaps(alt_keys)
 endif
 

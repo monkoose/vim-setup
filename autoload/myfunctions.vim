@@ -37,8 +37,7 @@ export def Synnames()
             ->join(' ')
 enddef
 
-export def OpenPath()
-  const path = expand('<cfile>')
+export def OpenPath(path: string = expand('<cfile>'))
   job_start(['xdg-open', path], {
     exit_cb: (_, s) => {
       if s == 0

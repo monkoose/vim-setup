@@ -114,13 +114,6 @@ endif
 # &cscopeverbose = true
 # &cscopetag = true
 
-def JumpToLastPosition()
-  const last_pos = getpos("'\"")
-  if last_pos[1] >= 1 && last_pos[1] <= line('$')
-    setpos('.', getpos("'\""))
-  endif
-enddef
-
 # def GitignoreToWildignore(path: string): string
 #   const gitignore = path .. '/.gitignore'
 #   if filereadable(gitignore)
@@ -162,6 +155,13 @@ enddef
 #       endif
 #     } })
 # enddef
+
+def JumpToLastPosition()
+  const last_pos = getpos("'\"")
+  if last_pos[1] >= 1 && last_pos[1] <= line('$')
+    setpos('.', getpos("'\""))
+  endif
+enddef
 
 # autocmds
 augroup MyAutocmds
