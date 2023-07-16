@@ -187,3 +187,9 @@ g:loaded_tarPlugin = 1
 g:loaded_2html_plugin = 1
 g:loaded_vimballPlugin = 1
 g:loaded_zipPlugin = 1
+
+# netrw
+g:netrw_banner = 0
+g:netrw_list_hide = netrw_gitignore#Hide('~/.gitignore')
+g:netrw_liststyle = 3
+g:netrw_winsize = 20

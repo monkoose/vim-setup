@@ -19,6 +19,7 @@ noremap <expr>  <C-l>  getcharsearch().forward ? ';' : ','
 if !!exists(':LF')
   nnoremap <A-1> <Cmd>LF<CR>
 endif
+nnoremap <space>n <Cmd>Lexplore<CR>
 
 nnoremap  <space>/  <Cmd>nohlsearch<CR>
 nnoremap  gx  <ScriptCmd>mf.OpenPath()<CR>
