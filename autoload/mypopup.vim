@@ -39,15 +39,29 @@ export def PopupUrls(): list<string>
 enddef
 
 def PopupWindowId(): number
-  # 5 popups should be more then enough, because last opened
-  # popup always prepended to a list, but just in case there are
-  # some hidden last opened popups lets use this magic number
-  for id in popup_list()[: 5]
-    if popup_getpos(id).visible
-      return id
-    endif
-  endfor
-  return 0
+  def VisiblePopup(popups: list<number>): number
+    for id in popups
+      if popup_getpos(id).visible
+        return id
+      endif
+    endfor
+    return 0
+  enddef
+  # Generally `popup_list()` returns a list with most recent popups
+  # at the start of it, so checking just a small bunch of it is enough
+  const popups = popup_list()
+  if len(popups[: 9]) < 10
+    return VisiblePopup(popups[: 9])
+  endif
+
+  # but because startgate plugin can create on its initialization
+  # a lot of hidden popups it can be helpful to also check
+  # at the end of the popup list
+  const result = VisiblePopup(popups[: 4])
+  if result != 0
+    return result
+  endif
+  return VisiblePopup(popups[-5 :])
 enddef
 
 def ScrollPopup(winid: number, amount: number)
