@@ -22,6 +22,8 @@ export def Highlight(timeout: number)
       end_lnum: end_line, end_col: length, type: 'yank_prop'
     })
 
-    timer_start(timeout, (_) => prop_remove({bufnr: bufnr, type: 'yank_prop', all: true}, start_line, end_line))
+    timer_start(timeout, (_) => {
+      prop_remove({bufnr: bufnr, type: 'yank_prop', all: true}, start_line, end_line)
+    })
   endif
 enddef

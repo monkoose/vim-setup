@@ -30,8 +30,8 @@ enddef
 export def Do(plug: string, cmd: list<string>)
   echow $'Running {plug} hook...'
   job_start(cmd, {
-    err_cb: (_, e) => {
-      echow e
+    err_cb: (_, err) => {
+      echow err
     },
     exit_cb: (_, _) => {
       echow $'{plug} hook finished.'
