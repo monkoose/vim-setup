@@ -8,7 +8,7 @@ msg() {
 }
 
 error() {
-    msg "\33[31m[✘]\33[0m ${1}${2}"
+    msg "\33[31m[✘]\33[0m ${1}"
     exit 1
 }
 
@@ -22,7 +22,7 @@ variable_set() {
 
 # Setup
 msg "Checking..."
-variable_set "$HOME"
+variable_set HOME
 program_exists "curl"
 program_exists "git"
 program_exists "vim"
