@@ -214,10 +214,10 @@ minpac.Add('lervag/wiki.vim', { delay: 30, Config: () => {
 }})
 
 # vim-dispatch {{{1
-minpac.Add('tpope/vim-dispatch', { Config: () => {
+minpac.Add('tpope/vim-dispatch', { delay: 40, Config: () => {
   g:dispatch_handlers = ["job", "terminal"]
 
-  packadd! vim-dispatch
+  packadd vim-dispatch
 }})
 
 # vim-go {{{1

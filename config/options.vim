@@ -111,9 +111,6 @@ endif
 &clipboard = 'exclude:cons\|linux'
 &shell = '/bin/fish'
 
-# &cscopeverbose = true
-# &cscopetag = true
-
 # def GitignoreToWildignore(path: string): string
 #   const gitignore = path .. '/.gitignore'
 #   if filereadable(gitignore)

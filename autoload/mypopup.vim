@@ -11,34 +11,7 @@ def PreviewWinId(): number
   return 0
 enddef
 
-export def BufferMatches(
-    pattern: string,
-    bufnr: number = bufnr(),
-    first: number = 1,
-    last: any = "$"
-): list<string>
-  final urls: list<string> = []
-  for line in getbufline(bufnr, first, last)
-    var match = matchstrpos(line, pattern)
-    while match[1] != -1
-      add(urls, match[0])
-      match = matchstrpos(line, pattern, match[2])
-    endwhile
-  endfor
-  return urls
-enddef
-
-export def PopupUrls(): list<string>
-  const winid = PopupWindowId()
-  if winid != 0
-    const url_pattern = 'https\?://\%(www\.\)\?[-[:alnum:]@:%._+~#=]\{1,256}\.[[:alnum:]]\{1,6}[[:alnum:]-@:%_+.~#?&/=]*'
-    const opts = popup_getpos(winid)
-    return BufferMatches(url_pattern, winbufnr(winid), opts.firstline, opts.lastline)
-  endif
-  return []
-enddef
-
-def PopupWindowId(): number
+export def PopupWindowId(): number
   def VisiblePopup(popups: list<number>): number
     for id in popups
       if popup_getpos(id).visible
