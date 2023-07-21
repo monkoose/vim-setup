@@ -7,7 +7,6 @@ import autoload '../autoload/myfunctions.vim' as mf
 minpac.Add('tpope/vim-repeat')
 minpac.Add('tpope/vim-characterize')
 minpac.Add('tpope/vim-commentary')
-minpac.Add('honza/vim-snippets')
 minpac.Add('lambdalisue/vim-manpager')
 
 # minpac.Add('hail2u/vim-css3-syntax')
@@ -76,6 +75,33 @@ minpac.Add('lacygoill/vim9-syntax', { Config: () => {
 
 #################### DEFERED PLUGINS ####################
 # coc.nvim {{{1
+def ExpandSnippet(): string
+  if coc#expandable()
+    return "\<C-R>=coc#rpc#request('doKeymap', ['snippets-expand', ''])\<CR>"
+  endif
+  echo " No such snippet."
+  return ""
+enddef
+
+def CocConfirm(): string
+  if coc#pum#visible()
+    if coc#pum#info().index == -1
+      return ExpandSnippet()
+    endif
+      return coc#pum#confirm()
+  endif
+
+  if pumvisible()
+    if complete_info(["selected"]).selected == -1
+      return ExpandSnippet()
+    endif
+    return "\<C-y>"
+  endif
+
+  return ExpandSnippet()
+enddef
+
+minpac.Add('honza/vim-snippets')
 minpac.Add('neoclide/coc.nvim', {
   delay: 20,
   do: (_, name) => minpac.Do(name, ['yarn', 'install', '--frozen-lockfile']),
@@ -105,7 +131,7 @@ minpac.Add('neoclide/coc.nvim', {
     inoremap <silent><expr>  <A-i>  coc#jumpable() ? "\<A-i>" : ""
     inoremap  <C-n>  <Cmd>call coc#float#scroll(1, 4)<CR>
     inoremap  <C-p>  <Cmd>call coc#float#scroll(0, 4)<CR>
-    inoremap <silent><expr>  <C-l>  coc#pum#visible() ? coc#pum#confirm() : pumvisible() ? "\<C-y>" : coc#refresh()
+    inoremap <silent><expr>  <C-l>  CocConfirm()
     inoremap <silent><expr>  <C-j>  coc#pum#visible() ? coc#pum#next(1) : pumvisible() ? "\<C-n>" : coc#refresh()
     inoremap <silent><expr>  <C-k>  coc#pum#visible() ? coc#pum#prev(1) : pumvisible() ? "\<C-p>" : coc#refresh()
     inoremap <silent><expr>  <C-e> coc#pum#visible() ? coc#pum#cancel() : "\<C-e>"
