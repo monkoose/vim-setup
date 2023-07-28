@@ -16,40 +16,51 @@
         "border": false,
         "highlight": "Pmenu"
     },
+
     "outline.splitCommand": "botright 40vs",
     "outline.togglePreviewKey": "<C-o>",
     "outline.previewBorderHighlightGroup": "PopupBorder",
+
+    "diagnostic.showUnused": true,
     "diagnostic.enableMessage": "jump",
     "diagnostic.autoRefresh": true,
     "diagnostic.checkCurrentLine": true,
+    "diagnostic.refreshOnInsertMode": true,
     "diagnostic.enableSign": true,
     "diagnostic.errorSign": "E",
     "diagnostic.hintSign": "H",
     "diagnostic.infoSign": "I",
     "diagnostic.warningSign": "W",
     "diagnostic.format": "%message",
-    "diagnostic.highlightLimit": 30,
+    "diagnostic.highlightLimit": 0,
     "diagnostic.virtualText": false,
     "diagnostic.virtualTextCurrentLineOnly": true,
     "diagnostic.virtualTextFormat": "%message",
+
     "inlayHint.enable": false,
-    "signature.enable": false,
-    "signature.hideOnTextChange": true,
     "floatFactory.floatConfig": {
         "border": true,
         "highlight": "CocFloating",
         "borderhighlight": "PopupBorder",
         "close": false
     },
+
+    "signature.enable": false,
+    "signature.hideOnTextChange": true,
     "signature.floatConfig": {
         "maxHeight": 6
     },
+
     "hover.floatConfig": {
         "maxWidth": 100
     },
+
     "notification.timeout": 5000,
     "notification.disabledProgressSources": ["*"],
+
     "dialog.rounded": false,
+    "dialog.floatBorderHighlight": "PopupBorder",
+
     "list.statusLineSegments": [
         "%#CocListMode#  COC %{coc#list#status('args')}%*",
         "%1(%{coc#list#status('loading')}%)",
@@ -65,17 +76,6 @@
     "list.previewHighlightGroup": "Visual",
     "list.source.diagnostics.pathFormat": "short",
     "list.previewToplineOffset": 2,
-    "pullDiagnostic.onChange": true,
-    "pullDiagnostic.onSave": true,
-    "dialog.floatBorderHighlight": "PopupBorder",
-    "coc.preferences.enableMessageDialog": false,
-    "coc.preferences.extensionUpdateCheck": "never",
-    "coc.preferences.promptInput": false,
-    "coc.preferences.formatOnSave": false,
-    "workspace.rootPatterns": [
-        ".git"
-    ],
-    "coc.preferences.willSaveHandlerTimeout": 1000,
     "list.insertMappings": {
         "<C-l>": "do:defaultaction",
         "<Tab>": "do:toggle",
@@ -100,11 +100,26 @@
         "<C-p>": "do:previewup",
         "<C-n>": "do:previewdown"
     },
+
+    "pullDiagnostic.onChange": true,
+    "pullDiagnostic.onSave": true,
+
+    "coc.preferences.enableMessageDialog": false,
+    "coc.preferences.extensionUpdateCheck": "never",
+    "coc.preferences.promptInput": false,
+    "coc.preferences.formatOnSave": false,
+    "coc.preferences.willSaveHandlerTimeout": 1000,
+
+    "workspace.rootPatterns": [
+        ".git"
+    ],
+
     "Lua.runtime.version": "LuaJIT",
     "Lua.completion.callSnippet": "Replace",
     "Lua.diagnostics.workspaceRate": 90,
     "Lua.hover.expandAlias": false,
     "Lua.hover.viewStringMax": 100,
     "Lua.hover.previewFields": 30,
+
     "snippets.ultisnips.pythonPrompt": false
 }
