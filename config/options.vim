@@ -97,9 +97,7 @@ endif
 &wildcharm = &wildchar
 
 &shortmess = 'filnrxtToOFIcs'
-&diffopt = 'internal,filler,closeoff' ..
-           ',algorithm:patience,context:3,foldcolumn:1' ..
-           ',followwrap,hiddenoff,indent-heuristic,vertical'
+&diffopt = 'internal,filler,closeoff,algorithm:patience,context:3,foldcolumn:1,followwrap,hiddenoff,indent-heuristic,vertical'
 &guicursor = ''
 &keymap = 'russian-jcuken'
 &iminsert = 0
@@ -187,6 +185,6 @@ g:loaded_zipPlugin = 1
 
 # netrw
 g:netrw_banner = 0
-g:netrw_list_hide = netrw_gitignore#Hide('~/.gitignore')
+# g:netrw_list_hide = netrw_gitignore#Hide('~/.gitignore')
 g:netrw_liststyle = 3
 g:netrw_winsize = 20
