@@ -104,7 +104,8 @@ enddef
 minpac.Add('honza/vim-snippets')
 minpac.Add('neoclide/coc.nvim', {
   delay: 20,
-  do: (_, name) => minpac.Do(name, ['yarn', 'install', '--frozen-lockfile']),
+  branch: 'master',
+  do: (_, name) => minpac.Do(name, ['npm', 'ci']),
   Config: () => {
     g:coc_global_extensions =<< trim END
       coc-json

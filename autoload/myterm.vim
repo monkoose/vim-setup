@@ -4,6 +4,7 @@ final term = {
   bufnr: 0,
   position: '',
   size: 0,
+  shell: 'fish',
 }
 
 def JumpToPrevWindow()
@@ -30,7 +31,7 @@ export def Toggle()
   if term.bufnr == 0 || !bufexists(term.bufnr)
     term.size = &lines * 2 / 5
     term.position = 'botright'
-    exe $'{term.position} terminal ++kill=kill ++norestore ++rows={term.size}'
+    exe $'{term.position} terminal ++kill=kill ++norestore ++rows={term.size} {term.shell}'
     set nobuflisted filetype=myterm
     term.bufnr = bufnr()
     autocmd_add([{

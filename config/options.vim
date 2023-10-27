@@ -107,7 +107,7 @@ endif
 &errorformat ..= ',%f\|%\s%#%l col%\s%#%c%\s%#\| %m'
 
 &clipboard = 'exclude:cons\|linux'
-&shell = '/bin/fish'
+&shell = '/bin/bash'
 
 # def GitignoreToWildignore(path: string): string
 #   const gitignore = path .. '/.gitignore'
