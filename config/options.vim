@@ -186,5 +186,5 @@ g:loaded_zipPlugin = 1
 # netrw
 g:netrw_banner = 0
 # g:netrw_list_hide = netrw_gitignore#Hide('~/.gitignore')
-g:netrw_liststyle = 3
+# g:netrw_liststyle = 3
 g:netrw_winsize = 20

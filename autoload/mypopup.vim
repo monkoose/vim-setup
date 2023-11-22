@@ -47,13 +47,13 @@ def ScrollPopup(winid: number, amount: number)
 
   const new_firstline = pinfo.firstline + amount
   if new_firstline < 1
-    popup_setoptions(winid, {'firstline': 1})
+    popup_setoptions(winid, {firstline: 1})
   elseif bufinfo.linecount - new_firstline < pinfo.core_height
     popup_setoptions(winid, {
       'firstline': max([1, bufinfo.linecount - pinfo.core_height + 1])
     })
   else
-    popup_setoptions(winid, {'firstline': new_firstline})
+    popup_setoptions(winid, {firstline: new_firstline})
   endif
 enddef
 
