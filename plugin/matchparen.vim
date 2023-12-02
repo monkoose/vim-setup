@@ -218,7 +218,6 @@ def InStringOrComment(syn_groups: list<string>): bool
   if foldclosed('.') != -1
     return false
   endif
-
   # After moving to the end of a line  with `$`, then onto the  line below with
   # `k`, `synstack()` might wrongly give an empty stack.  Possible bug:
   # https://github.com/vim/vim/issues/5252
@@ -227,7 +226,7 @@ def InStringOrComment(syn_groups: list<string>): bool
     # As a workaround, we ask for the syntax a second time.
     synstack = synstack('.', col('.'))
   endif
-
+  # Iterate over synstack
   var synname: string
   for synID: number in synstack
     synname = synIDattr(synID, 'name')
@@ -244,7 +243,6 @@ def GetSkip(): func(): bool
   if !exists('b:current_syntax') || config.syntax_ignored
     return () => false
   endif
-
   var syn_groups = get(config.ft_syntax_groups, &filetype, config.syntax_groups)
   # If evaluating the expression determines that the cursor is
   # currently in a text with some specific syntax type (like a string
@@ -282,9 +280,9 @@ def Autocmds(enable: bool)
           ParseMatchpairs()
         endif
       }
-
       autocmd CursorMoved,WinEnter,TextChanged * UpdateHighlight()
       autocmd InsertEnter,CursorMovedI,TextChangedI * UpdateHighlight(true)
+
       # In case we reload the buffer while the cursor is on a paren.
       # Need to delay with SafeState because when reloading, the cursor is
       # temporarily on line 1 col 1, no matter its position before the reload.
@@ -294,7 +292,6 @@ def Autocmds(enable: bool)
       # the quickfix window.
       autocmd WinLeave,BufLeave * RemoveHighlight()
     augroup END
-
   elseif !enable && exists('#matchparen')
     autocmd! matchparen
     augroup! matchparen
