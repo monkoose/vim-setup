@@ -25,6 +25,7 @@ if !has('gui_running')
   &t_fd = "\e[?1004l"
 endif
 
+&synmaxcol = 1500
 &showmode = false
 &ttimeout = true
 &timeoutlen = 3000
@@ -43,7 +44,7 @@ endif
 &title = true
 &hidden = true
 &spelllang = 'en_us,ru_yo'
-&updatetime = 250
+&updatetime = 300
 &path = '.,,'
 
 &pumheight = 5
@@ -182,6 +183,8 @@ g:loaded_tarPlugin = 1
 g:loaded_2html_plugin = 1
 g:loaded_vimballPlugin = 1
 g:loaded_zipPlugin = 1
+
+g:vim_json_warnings = 0
 
 # netrw
 g:netrw_banner = 0

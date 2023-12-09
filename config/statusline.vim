@@ -12,7 +12,7 @@ const encoding = '  %{&fileencoding =~ "\^\$\\|utf-8" ? "" : &fileencoding .. " 
 const tail = '%{&filetype}  %4*%P%* '
 const tail_nc = '%=%{&filetype}  %P '
 const fname = '  %3*%f%* %3(%7*%m%*%) '
-const fname_nc = '  %f %6*%M%*   '
+const fname_nc = '     %f %M   '
 const ro = "%6*%{&ro ? '' : ''}%*  "
 const iminsert = "%6*%{get(b:, 'status_iminsert', '')}%*"
 const mode = " %2(%{%StatusLineMode()%}%)"
@@ -23,25 +23,16 @@ const statusline = mode .. iminsert .. fname .. ro .. git .. spell .. right .. d
 const statusline_nc = fname_nc .. git_nc .. encoding .. tail_nc
 &statusline = statusline
 
-augroup SetStatusLine
-  autocmd!
-  autocmd WinEnter * SetStatusLine(statusline)
-  autocmd WinLeave,WinNew * SetStatusLine(statusline_nc)
-  autocmd FileType fugitiveblame &l:statusline = '%< %(%l/%L%) %=%P '
-  autocmd TerminalWinOpen * &l:statusline = '  %Y  %4*%{term_gettitle(bufnr())}%* %= %4*%{term_getstatus(bufnr())}%* '
-augroup END
+def g:StatusIsCurrentWindow(): bool
+  return win_getid() == str2nr(g:actual_curwin)
+enddef
 
-def SetStatusLine(sl_opt: string): void
-  if index(['fugitiveblame'], &filetype) != -1
-    return
+def g:SetStatusline(): string
+  if g:StatusIsCurrentWindow()
+    return statusline
+  else
+    return statusline_nc
   endif
-
-  const win_info = getwininfo(win_getid())[0]
-  if win_info.quickfix || win_info.terminal
-    return
-  endif
-
-  &l:statusline = sl_opt
 enddef
 
 def StatusGitCommit()
@@ -102,6 +93,23 @@ def StatusDiagnostics()
   endif
   b:status_diagnostics = diagn_str
 enddef
+
+&statusline = '%{%SetStatusline()%}'
+g:qf_disable_statusline = 1
+
+augroup SetStatusLine
+  autocmd!
+  autocmd FileType fugitiveblame &l:statusline = '%< %(%l/%L%) %=%P '
+  autocmd FileType fugitive {
+    if bufname() =~ '/\.git//$'
+      &l:statusline = "  %{%StatusIsCurrentWindow() ? '%8*GIT STATUS%*' : 'GIT STATUS'%} "
+    endif
+  }
+  autocmd FileType qf {
+    &l:statusline = "  %{%StatusIsCurrentWindow() ? '%8*%q%*  %6*%L%*' : '%q  %L'%}  %{get(w:, 'quickfix_title', '')} "
+    }
+  autocmd TerminalWinOpen * &l:statusline = '  %Y  %4*%{term_gettitle(bufnr())}%* %= %4*%{term_getstatus(bufnr())}%* '
+augroup END
 
 augroup StatusLine
   autocmd!

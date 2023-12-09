@@ -17,6 +17,36 @@ minpac.Add('lambdalisue/vim-manpager')
 # minpac.Add('thinca/vim-themis')
 # minpac.Add('tweekmonster/helpful.vim')
 
+minpac.Add('monkoose/vlime9')
+
+# vim-sexp {{{1
+minpac.Add('tpope/vim-sexp-mappings-for-regular-people', {})
+minpac.Add('monkoose/vim-sexp', { delay: 100, Config: () => {
+  g:sexp_filetypes = "lisp"
+  g:sexp_enable_insert_mode_mappings = false
+  g:sexp_mappings = {
+    sexp_convolute: '>?',
+    sexp_raise_list: '<o',
+    sexp_raise_element: '<O',
+    sexp_indent: '',
+    sexp_indent_top: '',
+    sexp_round_head_wrap_element: '<LocalLeader>f',
+    sexp_round_tail_wrap_element: '<LocalLeader>F',
+    sexp_move_to_next_element_head: '',
+    sexp_insert_at_list_tail: '',
+    sexp_round_head_wrap_list: '<LocalLeader>,',
+    sexp_round_tail_wrap_list: '<LocalLeader>;' }
+  packadd vim-sexp
+  packadd vim-sexp-mappings-for-regular-people
+  bufdo if &filetype == 'lisp' | doautocmd FileType lisp | endif
+}})
+
+# paredit {{{1
+minpac.Add('monkoose/paredit', { delay: 100, Config: () => {
+  g:paredit_matchlines = 250
+  packadd paredit
+}}) #}}}
+
 # # yats.vim {{{1
 # minpac.Add('HerringtonDarkholme/yats.vim', { Config: () => {
 #   g:yats_host_keyword = 0
@@ -247,33 +277,31 @@ minpac.Add('tpope/vim-dispatch', { delay: 40, Config: () => {
   packadd vim-dispatch
 }})
 
-# vim-go {{{1
-minpac.Add('fatih/vim-go', { Config: () => {
-  g:go_gopls_enabled = 0
-  g:go_def_mapping_enabled = 0
-  g:go_doc_keywordprg_enabled = 0
-  g:go_term_enabled = 1
-  g:go_fmt_autosave = 0
-  g:go_imports_autosave = 0
+# # vim-go {{{1
+# minpac.Add('fatih/vim-go', { Config: () => {
+#   g:go_gopls_enabled = 0
+#   g:go_def_mapping_enabled = 0
+#   g:go_doc_keywordprg_enabled = 0
+#   g:go_term_enabled = 1
+#   g:go_fmt_autosave = 0
+#   g:go_imports_autosave = 0
 
-  # highlights
-  g:go_highlight_operators = 1
-  g:go_highlight_functions = 1
-  g:go_highlight_function_calls = 1
-  g:go_highlight_types = 1
-  g:go_highlight_fields = 1
-  g:go_highlight_build_constraints = 1
+#   # highlights
+#   g:go_highlight_operators = 1
+#   g:go_highlight_functions = 1
+#   g:go_highlight_function_calls = 1
+#   g:go_highlight_types = 1
+#   g:go_highlight_fields = 1
+#   g:go_highlight_build_constraints = 1
 
-  packadd! vim-go
-}})
+#   packadd! vim-go
+# }})
 
 # vim-gutentags {{{1
 minpac.Add('ludovicchabant/vim-gutentags', { Config: () => {
   g:gutentags_project_root = ['.git', 'vscripts']
   g:gutentags_add_default_project_roots = 0
   g:gutentags_file_list_command = 'fd --type=f'
-  # g:gutentags_modules = ['cscope', 'ctags']
-  # g:gutentags_cscope_build_inverted_index = 1
   com! GutentagsEnable :packadd vim-gutentags | gutentags#setup_gutentags() | delc GutentagsEnable
 }})
 

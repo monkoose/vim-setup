@@ -7,7 +7,7 @@ import autoload '../autoload/mypopup.vim'
 import autoload '../autoload/myterm.vim'
 import autoload '../autoload/popupurls.vim'
 
-g:mapleader = ","
+g:maplocalleader = ","
 
 noremap  ;  :
 map  Q  gq

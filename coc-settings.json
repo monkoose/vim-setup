@@ -25,7 +25,7 @@
     "diagnostic.enableMessage": "jump",
     "diagnostic.autoRefresh": true,
     "diagnostic.checkCurrentLine": true,
-    "diagnostic.refreshOnInsertMode": true,
+    "diagnostic.refreshOnInsertMode": false,
     "diagnostic.enableSign": true,
     "diagnostic.errorSign": "E",
     "diagnostic.hintSign": "H",
@@ -69,7 +69,7 @@
         "%#CocListPath# %{coc#list#status('cwd')} %*"
     ],
     "list.alignColumns": false,
-    "list.floatPreview": false,
+    "list.floatPreview": true,
     "list.height": 10,
     "list.limitLines": 20000,
     "list.maxPreviewHeight": 8,

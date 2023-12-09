@@ -15,7 +15,6 @@ def CloseWindow(winnr: number)
   exe ':' .. winnr .. 'close'
 enddef
 
-
 def AdjustTermProperties()
   const win_width = winwidth(0)
   if win_width < &columns
