@@ -21,7 +21,9 @@ const mode = " %2(%{%StatusLineMode()%}%)"
 
 const statusline = mode .. iminsert .. fname .. ro .. git .. spell .. right .. diagnostic .. encoding .. tail
 const statusline_nc = fname_nc .. git_nc .. encoding .. tail_nc
-&statusline = statusline
+
+g:qf_disable_statusline = 1
+&statusline = '%{%SetStatusline()%}'
 
 def g:StatusIsCurrentWindow(): bool
   return win_getid() == str2nr(g:actual_curwin)
@@ -68,19 +70,18 @@ def StatusIminsert()
   b:status_iminsert = &iminsert ? '   RU ' : ''
 enddef
 
-final modes = {
-  R: 'R',
-  v: 'V',
-  V: 'VL',
-  "\<C-v>": 'VB',
-  c: 'C',
-  s: 'S',
-  S: 'SL',
-  "\<C-s>": 'SB',
-  t: 'T',
-}
-
 def g:StatusLineMode(): string
+  const modes = {
+    R: 'R',
+    v: 'V',
+    V: 'VL',
+    "\<C-v>": 'VB',
+    c: 'C',
+    s: 'S',
+    S: 'SL',
+    "\<C-s>": 'SB',
+    t: 'T',
+  }
   return get(modes, mode(), '')
 enddef
 
@@ -93,9 +94,6 @@ def StatusDiagnostics()
   endif
   b:status_diagnostics = diagn_str
 enddef
-
-&statusline = '%{%SetStatusline()%}'
-g:qf_disable_statusline = 1
 
 augroup SetStatusLine
   autocmd!

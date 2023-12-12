@@ -88,7 +88,7 @@ if !has('gui_running')
   # Fix Alt maps, so it correctly works in vim and it's terminal.
   # Should include every character for <A-`char`> map.
   const alt_keys = [
-    '`', '1', '2', '3', '4',
+    '`', '1', '2', '3', '4', '5',
     'q', 'w', 'e', 'r', 'i', 'o', 'p',
     'a', 's', 'f', 'h', 'k', 'l', "'", '"',
     'b', 'n',

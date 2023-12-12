@@ -8,21 +8,22 @@ final term = {
 }
 
 def JumpToPrevWindow()
-  exe ':' .. winnr('#') .. 'wincmd w'
+  exe $':{winnr("#")}wincmd w'
 enddef
 
 def CloseWindow(winnr: number)
-  exe ':' .. winnr .. 'close'
+  exe $':{winnr}close'
 enddef
 
 def AdjustTermProperties()
-  const win_width = winwidth(0)
-  if win_width < &columns
+  const term_winnr = bufwinnr(term.bufnr)
+  const term_win_width = winwidth(term_winnr)
+  if term_win_width < &columns
     term.position = 'vertical botright'
-    term.size = win_width
+    term.size = term_win_width
   else
     term.position = 'botright'
-    term.size = winheight(0)
+    term.size = winheight(term_winnr)
   endif
 enddef
 
@@ -31,15 +32,20 @@ export def Toggle()
     term.size = &lines * 2 / 5
     term.position = 'botright'
     exe $'{term.position} terminal ++kill=kill ++norestore ++rows={term.size} {term.shell}'
-    set nobuflisted filetype=myterm
+    setlocal nobuflisted filetype=myterm
     term.bufnr = bufnr()
+
     autocmd_add([{
       bufnr: term.bufnr,
-      event: 'WinLeave',
+      event: 'WinClosed',
       group: 'MyTermToggle',
       cmd: 'AdjustTermProperties()',
       replate: true,
     }])
+    # augroup MyTerm
+    #   autocmd!
+    #   autocmd WinClosed <buffer> AdjustTermProperties()
+    # augroup END
     return
   endif
 
@@ -54,3 +60,5 @@ export def Toggle()
     CloseWindow(term_winnr)
   endif
 enddef
+
+disassemble Toggle

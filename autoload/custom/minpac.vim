@@ -12,7 +12,7 @@ def PackInit()
     status_open: 'vertical',
     verbose: 2,
   })
-  minpac#add('k-takata/minpac', {'type': 'opt'})
+  minpac#add('k-takata/minpac', default_opts)
 
   for p in keys(minpac_plugins)
     minpac#add(p, minpac_plugins[p])
@@ -49,14 +49,16 @@ export def Add(url: string, opts: dict<any> = null_dict)
     initialize = false
   endif
 
-  if opts == null_dict
+  if opts == null
     if initialize
       exe $'packadd! {repo}'
     endif
     minpac_plugins[url] = default_opts
     return
+  elseif empty(opts)
+    minpac_plugins[url] = default_opts
+    return
   endif
-
 
   if initialize && !!get(opts, 'Config')
     if !!get(opts, 'delay')

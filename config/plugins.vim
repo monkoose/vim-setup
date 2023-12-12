@@ -17,11 +17,19 @@ minpac.Add('lambdalisue/vim-manpager')
 # minpac.Add('thinca/vim-themis')
 # minpac.Add('tweekmonster/helpful.vim')
 
-minpac.Add('monkoose/vlime9')
+minpac.Add('monkoose/love')
 
-# vim-sexp {{{1
+# helpful.vim {{{1
+# run :packadd helpful.vim to enable it when needed
+minpac.Add('tweekmonster/helpful.vim', {})
+#}}}
+
+# paredit and vim-sexp {{{1
+minpac.Add('monkoose/paredit', {})
 minpac.Add('tpope/vim-sexp-mappings-for-regular-people', {})
-minpac.Add('monkoose/vim-sexp', { delay: 100, Config: () => {
+minpac.Add('monkoose/vim-sexp', { Config: () => {
+  g:paredit_matchlines = 150
+
   g:sexp_filetypes = "lisp"
   g:sexp_enable_insert_mode_mappings = false
   g:sexp_mappings = {
@@ -36,16 +44,13 @@ minpac.Add('monkoose/vim-sexp', { delay: 100, Config: () => {
     sexp_insert_at_list_tail: '',
     sexp_round_head_wrap_list: '<LocalLeader>,',
     sexp_round_tail_wrap_list: '<LocalLeader>;' }
-  packadd vim-sexp
-  packadd vim-sexp-mappings-for-regular-people
-  bufdo if &filetype == 'lisp' | doautocmd FileType lisp | endif
+  autocmd FileType lisp ++once {
+    packadd paredit
+    packadd vim-sexp
+    packadd vim-sexp-mappings-for-regular-people
+    doautocmd FileType lisp
+  }
 }})
-
-# paredit {{{1
-minpac.Add('monkoose/paredit', { delay: 100, Config: () => {
-  g:paredit_matchlines = 250
-  packadd paredit
-}}) #}}}
 
 # # yats.vim {{{1
 # minpac.Add('HerringtonDarkholme/yats.vim', { Config: () => {
@@ -303,6 +308,16 @@ minpac.Add('ludovicchabant/vim-gutentags', { Config: () => {
   g:gutentags_add_default_project_roots = 0
   g:gutentags_file_list_command = 'fd --type=f'
   com! GutentagsEnable :packadd vim-gutentags | gutentags#setup_gutentags() | delc GutentagsEnable
+}})
+
+# taglist {{{1
+def ToggleTaglist()
+  packadd taglist
+  execute 'TlistToggle'
+  nmap <A-5> <Cmd>TlistToggle<CR>
+enddef
+minpac.Add('yegappan/taglist', { Config: () => {
+  nmap <A-5> <Cmd>call <SID>ToggleTaglist()<CR>
 }})
 
 # vim-easy-align {{{1
