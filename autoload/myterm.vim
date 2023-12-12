@@ -42,10 +42,6 @@ export def Toggle()
       cmd: 'AdjustTermProperties()',
       replate: true,
     }])
-    # augroup MyTerm
-    #   autocmd!
-    #   autocmd WinClosed <buffer> AdjustTermProperties()
-    # augroup END
     return
   endif
 
@@ -60,5 +56,3 @@ export def Toggle()
     CloseWindow(term_winnr)
   endif
 enddef
-
-disassemble Toggle
