@@ -19,6 +19,9 @@ minpac.Add('lambdalisue/vim-manpager')
 # run :packadd helpful.vim to enable it when needed
 minpac.Add('tweekmonster/helpful.vim', {})
 #}}}
+# NoVa {{{1
+minpac.Add('monkoose/NoVa')
+#}}}
 
 # # yats.vim {{{1
 # minpac.Add('HerringtonDarkholme/yats.vim', { Config: () => {
@@ -121,7 +124,6 @@ minpac.Add('neoclide/coc.nvim', {
       coc-clangd
       coc-lua
       coc-fish
-      coc-go
     END
 
     g:coc_borderchars = ['━', '┃', '━', '┃', '┏', '┓', '┛', '┗']
