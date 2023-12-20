@@ -107,6 +107,17 @@ def CocConfirm(): string
   return ExpandSnippet()
 enddef
 
+def CocOnEnter()
+  if getline('.') !~ '^\s*$'
+    feedkeys("\<C-g>u", 'n')
+  endif
+  if pumvisible()
+    feedkeys("\<C-y>", 'n')
+  endif
+  feedkeys("\<CR>", 'n')
+  coc#on_enter()
+enddef
+
 minpac.Add('honza/vim-snippets')
 minpac.Add('neoclide/coc.nvim', {
   delay: 20,
@@ -141,7 +152,7 @@ minpac.Add('neoclide/coc.nvim', {
     inoremap <silent><expr>  <C-j>  coc#pum#visible() ? coc#pum#next(1) : pumvisible() ? "\<C-n>" : coc#refresh()
     inoremap <silent><expr>  <C-k>  coc#pum#visible() ? coc#pum#prev(1) : pumvisible() ? "\<C-p>" : coc#refresh()
     inoremap <silent><expr>  <C-e> coc#pum#visible() ? coc#pum#cancel() : "\<C-e>"
-    inoremap <silent> <CR>  <C-g>u<CR><C-r>=coc#on_enter()<CR>
+    inoremap <silent> <CR>  <C-r>=coc#pum#stop()<CR><Cmd>call <SID>CocOnEnter()<CR>
     inoremap  <A-s>  <Cmd>call CocActionAsync('showSignatureHelp')<CR>
     nnoremap  <space>kk  <Cmd>CocRestart<CR>
     nnoremap  <space>D   <Plug>(coc-declaration)
@@ -220,8 +231,8 @@ minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {
   setenv('FZF_DEFAULT_OPTS', getenv('FZF_DEFAULT_OPTS') .. ' ' .. join(fzf_defaults, " "))
   g:fzf_history_dir = '~/.cache/vim/fzf_history'
   g:fzf_layout = { window: {
-    width: 0.9,
-    height: 0.9,
+    width: 0.6,
+    height: 0.85,
     border: 'bold' }}
 
   packadd fzf.vim
