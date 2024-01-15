@@ -14,13 +14,9 @@ minpac.Add('lambdalisue/vim-manpager')
 # minpac.Add('pangloss/vim-javascript')
 
 # minpac.Add('lacygoill/vim9asm')
-
 # helpful.vim {{{1
 # run :packadd helpful.vim to enable it when needed
 minpac.Add('tweekmonster/helpful.vim', {})
-#}}}
-# NoVa {{{1
-minpac.Add('monkoose/NoVa')
 #}}}
 
 # # yats.vim {{{1
@@ -128,7 +124,7 @@ minpac.Add('neoclide/coc.nvim', {
       coc-json
       coc-sh
       coc-snippets
-      coc-pyright
+      coc-go
       coc-tsserver
       coc-html
       coc-css
