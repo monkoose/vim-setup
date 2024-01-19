@@ -1,6 +1,8 @@
 vim9script
 
 setlocal tabstop=4 shiftwidth=4 noexpandtab
+setlocal listchars-=tab:→-
+setlocal listchars+=tab:\ \ ,lead:·
 
 def Format()
   g:CocAction('organizeImport')

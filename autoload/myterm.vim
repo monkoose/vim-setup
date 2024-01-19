@@ -4,7 +4,7 @@ final term = {
   bufnr: 0,
   position: '',
   size: 0,
-  shell: 'fish',
+  shell: 'zsh',
 }
 
 def JumpToPrevWindow()

@@ -19,6 +19,24 @@ minpac.Add('lambdalisue/vim-manpager')
 minpac.Add('tweekmonster/helpful.vim', {})
 #}}}
 
+# gorun {{{1
+minpac.Add('monkoose/gorun', { Config: () => {
+  g:go_fold_enable = []
+  g:go_highlight_operators = 1
+  g:go_highlight_functions = 1
+  g:go_highlight_function_parameters = 1
+  g:go_highlight_function_calls = 1
+  g:go_highlight_fields = 1
+  g:go_highlight_types = 1
+  g:go_highlight_build_constraints = 1
+  g:go_highlight_string_spellcheck = 0
+  # g:go_highlight_format_strings = 0
+  g:go_highlight_generate_tags = 1
+  g:go_highlight_variable_assignments = 1
+  g:go_highlight_variable_declarations = 1
+  packadd! gorun
+}})
+
 # # yats.vim {{{1
 # minpac.Add('HerringtonDarkholme/yats.vim', { Config: () => {
 #   g:yats_host_keyword = 0
@@ -227,7 +245,7 @@ minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {
   setenv('FZF_DEFAULT_OPTS', getenv('FZF_DEFAULT_OPTS') .. ' ' .. join(fzf_defaults, " "))
   g:fzf_history_dir = '~/.cache/vim/fzf_history'
   g:fzf_layout = { window: {
-    width: 0.6,
+    width: 0.75,
     height: 0.85,
     border: 'bold' }}
 
