@@ -34,7 +34,7 @@ minpac.Add('monkoose/gorun', { Config: () => {
   g:go_highlight_generate_tags = 1
   g:go_highlight_variable_assignments = 1
   g:go_highlight_variable_declarations = 1
-  packadd! gorun
+  packadd gorun
 }})
 
 # # yats.vim {{{1

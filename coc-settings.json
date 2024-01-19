@@ -121,5 +121,10 @@
     "Lua.hover.viewStringMax": 100,
     "Lua.hover.previewFields": 30,
 
+    "html.filetypes": ["html", "gohtmltmpl"],
+
+    "snippets.extends": {
+        "gohtmltmpl": ["html"],
+    },
     "snippets.ultisnips.pythonPrompt": false
 }
