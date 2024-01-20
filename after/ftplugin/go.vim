@@ -14,4 +14,4 @@ augroup GoBuffer
   autocmd BufWritePre <buffer> Format()
 augroup END
 
-nnoremap <buffer> <space>r <Cmd>GoRun<CR>
+nnoremap <buffer> <space>r <Cmd>Sh go run .<CR>
