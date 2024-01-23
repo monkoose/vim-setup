@@ -36,6 +36,7 @@ endif
 &autoindent = true
 &startofline = false
 &hlsearch = true
+&writebackup = false
 
 &laststatus = 2
 &ruler = false

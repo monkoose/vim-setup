@@ -252,6 +252,14 @@ minpac.Add('junegunn/fzf.vim', { delay: 10, Config: () => {
 
   packadd fzf.vim
 
+  command! -bang -nargs=? -complete=dir FzfFiles {
+    fzf#vim#files(
+      <q-args>,
+      fzf#vim#with_preview({
+        source: 'fd --color=always --type=f --hidden --follow --strip-cwd-prefix --ignore', options: ['--ansi']}),
+      <bang>0
+    )
+  }
   nnoremap <silent>  <space>ff  <Cmd>FzfFiles<CR>
   nnoremap <silent>  <space>fh  <Cmd>FzfHelptags<CR>
   nnoremap <silent>  <space>fm  <Cmd>FzfMaps<CR>

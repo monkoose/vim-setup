@@ -291,69 +291,63 @@ function! s:writefile(...)
 endfunction
 
 function! fzf#run(...) abort
-try
-  let [shell, shellslash, shellcmdflag, shellxquote] = s:use_sh()
-
-  let dict   = exists('a:1') ? copy(a:1) : {}
-  let temps  = { 'result': tempname() }
-  let optstr = s:evaluate_opts(get(dict, 'options', ''))
   try
-    let fzf_exec = shellescape(fzf#exec())
-  catch
-    throw v:exception
-  endtry
+    let [shell, shellslash, shellcmdflag, shellxquote] = s:use_sh()
 
-  if !s:present(dict, 'dir')
-    let dict.dir = getcwd()
-  endif
+    let dict   = exists('a:1') ? copy(a:1) : {}
+    let temps  = { 'result': tempname() }
+    let optstr = s:evaluate_opts(get(dict, 'options', ''))
+    try
+      let fzf_exec = shellescape(fzf#exec())
+    catch
+      throw v:exception
+    endtry
 
-  if has_key(dict, 'source')
-    let source = remove(dict, 'source')
-    let type = type(source)
-    if type == 1
-      let source_command = source
-    elseif type == 3
-      let temps.input = tempname()
-      call s:writefile(source, temps.input)
-      let source_command = 'cat ' .. fzf#shellescape(temps.input)
-    else
-      throw 'Invalid source type'
+    if !s:present(dict, 'dir')
+      let dict.dir = getcwd()
     endif
-  else
-    let source_command = ''
-  endif
 
-  let use_height = has_key(dict, 'down') && !has('gui_running') &&
-        \ s:present(dict, 'up', 'left', 'right', 'window') &&
-        \ executable('tput') && filereadable('/dev/tty')
-  let use_term = 1
-  let optstr ..= ' --no-height'
-  " Respect --border option given in 'options'
-  let optstr = join([s:border_opt(get(dict, 'window', 0)), optstr])
-  let prev_default_command = $FZF_DEFAULT_COMMAND
-  if len(source_command)
-    let $FZF_DEFAULT_COMMAND = source_command
-  endif
-  let command = $'{fzf_exec} {optstr} > {temps.result}'
+    if has_key(dict, 'source')
+      let source = remove(dict, 'source')
+      let type = type(source)
+      if type == 1
+        let source_command = source
+      elseif type == 3
+        let temps.input = tempname()
+        call s:writefile(source, temps.input)
+        let source_command = 'cat ' .. fzf#shellescape(temps.input)
+      else
+        throw 'Invalid source type'
+      endif
+    else
+      let source_command = ''
+    endif
 
-  if use_term
+    let use_height = has_key(dict, 'down') && !has('gui_running') &&
+          \ s:present(dict, 'up', 'left', 'right', 'window') &&
+          \ executable('tput') && filereadable('/dev/tty')
+    let optstr ..= ' --no-height'
+    " Respect --border option given in 'options'
+    let optstr = join([s:border_opt(get(dict, 'window', 0)), optstr])
+    let prev_default_command = $FZF_DEFAULT_COMMAND
+    if len(source_command)
+      let $FZF_DEFAULT_COMMAND = source_command
+    endif
+    let command = $'{fzf_exec} {optstr} > {temps.result}'
+
     return s:execute_term(dict, command, temps)
-  endif
 
-  let lines = s:execute(dict, command, use_height, temps)
-  call s:callback(dict, lines)
-  return lines
-finally
-  if exists('source_command') && len(source_command)
-    if len(prev_default_command)
-      let $FZF_DEFAULT_COMMAND = prev_default_command
-    else
-      let $FZF_DEFAULT_COMMAND = ''
-      silent! execute 'unlet $FZF_DEFAULT_COMMAND'
+  finally
+    if exists('source_command') && len(source_command)
+      if len(prev_default_command)
+        let $FZF_DEFAULT_COMMAND = prev_default_command
+      else
+        let $FZF_DEFAULT_COMMAND = ''
+        silent! execute 'unlet $FZF_DEFAULT_COMMAND'
+      endif
     endif
-  endif
-  let [&shell, &shellslash, &shellcmdflag, &shellxquote] = [shell, shellslash, shellcmdflag, shellxquote]
-endtry
+    let [&shell, &shellslash, &shellcmdflag, &shellxquote] = [shell, shellslash, shellcmdflag, shellxquote]
+  endtry
 endfunction
 
 function! s:present(dict, ...)
@@ -649,7 +643,7 @@ function! s:execute_term(dict, command, temps) abort
       let term_opts.curwin = 1
     endif
     call s:handle_ambidouble(term_opts)
-    let fzf.buf = term_start([&shell, &shellcmdflag, command], term_opts)
+    keepjumps let fzf.buf = term_start([&shell, &shellcmdflag, command], term_opts)
     if is_popup && exists('#TerminalWinOpen')
       doautocmd <nomodeline> TerminalWinOpen
     endif
