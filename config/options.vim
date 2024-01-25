@@ -164,7 +164,7 @@ enddef
 augroup MyAutocmds
   autocmd!
   autocmd FocusGained * silent! checktime
-  autocmd TerminalWinOpen * setlocal nonu nornu nolist signcolumn=no
+  autocmd TerminalWinOpen * setlocal nonu nornu nolist foldcolumn=0 signcolumn=no
   autocmd TextYankPost * on_yank.Highlight(250)
   autocmd BufReadPost * JumpToLastPosition()
   # autocmd VimEnter,DirChanged * timer_start(20, AdjustPath)

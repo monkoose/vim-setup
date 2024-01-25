@@ -149,7 +149,6 @@ minpac.Add('neoclide/coc.nvim', {
       coc-css
       coc-clangd
       coc-lua
-      coc-fish
     END
 
     g:coc_borderchars = ['━', '┃', '━', '┃', '┏', '┓', '┛', '┗']

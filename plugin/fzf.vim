@@ -412,14 +412,14 @@ function! s:dopopd()
   unlet! w:fzf_pushd
 endfunction
 
-function! s:xterm_launcher()
-  let fmt = 'xterm -T "[fzf]" -bg "%s" -fg "%s" -geometry %dx%d+%d+%d -e bash -ic %%s'
-  return printf(fmt,
-    \ escape(synIDattr(hlID("Normal"), "bg"), '#'), escape(synIDattr(hlID("Normal"), "fg"), '#'),
-    \ &columns, &lines/2, getwinposx(), getwinposy())
-endfunction
-unlet! s:launcher
-let s:launcher = function('s:xterm_launcher')
+" function! s:xterm_launcher()
+"   let fmt = 'xterm -T "[fzf]" -bg "%s" -fg "%s" -geometry %dx%d+%d+%d -e bash -ic %%s'
+"   return printf(fmt,
+"     \ escape(synIDattr(hlID("Normal"), "bg"), '#'), escape(synIDattr(hlID("Normal"), "fg"), '#'),
+"     \ &columns, &lines/2, getwinposx(), getwinposy())
+" endfunction
+" unlet! s:launcher
+" let s:launcher = function('s:xterm_launcher')
 
 function! s:exit_handler(code, command, ...)
   if a:code == 130
@@ -432,31 +432,6 @@ function! s:exit_handler(code, command, ...)
     return 0
   endif
   return 1
-endfunction
-
-function! s:execute(dict, command, use_height, temps) abort
-  call s:pushd(a:dict)
-  if !a:use_height
-    silent! !clear 2> /dev/null
-  endif
-  let escaped = a:use_height ? a:command : escape(substitute(a:command, '\n', '\\n', 'g'), '%#!')
-  if has('gui_running')
-    let Launcher = get(a:dict, 'launcher', get(g:, 'Fzf_launcher', get(g:, 'fzf_launcher', s:launcher)))
-    let fmt = type(Launcher) == 2 ? call(Launcher, []) : Launcher
-    let escaped = "'" .. substitute(escaped, "'", "'\"'\"'", 'g') .. "'"
-    let command = printf(fmt, escaped)
-  else
-    let command = escaped
-  endif
-  if a:use_height
-    call system(printf('tput cup %d > /dev/tty; tput cnorm > /dev/tty; %s < /dev/tty 2> /dev/tty', &lines, command))
-  else
-    execute $'silent !{command}'
-  endif
-  let exit_status = v:shell_error
-  redraw!
-  let lines = s:collect(a:temps)
-  return s:exit_handler(exit_status, command) ? lines : []
 endfunction
 
 function! s:calc_size(max, val, dict)
@@ -654,7 +629,7 @@ function! s:execute_term(dict, command, temps) abort
   finally
     call s:dopopd()
   endtry
-  setlocal nospell bufhidden=wipe nobuflisted nonumber
+  setlocal nospell bufhidden=wipe nobuflisted nonumber nornu foldcolumn=0 signcolumn=no nolist ul=-1
   setfiletype fzf
   startinsert
   return []
