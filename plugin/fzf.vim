@@ -34,38 +34,32 @@ if has('win32') || has('win64') || (!has('gui_running') && exists('$TMUX'))
 endif
 
 let s:term_marker = ";#FZF"
-
-function! s:fzf_call(fn, ...)
-  return call(a:fn, a:000)
-endfunction
+let s:layout_keys = ['window', 'up', 'down', 'left', 'right']
+let s:default_layout = { 'window' : { 'width': 0.8, 'height': 0.6 } }
+let s:versions = {}
 
 function! fzf#shellescape(arg, shell = 'sh')
   let shell = a:shell
   try
     let [shell, &shell] = [&shell, shell]
-    return s:fzf_call('shellescape', a:arg)
+    return shellescape(a:arg)
   finally
     let [shell, &shell] = [&shell, shell]
   endtry
 endfunction
 
 function! s:fzf_expand(fmt)
-  return s:fzf_call('expand', a:fmt, 1)
+  return expand(a:fmt, 1)
 endfunction
-
-let s:layout_keys = ['window', 'up', 'down', 'left', 'right']
 
 let s:cpo_save = &cpo
 set cpo&vim
 
-let s:default_layout = { 'window' : { 'width': 0.9, 'height': 0.6 } }
-
-let s:versions = {}
 function s:get_version(bin)
   if has_key(s:versions, a:bin)
     return s:versions[a:bin]
   end
-  let command = s:fzf_call('shellescape', a:bin) .. ' --version --no-height'
+  let command = shellescape(a:bin) .. ' --version --no-height'
   let output = systemlist(command)
   if v:shell_error || empty(output)
     return ''

@@ -72,10 +72,10 @@
     "list.floatPreview": true,
     "list.height": 10,
     "list.limitLines": 20000,
-    "list.maxPreviewHeight": 8,
+    "list.maxPreviewHeight": 10,
     "list.previewHighlightGroup": "Visual",
     "list.source.diagnostics.pathFormat": "short",
-    "list.previewToplineOffset": 2,
+    "list.previewToplineOffset": 3,
     "list.insertMappings": {
         "<C-l>": "do:defaultaction",
         "<Tab>": "do:toggle",
@@ -96,6 +96,9 @@
         "<A-l>": "prompt:right"
     },
     "list.normalMappings": {
+        "<C-l>": "do:defaultaction",
+        "<C-j>": "do:next",
+        "<C-k>": "do:previous",
         "<C-o>": "do:previewtoggle",
         "<C-p>": "do:previewup",
         "<C-n>": "do:previewdown"
@@ -126,5 +129,6 @@
     "snippets.extends": {
         "gohtmltmpl": ["html"],
     },
+    "snippets.ultisnips.enable": false,
     "snippets.ultisnips.pythonPrompt": false
 }

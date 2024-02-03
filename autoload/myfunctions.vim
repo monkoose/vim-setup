@@ -9,7 +9,7 @@ def TimeSpend(cmd_string: string): list<any>
   const range = range(nr)
   const time = reltime()
   for _ in range
-    execute cmd
+    execute(cmd, '')
   endfor
   const time_spend = reltimefloat(reltime(time))
   const time_per_cmd = time_spend / nr

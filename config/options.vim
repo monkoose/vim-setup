@@ -172,6 +172,7 @@ augroup END
 
 g:python_highlight_all = 1
 g:markdown_folding = 0
+g:diff_translations = false
 
 # disable built-in plugins {{{1
 g:loaded_getscriptPlugin = 1

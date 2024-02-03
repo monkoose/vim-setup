@@ -10,7 +10,7 @@ def Format()
 enddef
 
 augroup GoBuffer
-  autocmd!
+  autocmd! BufWritePre <buffer>
   autocmd BufWritePre <buffer> Format()
 augroup END
 

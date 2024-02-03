@@ -15,18 +15,17 @@ const colors = {
   orange: '3',
   darkblue: '4',
   purple: '5',
-  aqua: '6',
+  cyan: '6',
   normal: '7',
   yellow: '11',
   redish: '160',
-  blue: '65',
   gray: '95',
   brown: '101',
-  lightblue: '109',
   cursorlinebg: '235',
   black: '16',
   visual: '236',
   graish: '242',
+  delimiter: '248',
   bright: '144',
 }
 
@@ -151,7 +150,7 @@ HlLinks('String', [
   ]
 )
 
-HlSet('Identifier', colors.blue)
+HlSet('Identifier', colors.cyan)
 HlLinks('Identifier', [
   'Conceal',
   'diffLine',
@@ -173,6 +172,7 @@ HlLinks('Identifier', [
   'javaScriptMember',
   'goDeclType',
   'CocPumMenu',
+  'goFormatSpecifier',
   ],
 )
 
@@ -182,7 +182,8 @@ HlLinks('Function', [
   'haskellIdentifier',
   'lispFunc',
   'vim9FuncCallUser',
-  'goFunctionCall',
+  'goKeyword',
+  'goStatement',
   ]
 )
 
@@ -212,7 +213,7 @@ HlLinks('Statement', [
   ]
 )
 
-HlSet('PreProc', colors.aqua)
+HlSet('PreProc', colors.cyan)
 HlLinks('PreProc', [
   'Include',
   'Define',
@@ -288,6 +289,9 @@ HlLinks('Type', [
   'markdownH6',
   'haskellType',
   'tomlTableArray',
+  'goConditional',
+  'goLabel',
+  'goRepeat',
   ]
 )
 
@@ -325,10 +329,12 @@ HlLinks('Special', [
   'typescriptUnaryOp',
   'typescriptBinaryOp',
   'typescriptTernaryOp',
+  'goFunc',
+  'goReturn',
   ]
 )
 
-HlSet('Underlined', colors.blue, v:none, underline)
+HlSet('Underlined', colors.cyan, v:none, underline)
 HlSet('Ignore', '236')
 HlSet('Error', colors.red, v:none, bold_underline)
 HlSet('Todo', colors.normal, v:none, bold_underline)
@@ -372,7 +378,8 @@ HlLinks('ErrorMsg', ['CocGitRemovedSign', 'CocGitTopRemovedSign'])
 HlSet('VertSplit', colors.black)
 HlSet('Folded', '242')
 HlSet('FoldColumn', colors.gray, '235')
-HlSet('IncSearch', '69', v:none, bold_underline)
+HlSet('IncSearch', '34', v:none, bold_underline)
+HlLinks('IncSearch', ['CurSearch'])
 HlSet('CursorLineNr', colors.yellow, colors.cursorlinebg)
 HlSet('MatchParen', '201', v:none, bold)
 HlSet('ModeMsg', '107', v:none, bold)
@@ -390,7 +397,7 @@ HlSet('PmenuSel', v:none, '235', bold)
 HlSet('Visual', v:none, colors.visual)
 HlLinks('Visual', ['PmenuSbar', 'VisualNOS'])
 HlSet('PmenuThumb', v:none, colors.graish)
-HlSet('Search', '34', v:none, bold_underline)
+HlSet('Search', '69', v:none, bold_underline)
 HlSet('SpellBad', v:none, v:none, underline, colors.redish)
 HlSet('SpellCap', v:none, v:none, underline, '143')
 HlLinks('SpellCap', ['SpellLocal', 'SpellRare'])
@@ -404,7 +411,7 @@ HlLinks('Tabline', ['TabLineFill'])
 HlSet('TabLineSel', '101', colors.black, bold)
 # HlSet('Terminal', colors.normal, colors)
 HlSet('Title', '96', v:none, bold)
-HlSet('WildMenu', colors.blue, colors.visual, bold)
+HlSet('WildMenu', colors.cyan, colors.visual, bold)
 
 HlSet('User1', '65', colors.black)
 HlSet('User2', '47', colors.black, bold)
@@ -420,12 +427,14 @@ HlSet('qfError')
 HlSet('qfFileName')
 HlSet('PopupBorder', '71')
 
-HlSet('delimitersColor', colors.lightblue)
+HlSet('delimitersColor', colors.delimiter)
 HlLinks('delimitersColor', [
   'luaParen',
   'luaBracket',
   'luaCurlyBracket',
   'luaComma',
+  'goBracket',
+  'goDelimiter',
   ]
 )
 
