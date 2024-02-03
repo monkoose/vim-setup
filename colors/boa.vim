@@ -182,8 +182,8 @@ HlLinks('Function', [
   'haskellIdentifier',
   'lispFunc',
   'vim9FuncCallUser',
-  'goKeyword',
-  'goStatement',
+  'goFunc',
+  'goReturn',
   ]
 )
 
@@ -289,9 +289,8 @@ HlLinks('Type', [
   'markdownH6',
   'haskellType',
   'tomlTableArray',
-  'goConditional',
-  'goLabel',
-  'goRepeat',
+  'goKeyword',
+  'goStatement',
   ]
 )
 
@@ -329,8 +328,9 @@ HlLinks('Special', [
   'typescriptUnaryOp',
   'typescriptBinaryOp',
   'typescriptTernaryOp',
-  'goFunc',
-  'goReturn',
+  'goConditional',
+  'goLabel',
+  'goRepeat',
   ]
 )
 
