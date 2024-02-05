@@ -1,3 +1,6 @@
 call cursor(1, 1)
 setlocal spell
-startinsert
+
+if empty(getline(1))
+  startinsert
+endif
