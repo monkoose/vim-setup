@@ -31,6 +31,7 @@ nnoremap  <space>a  <C-^>
 nnoremap  <space>y  "+y
 nnoremap  <space>Y  "+y$
 nnoremap  <space>p  "+
+nnoremap  <space>i  g<C-g>
 nnoremap  <C-j>  <C-d>
 nnoremap  <C-k>  <C-u>
 nnoremap  <C-n>  <ScriptCmd>mypopup.ScrollDownOrJumpNextHunk()<CR>
@@ -59,6 +60,7 @@ nnoremap <nowait>  <Esc>  <ScriptCmd>mypopup.ClosePopupOrPvwOrPressEsc()<CR>
 vnoremap  <C-j>  <C-d>
 vnoremap  <C-k>  <C-u>
 vnoremap  <space>y  "+y
+vnoremap  <space>i  g<C-g>
 
 noremap!  <C-@>  <Cmd>let &iminsert = !&iminsert<CR><C-^>
 inoremap  <A-k>  <C-k>
