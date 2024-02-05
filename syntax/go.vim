@@ -32,7 +32,7 @@ syn keyword goBool  true false
 
 # Comments; their contents
 syn keyword  goTodo  TODO FIXME XXX BUG NOTE  contained
-syn region  goComment  start="//"   end="$"    display contains=goTodo,@Spell
+syn match   goComment  "//.*$"  contains=goTodo,@Spell
 syn region  goComment  start="/\*"  end="\*/"  contains=goTodo,@Spell
 
 # Go escapes
