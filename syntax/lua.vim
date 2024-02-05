@@ -7,26 +7,28 @@ endif
 
 let main_syntax = 'lua'
 
-syntax sync minlines=100
+syntax sync minlines=200
 
 " Symbols
 syntax match  luaComma ","
 syntax match  luaSemiColon ";"
-syntax match  luaSymbolOperator "[#<>=~^&|*/%+-]\|\.\."
-syntax match  luaEllipsis "\.\.\."
+" syntax match  luaSymbolOperator "[#<>=~^&|*/%+-]\|\.\."
+" syntax match  luaEllipsis "\.\.\."
 
 " Comments
+syntax keyword luaCommentTodo contained TODO FIXME NOTE XXX
 " Shebang at the start
 syntax match   luaComment "\%^#!.*"
-
-syntax keyword luaCommentTodo contained TODO FIXME XXX
 syntax match   luaComment "--.*$" contains=luaCommentTodo,luaDocTag,@Spell
-syntax region  luaCommentLong matchgroup=luaCommentLongTag start="--\[\z(=*\)\[" end="\]\z1\]" contains=luaCommentTodo,luaDocTag,@Spell
+syntax region  luaCommentLong start="--\[\z(=*\)\[" end="\]\z1\]" contains=luaCommentTodo,luaDocTag,@Spell
 syntax match   luaDocTag contained "\s\zs@\k\+"
 
-syntax match   luaParen  "(\|)" display
-syntax match   luaCurlyBracket  "{\|}" display
-syntax match   luaBracket  "\[\|\]" display
+syntax match   luaParen  "(" display
+syntax match   luaParen  ")" display
+syntax match   luaCurlyBracket  "{" display
+syntax match   luaCurlyBracket  "}" display
+syntax match   luaBracket  "\[" display
+syntax match   luaBracket  "]" display
 
 " goto and labels
 syntax keyword luaGoto goto nextgroup=luaGotoLabel skipwhite
@@ -46,40 +48,31 @@ syntax keyword luaBuiltIn _ENV self
 syntax keyword luaLocal local
 syntax keyword luaOperator and or not
 syntax keyword luaStatement break return
+syntax keyword luaRequire module require
+syntax keyword luaErrHand  assert error pcall xpcall
+syntax keyword luaGlobalTable _G
 
 " Strings
 syntax match  luaStringSpecial contained #\\[\\abfnrtvz'"]\|\\x[[:xdigit:]]\{2}\|\\[[:digit:]]\{,3}#
-syntax region luaStringLong matchgroup=luaStringLongTag start="\[\z(=*\)\[" end="\]\z1\]" contains=@Spell
+syntax region luaStringLong start="\[\z(=*\)\[" end="\]\z1\]" contains=@Spell
 syntax region luaString  start=+'+ end=+'+ skip=+\\\\\|\\'+ contains=luaStringSpecial,@Spell
 syntax region luaString  start=+"+ end=+"+ skip=+\\\\\|\\"+ contains=luaStringSpecial,@Spell
 
 " hexadecimal constant
-syntax match luaNumber "\c\<0x\%([0-9a-f]\+\%(\.[0-9a-f]*\)\?\|[0-9a-f]*\.[0-9a-f]\+\)\%(p[-+]\?\d\+\)\?\>" display
+" syntax match luaNumber "\c\<0x\%([0-9a-f]\+\%(\.[0-9a-f]*\)\?\|[0-9a-f]*\.[0-9a-f]\+\)\%(p[-+]\?\d\+\)\?\>" display
 " decimal constants
-syntax match luaNumber "\<\%(\d\+\%(\.\d*\)\?\|\d*\.\d\+\)\%([eE][-+]\?\d\+\)\?\>" display
+" syntax match luaNumber "\<\%(\d\+\%(\.\d*\)\?\|\d*\.\d\+\)\%([eE][-+]\?\d\+\)\?\>" display
 
-syntax keyword luaRequire
-      \ module
-      \ require
-
-syntax keyword luaErrHand
-      \ assert
-      \ error
-      \ pcall
-      \ xpcall
-
-syntax keyword luaGlobalTable _G
 
 hi def link luaBuiltIn        Identifier
 hi def link luaComment        Comment
-hi def link luaCommentLongTag luaCommentLong
 hi def link luaCommentLong    luaComment
 hi def link luaCommentTodo    Todo
 hi def link luaConstant       Constant
 hi def link luaDocTag         Underlined
 hi def link luaEllipsis       Special
 hi def link luaGotoLabel      Identifier
-hi def link luaLabel          uaGotoLabel
+hi def link luaLabel          luaGotoLabel
 hi def link luaLocal          Type
 hi def link luaNumber         Number
 hi def link luaSymbolOperator luaOperator

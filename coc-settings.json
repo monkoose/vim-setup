@@ -129,6 +129,7 @@
     "snippets.extends": {
         "gohtmltmpl": ["html"],
     },
+    "snippets.loadVSCodeProjectSnippets": false,
     "snippets.ultisnips.enable": false,
     "snippets.ultisnips.pythonPrompt": false
 }
