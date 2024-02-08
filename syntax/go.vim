@@ -6,7 +6,9 @@ endif
 
 syn sync minlines=300
 syn case match
-syntax iskeyword @,48-57,_,192-255,:,=,&
+
+const iskw = &iskeyword
+exe 'syntax iskeyword' iskw .. ',:,=,&'
 
 # Keywords within functions
 syn keyword  goFunc         func
@@ -15,8 +17,9 @@ syn keyword  goConditional  if else switch select
 syn keyword  goLabel        case default
 syn keyword  goRepeat       for
 syn keyword  goStatement    defer go goto break continue fallthrough
-syn keyword  goKeyword      var const type chan range struct interface map import := package &&
-syn match  goKeyword  '||' display
+syn keyword  goKeyword      var const type chan range struct interface map import package
+syn keyword  goKeyword  := &&
+syn match    goKeyword  "||" display
 
 syn match goDelimiter  "," display
 syn match goDelimiter  ";" display

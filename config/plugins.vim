@@ -8,7 +8,7 @@ minpac.Add('tpope/vim-repeat')
 minpac.Add('tpope/vim-characterize')
 minpac.Add('tpope/vim-commentary')
 minpac.Add('lambdalisue/vim-manpager')
-minpac.Add('habamax/vim-shout')
+minpac.Add('monkoose/vim-runner')
 
 # minpac.Add('hail2u/vim-css3-syntax')
 # minpac.Add('othree/html5.vim')
