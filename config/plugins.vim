@@ -273,9 +273,10 @@ minpac.Add('monkoose/vim9-fastfold', { delay: 40, Config: () => {
 # vim9-matchparen {{{1
 minpac.Add('monkoose/vim9-matchparen', { delay: 40, Config: () => {
   packadd vim9-matchparen
+  doautocmd BufEnter matchparen
 }})
 
-# vim9-matchparen {{{1
+# vim9-autopairs {{{1
 minpac.Add('monkoose/vim9-autopairs', { delay: 30, Config: () => {
   packadd vim9-autopairs
 }})
