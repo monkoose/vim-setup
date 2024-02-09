@@ -71,7 +71,7 @@ endif
 &showbreak = '└'
 &list = true
 &listchars = 'tab:→-,trail:·,extends:⌇,precedes:⌇,nbsp:~'
-&fillchars = 'eob: ,vert:┃'
+&fillchars = 'eob: ,vert:┃,fold: '
 
 &splitbelow = true
 &splitright = true
@@ -185,6 +185,7 @@ g:loaded_tarPlugin = 1
 g:loaded_2html_plugin = 1
 g:loaded_vimballPlugin = 1
 g:loaded_zipPlugin = 1
+g:loaded_matchparen = 1
 
 g:vim_json_warnings = 0
 

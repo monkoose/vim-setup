@@ -265,6 +265,21 @@ minpac.Add('lervag/wiki.vim', { delay: 30, Config: () => {
   packadd wiki.vim
 }})
 
+# vim9-fastfold {{{1
+minpac.Add('monkoose/vim9-fastfold', { delay: 40, Config: () => {
+  packadd vim9-fastfold
+}})
+
+# vim9-matchparen {{{1
+minpac.Add('monkoose/vim9-matchparen', { delay: 40, Config: () => {
+  packadd vim9-matchparen
+}})
+
+# vim9-matchparen {{{1
+minpac.Add('monkoose/vim9-autopairs', { delay: 30, Config: () => {
+  packadd vim9-autopairs
+}})
+
 # vim-dispatch {{{1
 minpac.Add('tpope/vim-dispatch', { delay: 40, Config: () => {
   g:dispatch_handlers = ["job", "terminal"]

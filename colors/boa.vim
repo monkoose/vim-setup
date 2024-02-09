@@ -376,7 +376,7 @@ HlSet('ErrorMsg', colors.red, v:none, bold)
 HlLinks('ErrorMsg', ['CocGitRemovedSign', 'CocGitTopRemovedSign'])
 
 HlSet('VertSplit', colors.black)
-HlSet('Folded', '242')
+HlSet('Folded', '242', v:none, { bold: 1, italic: 1 })
 HlSet('FoldColumn', colors.gray, '235')
 HlSet('IncSearch', '34', v:none, bold_underline)
 HlLinks('IncSearch', ['CurSearch'])
