@@ -120,6 +120,14 @@ def CocOnEnter()
   coc#on_enter()
 enddef
 
+def ActionOnProvider(provider: string, action: string, key: string)
+  if g:CocHasProvider(provider)
+    g:CocAction(action)
+  else
+    feedkeys(key, 'n')
+  endif
+enddef
+
 minpac.Add('honza/vim-snippets')
 minpac.Add('neoclide/coc.nvim', {
   delay: 20,
@@ -173,13 +181,13 @@ minpac.Add('neoclide/coc.nvim', {
     nnoremap  <space>ko  <Cmd>CocList outline<CR>
     nnoremap  <space>ks  <Cmd>CocList symbols<CR>
     nnoremap  <space>kc  <Plug>(coc-codelens-action)
-    nmap <expr> K g:CocHasProvider('hover') ? g:CocActionAsync('doHover') : "K"
-    nmap <expr> <space>d
-          \ g:CocHasProvider('definition') ? g:CocActionAsync('jumpDefinition') : "\<C-]>"
+    nnoremap  K  <ScriptCmd>ActionOnProvider('hover', 'doHover', 'K')<CR>
+    nnoremap  <space>d  <ScriptCmd>ActionOnProvider('definition', 'jumpDefinition', "\<C-]")<CR>
     xnoremap  <space>ka  <Plug>(coc-codeaction-selected)
     nnoremap  <space>kf  <Plug>(coc-format)
     xnoremap  <space>kf  <Plug>(coc-format-selected)
     nnoremap  <space>kF  <Plug>(coc-format-selected)
+    nnoremap  <space>c   <Cmd>echo '' CocAction('getCurrentFunctionSymbol')<CR>
 
     xnoremap if <Plug>(coc-funcobj-i)
     onoremap if <Plug>(coc-funcobj-i)

@@ -111,6 +111,8 @@ endif
 &clipboard = 'exclude:cons\|linux'
 &shell = '/bin/bash'
 
+&ttyscroll = 9
+
 # def GitignoreToWildignore(path: string): string
 #   const gitignore = path .. '/.gitignore'
 #   if filereadable(gitignore)
@@ -156,7 +158,7 @@ endif
 def JumpToLastPosition()
   const last_pos = getpos("'\"")
   if last_pos[1] >= 1 && last_pos[1] <= line('$')
-    setpos('.', getpos("'\""))
+    setpos('.', last_pos)
   endif
 enddef
 
