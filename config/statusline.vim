@@ -40,7 +40,7 @@ enddef
 def StatusGitCommit()
   const buf_name = bufname()
   if match(buf_name, '\c^fugitive:') != -1
-    const hash_pattern = '\c\x\{40,\}\ze\%(/.*\)\=$'
+    const hash_pattern = '\c\x\{40,}\ze\%(/.*\)\=$'
     const commit = matchstr(buf_name, hash_pattern)
     if !empty(commit)
       b:status_gitcommit = '·' .. commit[0 : 6]
@@ -59,10 +59,10 @@ def StatusGitBranch()
   endif
 enddef
 
+const symbols = ['+', '~', '-']
 def StatusGitGutter()
-  const symbols = ['+', '~', '-']
   b:status_gitgutter = '  ' .. g:GitGutterGetHunkSummary()
-                                ->mapnew((k, v) => v == 0 ? '' : symbols[k] .. v)
+                                ->map((k, v) => v == 0 ? '' : symbols[k] .. v)
                                 ->join(' ')
 enddef
 
@@ -70,18 +70,18 @@ def StatusIminsert()
   b:status_iminsert = &iminsert ? '   RU ' : ''
 enddef
 
+const modes = {
+  R: 'R',
+  v: 'V',
+  V: 'VL',
+  "\<C-v>": 'VB',
+  c: 'C',
+  s: 'S',
+  S: 'SL',
+  "\<C-s>": 'SB',
+  t: 'T',
+}
 def g:StatusLineMode(): string
-  const modes = {
-    R: 'R',
-    v: 'V',
-    V: 'VL',
-    "\<C-v>": 'VB',
-    c: 'C',
-    s: 'S',
-    S: 'SL',
-    "\<C-s>": 'SB',
-    t: 'T',
-  }
   return get(modes, mode(), '')
 enddef
 
@@ -89,8 +89,12 @@ def StatusDiagnostics()
   const diagnostics = get(b:, 'coc_diagnostic_info')
   var diagn_str = ''
   if !empty(diagnostics)
-    diagn_str ..= !!diagnostics.error ? '%7*E·' .. diagnostics.error .. '%*' : ''
-    diagn_str ..= !!diagnostics.warning ? ' %8*W·' .. diagnostics.warning .. '%*' : ''
+    if !!diagnostics.error
+      diagn_str ..= ' %7*E·' .. diagnostics.error .. '%*'
+    endif
+    if !!diagnostics.warning
+      diagn_str ..= ' %8*W·' .. diagnostics.warning .. '%*'
+    endif
   endif
   b:status_diagnostics = diagn_str
 enddef
@@ -111,7 +115,10 @@ augroup END
 
 augroup StatusLine
   autocmd!
-  autocmd User FugitiveChanged,FugitiveObject StatusGitBranch() | StatusGitCommit()
+  autocmd User FugitiveChanged,FugitiveObject {
+    StatusGitBranch()
+    StatusGitCommit()
+  }
   autocmd WinEnter,BufWinEnter,FocusGained * {
     if exists('*g:FugitiveGitDir')
       StatusGitBranch()
