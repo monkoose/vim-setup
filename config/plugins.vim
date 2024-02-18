@@ -25,12 +25,6 @@ minpac.Add('monkoose/gorun', { Config: () => {
   packadd gorun
 }})
 
-# # yats.vim {{{1
-# minpac.Add('HerringtonDarkholme/yats.vim', { Config: () => {
-#   g:yats_host_keyword = 0
-#   packadd! yats.vim
-# }})
-
 # # vim-svelte {{{1
 # minpac.Add('evanleck/vim-svelte', { Config: () => {
 #   g:svelte_preprocessor_tags = [
@@ -144,6 +138,7 @@ minpac.Add('neoclide/coc.nvim', {
       coc-css
       coc-clangd
       coc-lua
+      coc-db
     END
 
     g:coc_borderchars = ['━', '┃', '━', '┃', '┏', '┓', '┛', '┗']
