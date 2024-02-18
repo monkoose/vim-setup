@@ -182,7 +182,7 @@ minpac.Add('neoclide/coc.nvim', {
     nnoremap  <space>ks  <Cmd>CocList symbols<CR>
     nnoremap  <space>kc  <Plug>(coc-codelens-action)
     nnoremap  K  <ScriptCmd>ActionOnProvider('hover', 'doHover', 'K')<CR>
-    nnoremap  <space>d  <ScriptCmd>ActionOnProvider('definition', 'jumpDefinition', "\<C-]")<CR>
+    nnoremap  <space>d  <ScriptCmd>ActionOnProvider('definition', 'jumpDefinition', "\<C-]>")<CR>
     xnoremap  <space>ka  <Plug>(coc-codeaction-selected)
     nnoremap  <space>kf  <Plug>(coc-format)
     xnoremap  <space>kf  <Plug>(coc-format-selected)

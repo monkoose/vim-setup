@@ -1,6 +1,5 @@
 vim9script
 
-const name = expand('%:p:~')
 if expand('%:p:~') =~# '\~/\.\%(zprofile\|zshrc\|zshenv\)'
   def Zcompile(filename: string)
     job_start(['/bin/zsh', '-c', 'zcompile ' .. filename], {
@@ -20,4 +19,7 @@ if expand('%:p:~') =~# '\~/\.\%(zprofile\|zshrc\|zshenv\)'
     autocmd! BufWritePost <buffer>
     autocmd BufWritePost <buffer> Zcompile(expand('<afile>:p'))
   augroup END
+
+  call custom#undo_ftplugin#Set('silent! call autocmd_delete([{"group": "zsh_compile"}])')
 endif
+
