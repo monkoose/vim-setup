@@ -163,6 +163,7 @@ minpac.Add('neoclide/coc.nvim', {
     inoremap <silent><expr>  <C-e> coc#pum#visible() ? coc#pum#cancel() : "\<C-e>"
     inoremap <silent> <CR>  <C-r>=coc#pum#stop()<CR><Cmd>call <SID>CocOnEnter()<CR>
     inoremap  <A-s>  <Cmd>call CocActionAsync('showSignatureHelp')<CR>
+    nnoremap  <A-s>  <Cmd>call CocActionAsync('highlight')<CR>
     nnoremap  <space>kk  <Cmd>CocRestart<CR>
     nnoremap  <space>D   <Plug>(coc-declaration)
     nnoremap  <space>kt   <Plug>(coc-type-definition)
