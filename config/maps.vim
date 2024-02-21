@@ -3,6 +3,7 @@ vim9script noclear
 import autoload '../autoload/myfunctions.vim' as mf
 import autoload '../autoload/custom/unimpaired.vim'
 import autoload '../autoload/custom/endofline.vim'
+import autoload '../autoload/custom/last_edit.vim'
 import autoload '../autoload/mypopup.vim'
 import autoload '../autoload/myterm.vim'
 import autoload '../autoload/popupurls.vim'
@@ -23,6 +24,7 @@ nnoremap <space>n <Cmd>Lexplore<CR>
 
 nnoremap  <space>/  <Cmd>nohlsearch<CR>
 nnoremap  gx  <ScriptCmd>mf.OpenPath()<CR>
+nnoremap  g;  <ScriptCmd>last_edit.Jump()<CR>
 nnoremap  zS  <ScriptCmd>mf.Synnames()<CR>
 nnoremap  <space>q  <Cmd>cnext<CR>
 nnoremap  <space><C-q>  <Cmd>cprevious<CR>

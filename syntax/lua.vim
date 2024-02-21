@@ -70,12 +70,12 @@ hi def link luaCommentLong    luaComment
 hi def link luaCommentTodo    Todo
 hi def link luaConstant       Constant
 hi def link luaDocTag         Underlined
-hi def link luaEllipsis       Special
+" hi def link luaEllipsis       Special
 hi def link luaGotoLabel      Identifier
 hi def link luaLabel          luaGotoLabel
 hi def link luaLocal          Type
-hi def link luaNumber         Number
-hi def link luaSymbolOperator luaOperator
+" hi def link luaNumber         Number
+" hi def link luaSymbolOperator luaOperator
 hi def link luaOperator       Operator
 hi def link luaCond           Conditional
 hi def link luaRepeat         Repeat
