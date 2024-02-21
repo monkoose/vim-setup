@@ -10,9 +10,9 @@ export def Jump()
       while line('.') == lnum
         feedkeys('g;', 'nx')
       endwhile
-    catch /^Vim:E662:/
+    catch /^Vim:E66[234]:/
       echohl ErrorMsg
-      echom 'E662: At start of changelist'
+      echom v:errmsg
       echohl None
     endtry
   endif

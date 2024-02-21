@@ -1,7 +1,7 @@
 vim9script
 
-final minpac_plugins = {}
-final delayed_plugins = {}
+final minpac_plugins: dict<any> = {}
+final delayed: dict<func> = {}
 const pack_dir = $'{$HOME}/.vim/pack/minpac/opt'
 const default_opts: dict<any> = { type: 'opt' }
 
@@ -62,17 +62,15 @@ export def Add(url: string, opts: dict<any> = null_dict)
 
   if initialize && !!get(opts, 'Config')
     if !!get(opts, 'delay')
-      delayed_plugins[repo] = {
-        delay: opts.delay,
-        Config: opts.Config,
-      }
+      delayed[repo] = opts.Config
       autocmd_add([{
         event: 'VimEnter',
         pattern: '*',
         group: 'MinPac',
         once: true,
-        cmd: $'timer_start(delayed_plugins["{repo}"].delay, (_) => delayed_plugins["{repo}"].Config())',
+        cmd: $'timer_start({opts.delay}, (_) => delayed["{repo}"]())'
       }])
+      remove(opts, 'delay')
     else
       opts.Config()
     endif
