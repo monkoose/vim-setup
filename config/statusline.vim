@@ -3,7 +3,7 @@ vim9script noclear
 const gitgutter = "%{get(b:, 'status_gitgutter', '')}"
 const gitcommit = "%{get(b:, 'status_gitcommit', '')}"
 const gitbranch = "%{get(b:, 'status_gitbranch', '')}"
-const git = $'%1*{gitbranch}%*%4*{gitcommit}%*{gitgutter}'
+const git = $'%1*{gitbranch}%*%4*{gitcommit}%*  {gitgutter}'
 const git_nc = gitbranch .. gitcommit
 const spell = "%5*%{&spell ? '  SPELL ' : ''}%*"
 const right = ' %='
@@ -61,9 +61,16 @@ enddef
 
 const symbols = ['+', '~', '-']
 def StatusGitGutter()
-  b:status_gitgutter = '  ' .. g:GitGutterGetHunkSummary()
-                                ->map((k, v) => v == 0 ? '' : symbols[k] .. v)
-                                ->join(' ')
+  var result: string
+  var i = 0
+  for n in g:GitGutterGetHunkSummary()
+    if n > 0
+      result ..= symbols[i] .. n .. ' '
+    endif
+    ++i
+  endfor
+
+  b:status_gitgutter = trim(result, ' ', 2)
 enddef
 
 def StatusIminsert()
