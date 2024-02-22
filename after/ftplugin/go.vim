@@ -14,7 +14,5 @@ augroup GoBuffer
   autocmd BufWritePre <buffer> Format()
 augroup END
 
-nnoremap <buffer> <space>r <Cmd>Sh go run .<CR>
-
 call custom#undo_ftplugin#Set('setl ts< sw< et< listchars<')
 call custom#undo_ftplugin#Set('exe "nunmap <buffer> <space>r"')

@@ -8,7 +8,6 @@ minpac.Add('tpope/vim-repeat')
 minpac.Add('tpope/vim-characterize')
 minpac.Add('tpope/vim-commentary')
 minpac.Add('lambdalisue/vim-manpager')
-minpac.Add('monkoose/vim-runner')
 
 # minpac.Add('hail2u/vim-css3-syntax')
 # minpac.Add('othree/html5.vim')
@@ -20,10 +19,18 @@ minpac.Add('monkoose/vim-runner')
 minpac.Add('tweekmonster/helpful.vim', {})
 #}}}
 
+# vim-runner {{{1
+minpac.Add('monkoose/vim-runner', {
+  Config: () => {
+    packadd! vim-runner
+    nnoremap <space>r <Cmd>Run<CR>
+  }
+})
+
 # gorun {{{1
 minpac.Add('monkoose/gorun', {
   Config: () => {
-    packadd gorun
+    packadd! gorun
   }
 })
 
