@@ -173,7 +173,7 @@ augroup MyAutocmds
 augroup END
 
 g:python_highlight_all = 1
-g:markdown_folding = 0
+# g:markdown_folding = 1
 g:diff_translations = false
 
 # disable built-in plugins {{{1

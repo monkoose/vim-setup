@@ -286,13 +286,6 @@ minpac.Add('lervag/wiki.vim', {
   }
 })
 
-# vim9-fastfold {{{1
-minpac.Add('monkoose/vim9-fastfold', {
-  Config: () => {
-    packadd vim9-fastfold
-  }
-})
-
 # vim9-matchparen {{{1
 minpac.Add('monkoose/vim9-matchparen', {
   delay: 40,
@@ -418,6 +411,13 @@ minpac.Add('airblade/vim-gitgutter', {
     augroup END
   }
 })
+
+# # vim9-fastfold {{{1
+# minpac.Add('monkoose/vim9-fastfold', {
+#   Config: () => {
+#     packadd vim9-fastfold
+#   }
+# })
 
 # # gh.vim {{{1
 # minpac.Add('skanehira/gh.vim')
