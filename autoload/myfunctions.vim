@@ -1,4 +1,8 @@
-vim9script noclear
+vim9script
+
+############################################################
+#                        Time                              #
+############################################################
 
 def TimeSpend(cmd_string: string): list<any>
   const str = trim(cmd_string)
@@ -16,7 +20,6 @@ def TimeSpend(cmd_string: string): list<any>
   return [cmd, time_per_cmd]
 enddef
 
-# simple calculation of the time wasted to execute command
 export def PrintTime(cmd_string: string)
   const [cmd: string, time_per_cmd: float] = TimeSpend(cmd_string)
   redraw
@@ -29,13 +32,20 @@ export def PrintTime(cmd_string: string)
   echohl None
 enddef
 
-# Show syntax names
+############################################################
+#            Syntax names and the cursor                   #
+############################################################
+
 export def Synnames()
   echo '' synstack(line('.'), col('.'))
             ->mapnew((_, v) => synIDattr(v, 'name'))
             ->reverse()
             ->join(' ')
 enddef
+
+############################################################
+#                     Open path                            #
+############################################################
 
 export def OpenPath(path: string = expand('<cfile>'))
   job_start(['xdg-open', path], {
@@ -50,6 +60,10 @@ export def OpenPath(path: string = expand('<cfile>'))
     }
   })
 enddef
+
+############################################################
+#            Toggle qf/loclist windows                     #
+############################################################
 
 def JumpToPreviousWindow()
   exe ':' .. winnr('#') .. 'wincmd w'
@@ -93,5 +107,3 @@ export def ToggleQfWindow()
   endfor
   botright copen
 enddef
-
-defcompile
