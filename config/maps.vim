@@ -4,6 +4,7 @@ import autoload '../autoload/myfunctions.vim' as mf
 import autoload '../autoload/custom/unimpaired.vim'
 import autoload '../autoload/custom/endofline.vim'
 import autoload '../autoload/custom/last_edit.vim'
+import autoload '../autoload/custom/search.vim'
 import autoload '../autoload/mypopup.vim'
 import autoload '../autoload/myterm.vim'
 import autoload '../autoload/popupurls.vim'
@@ -59,10 +60,12 @@ nnoremap  <C-@><C-@>  <Cmd>let &iminsert = !&iminsert<CR>
 nnoremap  <A-`>  <ScriptCmd>myterm.Toggle()<CR>
 nnoremap <nowait>  <Esc>  <ScriptCmd>mypopup.ClosePopupOrPvwOrPressEsc()<CR>
 
-vnoremap  <C-j>  <C-d>
-vnoremap  <C-k>  <C-u>
-vnoremap  <space>y  "+y
-vnoremap  <space>i  g<C-g>
+xnoremap  <C-j>  <C-d>
+xnoremap  <C-k>  <C-u>
+xnoremap  <space>y  "+y
+xnoremap  <space>i  g<C-g>
+xnoremap <expr>  *  search.Selection()
+xnoremap <expr>  #  search.Selection(true)
 
 noremap!  <C-@>  <Cmd>let &iminsert = !&iminsert<CR><C-^>
 inoremap  <A-k>  <C-k>

@@ -6,7 +6,7 @@ syntax enable
 
 &history = 300
 &display = 'truncate'
-&incsearch = true
+# &incsearch = true
 &langremap = false
 &nrformats = 'bin,hex'
 # &showcmd = true
@@ -17,6 +17,7 @@ if !has('gui_running')
   &t_ut = ''
   colorscheme boa
   &t_cl = ''
+  # &t_cd = ''
   &t_AU = "\e[58:5:%dm"
   &t_SI = "\e[6 q"
   &t_SR = "\e[4 q"
