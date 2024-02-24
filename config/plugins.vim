@@ -361,12 +361,11 @@ minpac.Add('tpope/vim-surround', {
   }
 })
 
-# vim-eunuch {{{1
-minpac.Add('tpope/vim-eunuch', {
+# vim9-unix {{{1
+minpac.Add('monkoose/vim9-unix', {
   delay: 30,
   Config: () => {
-    packadd vim-eunuch
-    doautocmd eunuch VimEnter
+    packadd vim9-unix
   }
 })
 
