@@ -16,10 +16,12 @@ const fname_nc = '     %f %M   '
 const ro = "%6*%{&ro ? '' : ''}%*  "
 const iminsert = "%6*%{get(b:, 'status_iminsert', '')}%*"
 const mode = " %2(%{%StatusLineMode()%}%)"
+const codeium = "  %{codeium#GetStatusString()}"
 # const lncol = "%< %-9(%3*%l%*·%4*%c%V%*%) "
 # const session = "%{fnamemodify(v:this_session, ':t')}"
 
-const statusline = mode .. iminsert .. fname .. ro .. git .. spell .. right .. diagnostic .. encoding .. tail
+const statusline = mode .. iminsert .. fname .. ro .. git .. codeium .. spell .. right .. diagnostic .. encoding .. tail
+# const statusline = mode .. iminsert .. fname .. ro .. git .. spell .. right .. diagnostic .. encoding .. tail
 const statusline_nc = fname_nc .. git_nc .. encoding .. tail_nc
 
 g:qf_disable_statusline = 1

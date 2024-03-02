@@ -139,6 +139,22 @@ def ActionOnProvider(provider: string, action: string, key: string)
   endif
 enddef
 
+def ScrollDocNext()
+  if coc#pum#visible()
+    coc#float#scroll(1, 4)
+  else
+    codeium#CycleOrComplete()
+  endif
+enddef
+
+def ScrollDocPrev()
+  if coc#pum#visible()
+    coc#float#scroll(-1, 4)
+  else
+    codeium#CycleCompletions(-1)
+  endif
+enddef
+
 minpac.Add('honza/vim-snippets')
 minpac.Add('neoclide/coc.nvim', {
   delay: 20,
@@ -167,8 +183,8 @@ minpac.Add('neoclide/coc.nvim', {
     packadd coc.nvim
 
     inoremap <silent><expr>  <A-i>  coc#jumpable() ? "\<A-i>" : ""
-    inoremap  <C-n>  <Cmd>call coc#float#scroll(1, 4)<CR>
-    inoremap  <C-p>  <Cmd>call coc#float#scroll(0, 4)<CR>
+    inoremap  <C-n>  <ScriptCmd>ScrollDocNext()<CR>
+    inoremap  <C-p>  <ScriptCmd>ScrollDocPrev()<CR>
     inoremap <silent><expr>  <C-l>  CocConfirm()
     inoremap <silent><expr>  <C-j>  coc#pum#visible() ? coc#pum#next(1) : pumvisible() ? "\<C-n>" : coc#refresh()
     inoremap <silent><expr>  <C-k>  coc#pum#visible() ? coc#pum#prev(1) : pumvisible() ? "\<C-p>" : coc#refresh()
@@ -281,6 +297,22 @@ minpac.Add('junegunn/fzf.vim', {
     nnoremap <silent>  <space>gC  <Cmd>FzfBCommits<CR>
   }
 })
+
+# vim9-codeium {{{1
+minpac.Add('monkoose/vim9-codeium', {
+  # delay: 40,
+  Config: () => {
+    packadd vim9-codeium
+  }
+})
+
+# # codeium {{{1
+# minpac.Add('Exafunction/codeium.vim', {
+#   # delay: 40,
+#   Config: () => {
+#     packadd codeium.vim
+#   }
+# })
 
 # wiki.vim {{{1
 minpac.Add('lervag/wiki.vim', {

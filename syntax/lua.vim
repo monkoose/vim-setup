@@ -21,7 +21,7 @@ syntax keyword luaCommentTodo contained TODO FIXME NOTE XXX
 syntax match   luaComment "\%^#!.*"
 syntax match   luaComment "--.*$" contains=luaCommentTodo,luaDocTag,@Spell
 syntax region  luaCommentLong start="--\[\z(=*\)\[" end="\]\z1\]" contains=luaCommentTodo,luaDocTag,@Spell
-syntax match   luaDocTag contained "\s\zs@\k\+"
+syntax match   luaDocTag contained "^\s*---\zs@\k\+"
 
 syntax match   luaParen  "(" display
 syntax match   luaParen  ")" display
