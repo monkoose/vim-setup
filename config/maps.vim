@@ -72,7 +72,7 @@ inoremap  <A-k>  <C-k>
 inoremap  <C-u>  <C-g>u<C-u>
 inoremap  <A-h>  <Left>
 inoremap  <A-l>  <Right>
-inoremap  <A-f>  <Del>
+inoremap  <A-d>  <Del>
 
 cnoremap  <C-n>  <Down>
 cnoremap  <C-p>  <Up>
@@ -98,7 +98,7 @@ if !has('gui_running')
     '`', '1', '2', '3', '4', '5',
     'q', 'w', 'e', 'r', 'i', 'o', 'p',
     'a', 's', 'f', 'h', 'k', 'l', "'", '"',
-    'b', 'n',
+    'b', 'n', 'd',
   ]
 
   def InitAltMaps(keys: list<string>)

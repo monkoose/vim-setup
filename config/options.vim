@@ -44,6 +44,7 @@ endif
 
 &autoread = true
 &title = true
+&titlestring = 'VIM: b%n L%L %a'
 &hidden = true
 &spelllang = 'en_us,ru_yo'
 &updatetime = 300
