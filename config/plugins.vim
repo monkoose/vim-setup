@@ -117,7 +117,7 @@ def CocConfirm(): string
     return "\<C-y>"
   endif
 
-  return ExpandSnippet()
+  return codeium#Accept()
 enddef
 
 def CocOnEnter()
@@ -185,7 +185,7 @@ minpac.Add('neoclide/coc.nvim', {
     inoremap <silent><expr>  <A-i>  coc#jumpable() ? "\<A-i>" : ""
     inoremap  <C-n>  <ScriptCmd>ScrollDocNext()<CR>
     inoremap  <C-p>  <ScriptCmd>ScrollDocPrev()<CR>
-    inoremap <silent><expr>  <C-l>  CocConfirm()
+    inoremap <script><silent><expr>  <C-l>  CocConfirm()
     inoremap <silent><expr>  <C-j>  coc#pum#visible() ? coc#pum#next(1) : pumvisible() ? "\<C-n>" : coc#refresh()
     inoremap <silent><expr>  <C-k>  coc#pum#visible() ? coc#pum#prev(1) : pumvisible() ? "\<C-p>" : coc#refresh()
     inoremap <silent><expr>  <C-e> coc#pum#visible() ? coc#pum#cancel() : "\<C-e>"
