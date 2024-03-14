@@ -16,7 +16,7 @@ const fname_nc = '     %f %M   '
 const ro = "%6*%{&ro ? '' : ''}%*  "
 const iminsert = "%6*%{get(b:, 'status_iminsert', '')}%*"
 const mode = " %2(%{%StatusLineMode()%}%)"
-const codeium = "  %{codeium#GetStatusString()}"
+const codeium = "  %{codeium#completer#GetStatusString()}"
 # const lncol = "%< %-9(%3*%l%*·%4*%c%V%*%) "
 # const session = "%{fnamemodify(v:this_session, ':t')}"
 

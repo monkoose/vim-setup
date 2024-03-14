@@ -117,7 +117,7 @@ def CocConfirm(): string
     return "\<C-y>"
   endif
 
-  return codeium#Accept()
+  return codeium#completer#Accept()
 enddef
 
 def CocOnEnter()
@@ -143,7 +143,7 @@ def ScrollDocNext()
   if coc#pum#visible()
     coc#float#scroll(1, 4)
   else
-    codeium#CycleOrComplete()
+    codeium#completer#CycleOrComplete()
   endif
 enddef
 
@@ -151,7 +151,7 @@ def ScrollDocPrev()
   if coc#pum#visible()
     coc#float#scroll(-1, 4)
   else
-    codeium#CycleCompletions(-1)
+    codeium#completer#Cycle(-1)
   endif
 enddef
 
@@ -311,6 +311,14 @@ minpac.Add('monkoose/vim9-codeium', {
 #   # delay: 40,
 #   Config: () => {
 #     packadd codeium.vim
+#   }
+# })
+
+# # copilot {{{1
+# minpac.Add('github/copilot.vim', {
+#   # delay: 40,
+#   Config: () => {
+#     packadd copilot.vim
 #   }
 # })
 

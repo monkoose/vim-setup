@@ -14,10 +14,9 @@ syntax enable
 
 if !has('gui_running')
   # set termguicolors
-  &t_ut = ''
   colorscheme boa
+  &t_ut = ''
   &t_cl = ''
-  # &t_cd = ''
   &t_AU = "\e[58:5:%dm"
   &t_SI = "\e[6 q"
   &t_SR = "\e[4 q"

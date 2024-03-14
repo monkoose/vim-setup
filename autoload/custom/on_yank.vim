@@ -1,6 +1,6 @@
 vim9script noclear
 
-if empty(prop_type_get('yank_prop'))
+if !prop_type_get('yank_prop')
   prop_type_add('yank_prop', {
     highlight: "QuickFixLine",
     combine: true,
@@ -9,7 +9,7 @@ if empty(prop_type_get('yank_prop'))
 endif
 
 export def Highlight(timeout: number)
-  if !v:event.visual && v:event.operator == 'y' && !(empty(v:event.regtype))
+  if !v:event.visual && v:event.operator == 'y' && !!v:event.regtype
     const start = getpos("'[")
     const start_line = start[1]
     const start_col = start[2]
